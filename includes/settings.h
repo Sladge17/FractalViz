@@ -19,4 +19,8 @@
 # define IMAGE_C 0
 # define MENU_C 0x2E4053
 
+# define FRACT_C 0xFF0000
+
+# define ITER 100 
+
 
