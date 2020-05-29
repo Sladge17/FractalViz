@@ -65,42 +65,28 @@
 int		main()
 // int		main(int argc, char **argv)
 {
-	t_sys	sys;
+	t_sys	*sys;
 
-	// if (!(sys = (t_sys *)malloc(sizeof(t_sys))))
-	// 	exit(0);
+	if (!(sys = (t_sys *)malloc(sizeof(t_sys))))
+		exit(0);
 
-	set_system(&sys);
-	fill_screen(&sys);
+	set_system(sys);
+	fill_screen(sys);
 
 	// t_comp	c = init_comp(0.2, 0);
 
-	int		i = 0;
-	while (i < sys.imgvol)
-	{
-		t_comp	z;
+	calc_fractal(sys);
 
-		z = int_to_comp(i);
-		int		scale = 200;
-		scale_comp(&z, scale);
-		
+	mlx_put_image_to_window(sys->mlx, sys->win, sys->img, 0, 0);
+	mlx_put_image_to_window(sys->mlx, sys->win, sys->mnu, WIDTH - MENU_W, 0);
 
-		// draw_fract(calc_Zulia(z, c), i, &sys);
-		draw_fract(calc_Mandelbrot(z), i, &sys);
-
-		i += 1;
-	}
-
-	mlx_put_image_to_window(sys.mlx, sys.win, sys.img, 0, 0);
-	mlx_put_image_to_window(sys.mlx, sys.win, sys.mnu, WIDTH - MENU_W, 0);
-
-	mlx_hook(sys.win, 2, 0, key_press, &sys);
+	mlx_hook(sys->win, 2, 0, key_press, sys);
 	// mlx_hook(setting.sys.win, 3, 0, key_release, &setting);
 	// mlx_hook(setting.sys.win, 4, 0, mouse_press, &setting);
 	// mlx_hook(setting.sys.win, 5, 0, mouse_release, &setting);
 	// mlx_hook(setting.sys.win, 6, 0, mouse_move, &setting);
-	mlx_hook(sys.win, 17, 0, close_fractol, &sys);
-	mlx_loop(sys.mlx);
+	mlx_hook(sys->win, 17, 0, close_fractol, sys);
+	mlx_loop(sys->mlx);
 
 
 	return (0);
@@ -120,6 +106,8 @@ void	set_system(t_sys *sys)
 	sys->mnu = mlx_new_image(sys->mlx, MENU_W, HEIGHT);
 	sys->mnuout = (int *)mlx_get_data_addr(sys->mnu,
 		&sys->mnu_s[0], &sys->mnu_s[1], &sys->mnu_s[2]);
+
+	sys->scale = 200;
 }
 
 void	fill_screen(t_sys *sys)
@@ -168,50 +156,26 @@ void	draw_fract(int itr, int i, t_sys *sys)
 	sys->imgout[i] = itr * 1000;
 }
 
-int		calc_Zulia(t_comp z, t_comp c)
+void	calc_fractal(t_sys	*sys)
 {
-	int		itr;
+	int		i;
+	t_comp	z;
 
-	itr = 0;
-	while (itr < ITER)
+	// t_comp	c = init_comp(0.2, 0);
+
+	i = 0;
+	while (i < sys->imgvol)
 	{
-		if (itr)
-			z = add_comp(pow2_comp(z), c);
-		if (len_comp(z) > 4)
-		// {
-		// 	// fract = 0;
-		// 	break ;
-		// }
-			return (itr);
-		itr += 1;
+
+		z = int_to_comp(i);
+		scale_comp(&z, sys->scale);
+		
+		// draw_fract(calc_Zulia(z, c), i, &sys);
+		draw_fract(calc_Mandelbrot(z), i, sys);
+
+		i += 1;
 	}
-	return (itr);
 }
-
-int		calc_Mandelbrot(t_comp z)
-{
-	int		itr;
-	t_comp	c;
-
-	c = z;
-
-	itr = 0;
-	while (itr < ITER)
-	{
-		if (itr)
-			z = add_comp(pow2_comp(z), c);
-		if (len_comp(z) > 4)
-		// {
-		// 	// fract = 0;
-		// 	break ;
-		// }
-			return (itr);
-		itr += 1;
-	}
-	return (itr);
-}
-
-
 
 
 

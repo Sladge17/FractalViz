@@ -39,6 +39,8 @@ typedef struct		s_sys
 	int				mnu_s[3];
 	int				*mnuout;
 
+	int				scale;
+
 	
 	// int				*back_buf;
 	// int				*z_buf;
@@ -62,8 +64,7 @@ void	fill_screen(t_sys *sys);
 int		close_fractol(void *param);
 t_comp	int_to_comp(int idx);
 void	draw_fract(int itr, int i, t_sys *sys);
-int		calc_Zulia(t_comp z, t_comp c);
-int		calc_Mandelbrot(t_comp z);
+void	calc_fractal(t_sys	*sys);
 
 
 /*
@@ -76,7 +77,11 @@ t_comp	pow2_comp(t_comp comp);
 double	len_comp(t_comp comp);
 void	scale_comp(t_comp *comp, int scale);
 
-
+/*
+** fractals.c
+*/
+int		calc_Mandelbrot(t_comp z);
+int		calc_Zulia(t_comp z, t_comp c);
 
 
 /*
