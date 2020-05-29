@@ -38,7 +38,7 @@ int		key_press(int keycode, void *param)
 		if (sys->scale <= 0)
 		{
 			sys->scale = 0;
-			sys->imgout[sys->imgvol / 2 - (WIDTH - MENU_W) / 2] = 0xFF0000;
+			sys->imgout[sys->imgvol / 2 + (WIDTH - MENU_W) / 2] = 0xFF0000;
 			mlx_put_image_to_window(sys->mlx, sys->win, sys->img, 0, 0);
 			return (0);
 		}
