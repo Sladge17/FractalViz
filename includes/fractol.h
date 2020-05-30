@@ -23,23 +23,25 @@
 # include <wchar.h>
 
 # include "settings.h"
+# include "forbidden.h"
 
-typedef struct		s_sys
+typedef struct	s_sys
 {
-	void			*mlx;
-	void			*win;
+	void		*mlx;
+	void		*win;
 
-	int				imgvol;
-	void			*img;
-	int				img_s[3];
-	int				*imgout;
+	int			imgvol;
+	void		*img;
+	int			img_s[3];
+	int			*imgout;
 
-	int				mnuvol;
-	void			*mnu;
-	int				mnu_s[3];
-	int				*mnuout;
+	int			mnuvol;
+	void		*mnu;
+	int			mnu_s[3];
+	int			*mnuout;
 
-	int				scale;
+	int			scale;
+	char		bitset;
 
 	
 	// int				*back_buf;
@@ -50,11 +52,11 @@ typedef struct		s_sys
 }					t_sys;
 
 
-typedef struct		s_comp
+typedef struct	s_comp
 {
-	double			real;
-	double			img;
-}					t_comp;
+	double		real;
+	double		img;
+}				t_comp;
 
 /*
 ** fractol.c
@@ -76,18 +78,23 @@ t_comp	mult_comp(t_comp comp_1, t_comp comp_2);
 t_comp	pow2_comp(t_comp comp);
 double	len_comp(t_comp comp);
 void	scale_comp(t_comp *comp, int scale);
+t_comp	abs_comp(t_comp comp);
 
 /*
 ** fractals.c
 */
 int		calc_Mandelbrot(t_comp z);
 int		calc_Zulia(t_comp z, t_comp c);
+int		calc_BurningShip(t_comp z);
+int		calc_Mandelbar(t_comp z);
 
 
 /*
 ** controls_main.c
 */
 int		key_press(int keycode, void *param);
+char	change_fractal(int keycode, t_sys *sys);
+int		mouse_move(int x, int y, void *param);
 
 #endif
 

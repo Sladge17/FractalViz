@@ -1,12 +1,12 @@
 NAME = fractol
 FLAG = -Wall -Wextra -Werror
 
-GL_DIR = ./minilibx_macos/
+GL_DIR = minilibx_macos/
 GL_FLAG = -lm -framework OpenGL -framework AppKit
 GL = $(GL_DIR)libmlx.a $(GL_FLAG)
 
-# LIBFT_DIR = ./libft/
-# LIBFT = $(LIBFT_DIR)libft.a
+LIBFT_DIR = LibFT/
+LIBFT = $(LIBFT_DIR)libft.a
 
 HEADER_DIR = includes/
 HEADER = -I $(HEADER_DIR)
@@ -27,9 +27,7 @@ OBJ = $(addprefix $(OBJ_DIR), $(OBJ_LIST))
 all: $(NAME)
 
 $(NAME): $(OBJ)
-# 	@make re -C $(LIBFT_DIR)
-# 	@gcc -o $(NAME) $(HEADER) $(OBJ) $(LIBFT) $(GL)
-	@gcc -o $(NAME) $(HEADER) $(OBJ) $(GL)
+	@gcc -o $(NAME) $(HEADER) $(OBJ) $(LIBFT) $(GL)
 
 $(OBJ_DIR)%.o : $(SRC_DIR)%.c $(HEADER_DIR)*.h
 	@mkdir -p $(OBJ_DIR)
@@ -37,10 +35,8 @@ $(OBJ_DIR)%.o : $(SRC_DIR)%.c $(HEADER_DIR)*.h
 
 clean:
 	@rm -rf $(OBJ_DIR)
-# 	@make clean -C $(LIBFT_DIR)
 
 fclean: clean
 	@rm -f $(NAME)
-# 	@make fclean -C $(LlsIBFT_DIR)
 
 re: fclean all

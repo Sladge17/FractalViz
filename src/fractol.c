@@ -12,8 +12,6 @@
 
 #include "fractol.h"
 
-#include <stdio.h>
-
 
 // int		main()
 // {
@@ -60,6 +58,31 @@
 // 	return (0);
 // }
 
+// 	return (0);
+// }
+
+// int		main()
+// {
+// 	t_comp	q;
+// 	t_comp	w;
+
+// 	q = init_comp(-2, 4);
+// 	w = init_comp(3, -6);
+// 	printf("%f %f\n", q.real, q.img);
+// 	printf("%f %f\n", w.real, w.img);
+// 	printf("\n");
+
+// 	// printf("%lu\n", sizeof(double));
+
+// 	topos_realimg(&q);
+// 	topos_realimg(&w);
+// 	printf("%f %f\n", q.real, q.img);
+// 	printf("%f %f\n", w.real, w.img);
+
+
+// 	return (0);
+// }
+
 
 
 int		main()
@@ -84,7 +107,7 @@ int		main()
 	// mlx_hook(setting.sys.win, 3, 0, key_release, &setting);
 	// mlx_hook(setting.sys.win, 4, 0, mouse_press, &setting);
 	// mlx_hook(setting.sys.win, 5, 0, mouse_release, &setting);
-	// mlx_hook(setting.sys.win, 6, 0, mouse_move, &setting);
+	mlx_hook(sys->win, 6, 0, mouse_move, sys);
 	mlx_hook(sys->win, 17, 0, close_fractol, sys);
 	mlx_loop(sys->mlx);
 
@@ -108,6 +131,7 @@ void	set_system(t_sys *sys)
 		&sys->mnu_s[0], &sys->mnu_s[1], &sys->mnu_s[2]);
 
 	sys->scale = 200;
+	sys->bitset = 0b10000001;
 }
 
 void	fill_screen(t_sys *sys)
@@ -153,7 +177,8 @@ void	draw_fract(int itr, int i, t_sys *sys)
 		sys->imgout[i] = FRACT_C;
 		return ;
 	}
-	sys->imgout[i] = itr * 1000;
+	if (sys->bitset & 0b10000000)
+		sys->imgout[i] = itr * 1000;
 }
 
 void	calc_fractal(t_sys	*sys)
@@ -161,7 +186,7 @@ void	calc_fractal(t_sys	*sys)
 	int		i;
 	t_comp	z;
 
-	// t_comp	c = init_comp(0.2, 0);
+	t_comp	c = init_comp(0.2, 0);
 
 	i = 0;
 	while (i < sys->imgvol)
@@ -170,9 +195,15 @@ void	calc_fractal(t_sys	*sys)
 		z = int_to_comp(i);
 		scale_comp(&z, sys->scale);
 		
-		// draw_fract(calc_Zulia(z, c), i, &sys);
-		draw_fract(calc_Mandelbrot(z), i, sys);
-
+		if (sys->bitset & 0b00000001)
+			draw_fract(calc_Mandelbrot(z), i, sys);
+		if (sys->bitset & 0b00000010)
+			draw_fract(calc_Zulia(z, c), i, sys);
+		if (sys->bitset & 0b00000100)
+			draw_fract(calc_BurningShip(z), i, sys);
+		if (sys->bitset & 0b00001000)
+			draw_fract(calc_Mandelbar(z), i, sys);
+		
 		i += 1;
 	}
 }

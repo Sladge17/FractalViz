@@ -63,7 +63,23 @@ void	scale_comp(t_comp *comp, int scale)
 	// comp->img /= - (WIDTH - MENU_W) * HEIGHT / 2;
 }
 
+t_comp	abs_comp(t_comp comp)
+{
+	void	*pointer;
+	char	i;
 
+	pointer = &comp;
+	i = 0;
+	while (i < 2)
+	{
+		if (*(double *)pointer < 0)
+			*(double *)pointer *= -1;
+		// pointer += 1;
+		pointer += sizeof(double);
+		i += 1;
+	}
+	return (comp);
+}
 
 
 
