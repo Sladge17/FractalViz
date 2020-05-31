@@ -12,12 +12,10 @@
 
 #include "fractol.h"
 
-int		calc_Mandelbrot(t_comp z)
+int		calc_Zulia(t_comp z, t_comp c)
 {
 	int		itr;
-	t_comp	c;
 
-	c = z;
 	itr = 0;
 	while (itr < ITER)
 	{
@@ -30,15 +28,17 @@ int		calc_Mandelbrot(t_comp z)
 	return (itr);
 }
 
-int		calc_Zulia(t_comp z, t_comp c)
+int		calc_Mandelbrot(t_comp z, t_comp k)
 {
 	int		itr;
+	t_comp	c;
 
+	c = z;
 	itr = 0;
 	while (itr < ITER)
 	{
 		if (itr)
-			z = add_comp(pow2_comp(z), c);
+			z = add_comp(pow2_comp(z), add_comp(c, k));
 		if (len_comp(z) > 4)
 			return (itr);
 		itr += 1;

@@ -13,78 +13,6 @@
 #include "fractol.h"
 
 
-// int		main()
-// {
-// 	t_comp	q;
-
-// 	q = init_comp(2, 4);
-// 	printf("%f %f\n", q.real, q.img);
-
-// 	q = pow2_comp(q);
-// 	printf("%f %f\n", q.real, q.img);
-
-// 	q = add_comp(q, init_comp(0.2, 0));
-// 	printf("%f %f\n", q.real, q.img);
-
-// 	printf("%f\n", len_comp(q));
-
-
-// 	return (0);
-// }
-
-// int		main()
-// {
-// 	t_comp	q;
-// 	t_comp	w;
-
-// 	q = init_comp(-2, 4);
-// 	w = init_comp(3, -6);
-// 	printf("%f %f\n", q.real, q.img);
-// 	printf("%f %f\n", w.real, w.img);
-// 	printf("\n");
-
-// 	t_comp	sum = add_comp(q, w);
-// 	t_comp	mult = mult_comp(q, w);
-// 	t_comp	pow = pow2_comp(q);
-// 	printf("%f %f\n", sum.real, sum.img);
-// 	printf("%f %f\n", mult.real, mult.img);
-// 	printf("%f %f\n", pow.real, pow.img);
-// 	printf("\n");
-
-// 	double len = len_comp(q);
-// 	printf("%f\n", len);
-// 	printf("\n");
-
-// 	return (0);
-// }
-
-// 	return (0);
-// }
-
-// int		main()
-// {
-// 	t_comp	q;
-// 	t_comp	w;
-
-// 	q = init_comp(-2, 4);
-// 	w = init_comp(3, -6);
-// 	printf("%f %f\n", q.real, q.img);
-// 	printf("%f %f\n", w.real, w.img);
-// 	printf("\n");
-
-// 	// printf("%lu\n", sizeof(double));
-
-// 	topos_realimg(&q);
-// 	topos_realimg(&w);
-// 	printf("%f %f\n", q.real, q.img);
-// 	printf("%f %f\n", w.real, w.img);
-
-
-// 	return (0);
-// }
-
-
-
 int		main()
 // int		main(int argc, char **argv)
 {
@@ -96,8 +24,6 @@ int		main()
 	set_system(sys);
 	fill_screen(sys);
 
-	// t_comp	c = init_comp(0.2, 0);
-
 	calc_fractal(sys);
 
 	mlx_put_image_to_window(sys->mlx, sys->win, sys->img, 0, 0);
@@ -105,8 +31,8 @@ int		main()
 
 	mlx_hook(sys->win, 2, 0, key_press, sys);
 	// mlx_hook(setting.sys.win, 3, 0, key_release, &setting);
-	// mlx_hook(setting.sys.win, 4, 0, mouse_press, &setting);
-	// mlx_hook(setting.sys.win, 5, 0, mouse_release, &setting);
+	mlx_hook(sys->win, 4, 0, mouse_press, sys);
+	mlx_hook(sys->win, 5, 0, mouse_release, sys);
 	mlx_hook(sys->win, 6, 0, mouse_move, sys);
 	mlx_hook(sys->win, 17, 0, close_fractol, sys);
 	mlx_loop(sys->mlx);
@@ -131,7 +57,8 @@ void	set_system(t_sys *sys)
 		&sys->mnu_s[0], &sys->mnu_s[1], &sys->mnu_s[2]);
 
 	sys->scale = 200;
-	sys->bitset = 0b10000001;
+	sys->bitset = 0b10000010;
+	sys->k = init_comp(0, 0);
 }
 
 void	fill_screen(t_sys *sys)
@@ -186,7 +113,7 @@ void	calc_fractal(t_sys	*sys)
 	int		i;
 	t_comp	z;
 
-	t_comp	c = init_comp(0.2, 0);
+	// t_comp	c = init_comp(0.2, 0);
 
 	i = 0;
 	while (i < sys->imgvol)
@@ -196,9 +123,9 @@ void	calc_fractal(t_sys	*sys)
 		scale_comp(&z, sys->scale);
 		
 		if (sys->bitset & 0b00000001)
-			draw_fract(calc_Mandelbrot(z), i, sys);
+			draw_fract(calc_Zulia(z, sys->k), i, sys);
 		if (sys->bitset & 0b00000010)
-			draw_fract(calc_Zulia(z, c), i, sys);
+			draw_fract(calc_Mandelbrot(z, sys->k), i, sys);
 		if (sys->bitset & 0b00000100)
 			draw_fract(calc_BurningShip(z), i, sys);
 		if (sys->bitset & 0b00001000)

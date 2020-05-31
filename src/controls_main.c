@@ -110,6 +110,112 @@ int		mouse_move(int x, int y, void *param)
 	t_sys		*sys;
 
 	sys = (t_sys *)param;
-	printf("%d %d\n", x, y);
+	
+	if (!(sys->bitset & 0b01000000))
+		return (0);
+
+	// sys->c = init_comp((double)(x - (WIDTH - MENU_W) / 2) / (sys->scale * 2), (double)(y - HEIGHT / 2) / (sys->scale * 2));
+	sys->k = init_comp((double)(x - (WIDTH - MENU_W) / 2) / 400, (double)(y - HEIGHT / 2) / 400);
+	fill_screen(sys);
+	calc_fractal(sys);
+	mlx_put_image_to_window(sys->mlx, sys->win, sys->img, 0, 0);
+
 	return (0);
 }
+
+int		mouse_press(int button, int x, int y, void *param)
+{
+	t_sys		*sys;
+
+	sys = (t_sys *)param;
+
+	
+	if (button == 1)
+	{
+		sys->k = init_comp((double)(x - (WIDTH - MENU_W) / 2) / 400, (double)(y - HEIGHT / 2) / 400);
+		fill_screen(sys);
+		calc_fractal(sys);
+		mlx_put_image_to_window(sys->mlx, sys->win, sys->img, 0, 0);
+		sys->bitset ^= 0b01000000;
+		return (0);
+	}
+
+
+
+
+	if (button == 2)
+	{
+		if (sys->k.real == 0 && sys->k.img == 0)
+			return (0);
+		sys->k.real = 0;
+		sys->k.img = 0;
+		fill_screen(sys);
+		calc_fractal(sys);
+		mlx_put_image_to_window(sys->mlx, sys->win, sys->img, 0, 0);
+		return (0);
+	} 
+
+
+	// if (!(sys->bitset & 0b00000011) || button != 1)
+	// 	return (0);
+
+
+	// sys->c = init_comp((double)(x - (WIDTH - MENU_W) / 2) / 400, (double)(y - HEIGHT / 2) / 400);
+
+
+	// fill_screen(sys);
+	// calc_fractal(sys);
+	// mlx_put_image_to_window(sys->mlx, sys->win, sys->img, 0, 0);
+
+	// sys->bitset ^= 0b01000000;
+
+	// if ((sys->bitset & 0b00000010) && button == 1)
+	// 	sys->bitset ^= 0b01000000;
+
+
+
+	return (0);
+}
+
+int		mouse_release(int button, int x, int y, void *param)
+{
+	t_sys		*sys;
+
+	x = 0;
+	y = 0;
+	sys = (t_sys *)param;
+
+	if (button == 1)
+		sys->bitset ^= 0b01000000;
+	
+	return (0);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

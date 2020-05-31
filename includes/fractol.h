@@ -25,6 +25,12 @@
 # include "settings.h"
 # include "forbidden.h"
 
+typedef struct	s_comp
+{
+	double		real;
+	double		img;
+}				t_comp;
+
 typedef struct	s_sys
 {
 	void		*mlx;
@@ -43,6 +49,8 @@ typedef struct	s_sys
 	int			scale;
 	char		bitset;
 
+	t_comp		k;
+
 	
 	// int				*back_buf;
 	// int				*z_buf;
@@ -51,12 +59,6 @@ typedef struct	s_sys
 	// int				mouse_pos[2];
 }					t_sys;
 
-
-typedef struct	s_comp
-{
-	double		real;
-	double		img;
-}				t_comp;
 
 /*
 ** fractol.c
@@ -83,8 +85,8 @@ t_comp	abs_comp(t_comp comp);
 /*
 ** fractals.c
 */
-int		calc_Mandelbrot(t_comp z);
 int		calc_Zulia(t_comp z, t_comp c);
+int		calc_Mandelbrot(t_comp z, t_comp k);
 int		calc_BurningShip(t_comp z);
 int		calc_Mandelbar(t_comp z);
 
@@ -95,6 +97,8 @@ int		calc_Mandelbar(t_comp z);
 int		key_press(int keycode, void *param);
 char	change_fractal(int keycode, t_sys *sys);
 int		mouse_move(int x, int y, void *param);
+int		mouse_press(int button, int x, int y, void *param);
+int		mouse_release(int button, int x, int y, void *param);
 
 #endif
 
