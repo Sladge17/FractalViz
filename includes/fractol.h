@@ -50,7 +50,7 @@ typedef struct	s_sys
 	char		bitset;
 
 	char		fract;
-	t_comp		k[6];
+	t_comp		k[8];
 
 
 }					t_sys;
@@ -69,27 +69,39 @@ void	calc_fractal(t_sys	*sys);
 
 
 /*
-** complex_actions.c
+** complex_actions1.c
 */
 t_comp	init_comp(double real, double img);
 t_comp	add_comp(t_comp comp, t_comp comp_add);
 t_comp	mult_comp(t_comp comp_1, t_comp comp_2);
 t_comp	pow2_comp(t_comp comp);
-double	len_comp(t_comp comp);
-void	scale_comp(t_comp *comp, int scale);
+t_comp	ppow_comp(t_comp comp, int power);
+
+/*
+** complex_actions2.c
+*/
 t_comp	abs_comp(t_comp comp);
 t_comp	absreal_comp(t_comp comp);
 t_comp	absimg_comp(t_comp comp);
+double	len_comp(t_comp comp);
+void	scale_comp(t_comp *comp, int scale);
 
 /*
-** fractals.c
+** fractals1.c
 */
 int		calc_Zulia(t_comp z, t_comp c);
 int		calc_Mandelbrot(t_comp z, t_comp k);
 int		calc_BurningShip(t_comp z, t_comp k);
 int		calc_Mandelbar(t_comp z, t_comp k);
+
+/*
+** fractals2.c
+*/
 int		calc_AbsReal(t_comp z, t_comp k);
 int		calc_AbsImg(t_comp z, t_comp k);
+int		calc_Power3(t_comp z, t_comp c);
+int		calc_AbsRealP4(t_comp z, t_comp k);
+
 
 
 /*

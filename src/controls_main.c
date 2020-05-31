@@ -128,6 +128,28 @@ char	change_fractal(int keycode, t_sys *sys)
 		return (1);
 	}
 
+	if (keycode == 26)
+	{
+		if (sys->fract == 6)
+			return (1);
+		sys->fract = 6;
+		fill_screen(sys);
+		calc_fractal(sys);
+		mlx_put_image_to_window(sys->mlx, sys->win, sys->img, 0, 0);
+		return (1);
+	}
+
+	if (keycode == 28)
+	{
+		if (sys->fract == 7)
+			return (1);
+		sys->fract = 7;
+		fill_screen(sys);
+		calc_fractal(sys);
+		mlx_put_image_to_window(sys->mlx, sys->win, sys->img, 0, 0);
+		return (1);
+	}
+
 	return (0);
 }
 

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   complex_actions.c                                  :+:      :+:    :+:   */
+/*   complex_actions1.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: student <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -46,63 +46,19 @@ t_comp	pow2_comp(t_comp comp)
 	return (comp_pow);
 }
 
-double	len_comp(t_comp comp)
+t_comp	ppow_comp(t_comp comp, int power)
 {
-	double	len;
+	int		i;
+	t_comp	tmp;
 
-	len = sqrt(comp.real * comp.real + comp.img * comp.img);
-	return (len);
-}
-
-void	scale_comp(t_comp *comp, int scale)
-{
-	comp->real /= scale;
-	comp->img /= scale;
-
-	// comp->real += - (WIDTH - MENU_W) / 2;
-	// comp->img /= - (WIDTH - MENU_W) * HEIGHT / 2;
-}
-
-t_comp	abs_comp(t_comp comp)
-{
-	void	*pointer;
-	char	i;
-
-	pointer = &comp;
-	i = 0;
-	while (i < 2)
+	if (!power)
+		return (init_comp(1, 0));
+	tmp = comp;
+	i = 1;
+	while (i < power)
 	{
-		if (*(double *)pointer < 0)
-			*(double *)pointer *= -1;
-		pointer += sizeof(double);
+		comp = mult_comp(comp, tmp);
 		i += 1;
 	}
 	return (comp);
 }
-
-t_comp	absreal_comp(t_comp comp)
-{
-	if (comp.real < 0)
-		comp.real *= -1;
-	return (comp);
-}
-
-t_comp	absimg_comp(t_comp comp)
-{
-	if (comp.img < 0)
-		comp.img *= -1;
-	return (comp);
-}
-
-
-
-
-
-
-
-
-
-
-
-
-

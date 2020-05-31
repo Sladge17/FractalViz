@@ -67,7 +67,7 @@ void	set_k(t_sys *sys)
 	char	i;
 
 	i = 0;
-	while (i < 5)
+	while (i < 8)
 	{
 		sys->k[(int)i] = init_comp(0, 0);
 		i += 1;
@@ -145,7 +145,11 @@ void	calc_fractal(t_sys	*sys)
 			draw_fract(calc_AbsReal(z, sys->k[4]), i, sys);
 		if (sys->fract == 5)
 			draw_fract(calc_AbsImg(z, sys->k[5]), i, sys);
-		
+		if (sys->fract == 6)
+			draw_fract(calc_Power3(z, sys->k[6]), i, sys);
+		if (sys->fract == 7)
+			draw_fract(calc_AbsRealP4(z, sys->k[7]), i, sys);
+
 		i += 1;
 	}
 }
