@@ -74,14 +74,25 @@ t_comp	abs_comp(t_comp comp)
 	{
 		if (*(double *)pointer < 0)
 			*(double *)pointer *= -1;
-		// pointer += 1;
 		pointer += sizeof(double);
 		i += 1;
 	}
 	return (comp);
 }
 
+t_comp	absreal_comp(t_comp comp)
+{
+	if (comp.real < 0)
+		comp.real *= -1;
+	return (comp);
+}
 
+t_comp	absimg_comp(t_comp comp)
+{
+	if (comp.img < 0)
+		comp.img *= -1;
+	return (comp);
+}
 
 
 

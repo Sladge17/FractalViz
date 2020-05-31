@@ -57,9 +57,23 @@ void	set_system(t_sys *sys)
 		&sys->mnu_s[0], &sys->mnu_s[1], &sys->mnu_s[2]);
 
 	sys->scale = 200;
-	sys->bitset = 0b10000010;
-	sys->k = init_comp(0, 0);
+	sys->bitset = 0b00001000;
+	sys->fract = 1;
+	set_k(sys);
 }
+
+void	set_k(t_sys *sys)
+{
+	char	i;
+
+	i = 0;
+	while (i < 5)
+	{
+		sys->k[(int)i] = init_comp(0, 0);
+		i += 1;
+	}
+}
+
 
 void	fill_screen(t_sys *sys)
 {
@@ -104,7 +118,7 @@ void	draw_fract(int itr, int i, t_sys *sys)
 		sys->imgout[i] = FRACT_C;
 		return ;
 	}
-	if (sys->bitset & 0b10000000)
+	if (sys->bitset & 0b00001000)
 		sys->imgout[i] = itr * 1000;
 }
 
@@ -113,23 +127,24 @@ void	calc_fractal(t_sys	*sys)
 	int		i;
 	t_comp	z;
 
-	// t_comp	c = init_comp(0.2, 0);
-
 	i = 0;
 	while (i < sys->imgvol)
 	{
-
 		z = int_to_comp(i);
 		scale_comp(&z, sys->scale);
 		
-		if (sys->bitset & 0b00000001)
-			draw_fract(calc_Zulia(z, sys->k), i, sys);
-		if (sys->bitset & 0b00000010)
-			draw_fract(calc_Mandelbrot(z, sys->k), i, sys);
-		if (sys->bitset & 0b00000100)
-			draw_fract(calc_BurningShip(z), i, sys);
-		if (sys->bitset & 0b00001000)
-			draw_fract(calc_Mandelbar(z), i, sys);
+		if (sys->fract == 0)
+			draw_fract(calc_Zulia(z, sys->k[0]), i, sys);
+		if (sys->fract == 1)
+			draw_fract(calc_Mandelbrot(z, sys->k[1]), i, sys);
+		if (sys->fract == 2)
+			draw_fract(calc_BurningShip(z, sys->k[2]), i, sys);
+		if (sys->fract == 3)
+			draw_fract(calc_Mandelbar(z, sys->k[3]), i, sys);
+		if (sys->fract == 4)
+			draw_fract(calc_AbsReal(z, sys->k[4]), i, sys);
+		if (sys->fract == 5)
+			draw_fract(calc_AbsImg(z, sys->k[5]), i, sys);
 		
 		i += 1;
 	}

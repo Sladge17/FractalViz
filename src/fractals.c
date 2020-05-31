@@ -46,7 +46,7 @@ int		calc_Mandelbrot(t_comp z, t_comp k)
 	return (itr);
 }
 
-int		calc_BurningShip(t_comp z)
+int		calc_BurningShip(t_comp z, t_comp k)
 {
 	int		itr;
 	t_comp	c;
@@ -55,7 +55,7 @@ int		calc_BurningShip(t_comp z)
 	itr = 0;
 	while (itr < ITER)
 	{
-		z = add_comp(pow2_comp(abs_comp(z)), c);
+		z = add_comp(pow2_comp(abs_comp(z)), add_comp(c, k));
 		if (len_comp(z) > 4)
 			return (itr);
 		itr += 1;
@@ -63,7 +63,7 @@ int		calc_BurningShip(t_comp z)
 	return (itr);
 }
 
-int		calc_Mandelbar(t_comp z)
+int		calc_Mandelbar(t_comp z, t_comp k)
 {
 	int		itr;
 	t_comp	c;
@@ -75,7 +75,7 @@ int		calc_Mandelbar(t_comp z)
 	{
 		tmp_z.real = z.real * z.real - z.img * z.img;
 		tmp_z.img = z.real * z.img * -2;
-		z = add_comp(tmp_z, c);
+		z = add_comp(tmp_z, add_comp(c, k));
 		if (len_comp(z) > 4)
 			return (itr);
 		itr += 1;
@@ -83,15 +83,39 @@ int		calc_Mandelbar(t_comp z)
 	return (itr);
 }
 
+int		calc_AbsReal(t_comp z, t_comp k)
+{
+	int		itr;
+	t_comp	c;
 
+	c = z;
+	itr = 0;
+	while (itr < ITER)
+	{
+		z = add_comp(pow2_comp(absreal_comp(z)), add_comp(c, k));
+		if (len_comp(z) > 4)
+			return (itr);
+		itr += 1;
+	}
+	return (itr);
+}
 
+int		calc_AbsImg(t_comp z, t_comp k)
+{
+	int		itr;
+	t_comp	c;
 
-
-
-
-
-
-
+	c = z;
+	itr = 0;
+	while (itr < ITER)
+	{
+		z = add_comp(pow2_comp(absimg_comp(z)), add_comp(c, k));
+		if (len_comp(z) > 4)
+			return (itr);
+		itr += 1;
+	}
+	return (itr);
+}
 
 
 

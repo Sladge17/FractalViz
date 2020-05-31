@@ -49,14 +49,10 @@ typedef struct	s_sys
 	int			scale;
 	char		bitset;
 
-	t_comp		k;
+	char		fract;
+	t_comp		k[6];
 
-	
-	// int				*back_buf;
-	// int				*z_buf;
-	// char			render;
-	// char			control;
-	// int				mouse_pos[2];
+
 }					t_sys;
 
 
@@ -64,6 +60,7 @@ typedef struct	s_sys
 ** fractol.c
 */
 void	set_system(t_sys *sys);
+void	set_k(t_sys *sys);
 void	fill_screen(t_sys *sys);
 int		close_fractol(void *param);
 t_comp	int_to_comp(int idx);
@@ -81,14 +78,18 @@ t_comp	pow2_comp(t_comp comp);
 double	len_comp(t_comp comp);
 void	scale_comp(t_comp *comp, int scale);
 t_comp	abs_comp(t_comp comp);
+t_comp	absreal_comp(t_comp comp);
+t_comp	absimg_comp(t_comp comp);
 
 /*
 ** fractals.c
 */
 int		calc_Zulia(t_comp z, t_comp c);
 int		calc_Mandelbrot(t_comp z, t_comp k);
-int		calc_BurningShip(t_comp z);
-int		calc_Mandelbar(t_comp z);
+int		calc_BurningShip(t_comp z, t_comp k);
+int		calc_Mandelbar(t_comp z, t_comp k);
+int		calc_AbsReal(t_comp z, t_comp k);
+int		calc_AbsImg(t_comp z, t_comp k);
 
 
 /*

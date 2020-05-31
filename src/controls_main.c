@@ -51,7 +51,7 @@ int		key_press(int keycode, void *param)
 
 	if (keycode == 50)
 	{
-		sys->bitset ^= 0b10000000;
+		sys->bitset ^= 0b00001000;
 		fill_screen(sys);
 		calc_fractal(sys);
 		mlx_put_image_to_window(sys->mlx, sys->win, sys->img, 0, 0);
@@ -64,8 +64,9 @@ char	change_fractal(int keycode, t_sys *sys)
 {
 	if (keycode == 18)
 	{
-		sys->bitset &= 0b10000000;
-		sys->bitset |= 0b00000001;
+		if (sys->fract == 0)
+			return (1);
+		sys->fract = 0;
 		fill_screen(sys);
 		calc_fractal(sys);
 		mlx_put_image_to_window(sys->mlx, sys->win, sys->img, 0, 0);
@@ -74,8 +75,9 @@ char	change_fractal(int keycode, t_sys *sys)
 
 	if (keycode == 19)
 	{
-		sys->bitset &= 0b10000000;
-		sys->bitset |= 0b00000010;
+		if (sys->fract == 1)
+			return (1);
+		sys->fract = 1;
 		fill_screen(sys);
 		calc_fractal(sys);
 		mlx_put_image_to_window(sys->mlx, sys->win, sys->img, 0, 0);
@@ -84,8 +86,9 @@ char	change_fractal(int keycode, t_sys *sys)
 
 	if (keycode == 20)
 	{
-		sys->bitset &= 0b10000000;
-		sys->bitset |= 0b00000100;
+		if (sys->fract == 2)
+			return (1);
+		sys->fract = 2;
 		fill_screen(sys);
 		calc_fractal(sys);
 		mlx_put_image_to_window(sys->mlx, sys->win, sys->img, 0, 0);
@@ -94,8 +97,31 @@ char	change_fractal(int keycode, t_sys *sys)
 
 	if (keycode == 21)
 	{
-		sys->bitset &= 0b10000000;
-		sys->bitset |= 0b00001000;
+		if (sys->fract == 3)
+			return (1);
+		sys->fract = 3;
+		fill_screen(sys);
+		calc_fractal(sys);
+		mlx_put_image_to_window(sys->mlx, sys->win, sys->img, 0, 0);
+		return (1);
+	}
+
+	if (keycode == 23)
+	{
+		if (sys->fract == 4)
+			return (1);
+		sys->fract = 4;
+		fill_screen(sys);
+		calc_fractal(sys);
+		mlx_put_image_to_window(sys->mlx, sys->win, sys->img, 0, 0);
+		return (1);
+	}
+
+	if (keycode == 22)
+	{
+		if (sys->fract == 5)
+			return (1);
+		sys->fract = 5;
 		fill_screen(sys);
 		calc_fractal(sys);
 		mlx_put_image_to_window(sys->mlx, sys->win, sys->img, 0, 0);
@@ -111,11 +137,11 @@ int		mouse_move(int x, int y, void *param)
 
 	sys = (t_sys *)param;
 	
-	if (!(sys->bitset & 0b01000000))
+	if (!(sys->bitset & 0b00000001))
 		return (0);
 
-	// sys->c = init_comp((double)(x - (WIDTH - MENU_W) / 2) / (sys->scale * 2), (double)(y - HEIGHT / 2) / (sys->scale * 2));
-	sys->k = init_comp((double)(x - (WIDTH - MENU_W) / 2) / 400, (double)(y - HEIGHT / 2) / 400);
+	sys->k[(int)sys->fract] = init_comp((double)(x - (WIDTH - MENU_W) / 2) / 400, (double)(y - HEIGHT / 2) / 400);
+
 	fill_screen(sys);
 	calc_fractal(sys);
 	mlx_put_image_to_window(sys->mlx, sys->win, sys->img, 0, 0);
@@ -132,11 +158,13 @@ int		mouse_press(int button, int x, int y, void *param)
 	
 	if (button == 1)
 	{
-		sys->k = init_comp((double)(x - (WIDTH - MENU_W) / 2) / 400, (double)(y - HEIGHT / 2) / 400);
+
+		sys->k[(int)sys->fract] = init_comp((double)(x - (WIDTH - MENU_W) / 2) / 400, (double)(y - HEIGHT / 2) / 400);
+
 		fill_screen(sys);
 		calc_fractal(sys);
 		mlx_put_image_to_window(sys->mlx, sys->win, sys->img, 0, 0);
-		sys->bitset ^= 0b01000000;
+		sys->bitset ^= 0b00000001;
 		return (0);
 	}
 
@@ -145,34 +173,17 @@ int		mouse_press(int button, int x, int y, void *param)
 
 	if (button == 2)
 	{
-		if (sys->k.real == 0 && sys->k.img == 0)
-			return (0);
-		sys->k.real = 0;
-		sys->k.img = 0;
+
+		if (sys->k[(int)sys->fract].real == 0 && sys->k[(int)sys->fract].img == 0)
+			return (0);	
+		sys->k[(int)sys->fract].real = 0;
+		sys->k[(int)sys->fract].img = 0;
+
 		fill_screen(sys);
 		calc_fractal(sys);
 		mlx_put_image_to_window(sys->mlx, sys->win, sys->img, 0, 0);
 		return (0);
 	} 
-
-
-	// if (!(sys->bitset & 0b00000011) || button != 1)
-	// 	return (0);
-
-
-	// sys->c = init_comp((double)(x - (WIDTH - MENU_W) / 2) / 400, (double)(y - HEIGHT / 2) / 400);
-
-
-	// fill_screen(sys);
-	// calc_fractal(sys);
-	// mlx_put_image_to_window(sys->mlx, sys->win, sys->img, 0, 0);
-
-	// sys->bitset ^= 0b01000000;
-
-	// if ((sys->bitset & 0b00000010) && button == 1)
-	// 	sys->bitset ^= 0b01000000;
-
-
 
 	return (0);
 }
@@ -186,7 +197,7 @@ int		mouse_release(int button, int x, int y, void *param)
 	sys = (t_sys *)param;
 
 	if (button == 1)
-		sys->bitset ^= 0b01000000;
+		sys->bitset ^= 0b00000001;
 	
 	return (0);
 }
