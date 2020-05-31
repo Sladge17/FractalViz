@@ -20,6 +20,7 @@
 # define MENU_C 0x2E4053
 
 # define FRACT_C 0xFF0000
+# define AXIS_C 0x00FF00
 
 # define ITER 100 
 

@@ -22,7 +22,7 @@ int		main()
 		exit(0);
 
 	set_system(sys);
-	fill_screen(sys);
+	clear_screen(sys);
 
 	calc_fractal(sys);
 
@@ -75,7 +75,7 @@ void	set_k(t_sys *sys)
 }
 
 
-void	fill_screen(t_sys *sys)
+void	clear_screen(t_sys *sys)
 {
 	int		i;
 	
@@ -152,6 +152,38 @@ void	calc_fractal(t_sys	*sys)
 
 		i += 1;
 	}
+}
+
+void	draw_axis(t_sys *sys)
+{
+	int		img_w;
+	int		center_h;
+	int		i;
+
+	img_w = WIDTH - MENU_W;
+	i = img_w / 2;
+	while (i < sys->imgvol)
+	{
+		sys->imgout[i] = AXIS_C;
+		i += img_w;
+	}
+	
+	i = img_w * HEIGHT / 2;
+	center_h = i + img_w;
+	while (i < center_h)
+	{
+		sys->imgout[i] = AXIS_C;
+		i += 1;
+	}
+}
+
+void	draw_image(t_sys *sys)
+{
+		clear_screen(sys);
+		calc_fractal(sys);
+		if (sys->bitset & 0b00010000)
+			draw_axis(sys);
+		mlx_put_image_to_window(sys->mlx, sys->win, sys->img, 0, 0);
 }
 
 

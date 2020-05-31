@@ -61,11 +61,13 @@ typedef struct	s_sys
 */
 void	set_system(t_sys *sys);
 void	set_k(t_sys *sys);
-void	fill_screen(t_sys *sys);
+void	clear_screen(t_sys *sys);
 int		close_fractol(void *param);
 t_comp	int_to_comp(int idx);
 void	draw_fract(int itr, int i, t_sys *sys);
 void	calc_fractal(t_sys	*sys);
+void	draw_axis(t_sys *sys);
+void	draw_image(t_sys *sys);
 
 
 /*
