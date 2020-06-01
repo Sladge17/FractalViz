@@ -64,10 +64,16 @@ void	set_k(t_sys *sys);
 void	clear_screen(t_sys *sys);
 int		close_fractol(void *param);
 t_comp	int_to_comp(int idx);
-void	draw_fract(int itr, int i, t_sys *sys);
 void	calc_fractal(t_sys	*sys);
-void	draw_axis(t_sys *sys);
+void	calc_fractal_nest(t_sys *sys);
+
+/*
+** drawing.c
+*/
 void	draw_image(t_sys *sys);
+void	draw_fractal(int itr, int i, t_sys *sys);
+void	draw_axis(t_sys *sys);
+
 
 
 /*
@@ -91,20 +97,18 @@ void	scale_comp(t_comp *comp, int scale);
 /*
 ** fractals1.c
 */
-int		calc_Zulia(t_comp z, t_comp c);
-int		calc_Mandelbrot(t_comp z, t_comp k);
-int		calc_BurningShip(t_comp z, t_comp k);
-int		calc_Mandelbar(t_comp z, t_comp k);
+void	calc_Zulia(t_sys *sys);
+void	calc_Mandelbrot(t_sys *sys);
+void	calc_BurningShip(t_sys *sys);
+void	calc_Mandelbar(t_sys *sys);
 
 /*
 ** fractals2.c
 */
-int		calc_AbsReal(t_comp z, t_comp k);
-int		calc_AbsImg(t_comp z, t_comp k);
-int		calc_Power3(t_comp z, t_comp c);
-int		calc_AbsRealP4(t_comp z, t_comp k);
-
-
+void	calc_AbsReal(t_sys *sys);
+void	calc_AbsImg(t_sys *sys);
+void	calc_Power3(t_sys *sys);
+void	calc_AbsRealP4(t_sys *sys);
 
 /*
 ** controls_main.c

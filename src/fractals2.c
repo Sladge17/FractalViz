@@ -12,69 +12,108 @@
 
 #include "fractol.h"
 
-int		calc_AbsReal(t_comp z, t_comp k)
+void	calc_AbsReal(t_sys *sys)
 {
-	int		itr;
+	int		i;
+	t_comp	z;
 	t_comp	c;
+	int		itr;
 
-	c = z;
-	itr = 0;
-	while (itr < ITER)
+	i = 0;
+	while (i < sys->imgvol)
 	{
-		z = add_comp(pow2_comp(absreal_comp(z)), add_comp(c, k));
-		if (len_comp(z) > 4)
-			return (itr);
-		itr += 1;
+		z = int_to_comp(i);
+		scale_comp(&z, sys->scale);
+		c = z;
+		itr = 0;
+		while (itr < ITER)
+		{
+			z = add_comp(pow2_comp(absreal_comp(z)),
+				add_comp(c, sys->k[(int)sys->fract]));
+			if (len_comp(z) > 4)
+				break ;
+			itr += 1;
+		}
+		draw_fractal(itr, i, sys);
+		i += 1;
 	}
-	return (itr);
 }
 
-int		calc_AbsImg(t_comp z, t_comp k)
+void	calc_AbsImg(t_sys *sys)
 {
-	int		itr;
+	int		i;
+	t_comp	z;
 	t_comp	c;
+	int		itr;
 
-	c = z;
-	itr = 0;
-	while (itr < ITER)
+	i = 0;
+	while (i < sys->imgvol)
 	{
-		z = add_comp(pow2_comp(absimg_comp(z)), add_comp(c, k));
-		if (len_comp(z) > 4)
-			return (itr);
-		itr += 1;
+		z = int_to_comp(i);
+		scale_comp(&z, sys->scale);
+		c = z;
+		itr = 0;
+		while (itr < ITER)
+		{
+			z = add_comp(pow2_comp(absimg_comp(z)),
+				add_comp(c, sys->k[(int)sys->fract]));
+			if (len_comp(z) > 4)
+				break ;
+			itr += 1;
+		}
+		draw_fractal(itr, i, sys);
+		i += 1;
 	}
-	return (itr);
 }
 
-int		calc_Power3(t_comp z, t_comp c)
+void	calc_Power3(t_sys *sys)
 {
+	int		i;
+	t_comp	z;
 	int		itr;
 
-	itr = 0;
-	while (itr < ITER)
+	i = 0;
+	while (i < sys->imgvol)
 	{
-		if (itr)
-			z = add_comp(ppow_comp(z, 3), c);
-		if (len_comp(z) > 4)
-			return (itr);
-		itr += 1;
+		z = int_to_comp(i);
+		scale_comp(&z, sys->scale);
+		itr = 0;
+		while (itr < ITER)
+		{
+			if (itr)
+				z = add_comp(ppow_comp(z, 3), sys->k[(int)sys->fract]);
+			if (len_comp(z) > 4)
+				break ;
+			itr += 1;
+		}
+		draw_fractal(itr, i, sys);
+		i += 1;
 	}
-	return (itr);
 }
 
-int		calc_AbsRealP4(t_comp z, t_comp k)
+void	calc_AbsRealP4(t_sys *sys)
 {
-	int		itr;
+	int		i;
+	t_comp	z;
 	t_comp	c;
+	int		itr;
 
-	c = z;
-	itr = 0;
-	while (itr < ITER)
+	i = 0;
+	while (i < sys->imgvol)
 	{
-		z = add_comp(ppow_comp(absreal_comp(z), 4), add_comp(c, k));
-		if (len_comp(z) > 4)
-			return (itr);
-		itr += 1;
+		z = int_to_comp(i);
+		scale_comp(&z, sys->scale);
+		c = z;
+		itr = 0;
+		while (itr < ITER)
+		{
+			z = add_comp(ppow_comp(absreal_comp(z), 4),
+				add_comp(c, sys->k[(int)sys->fract]));
+			if (len_comp(z) > 4)
+				break ;
+			itr += 1;
+		}
+		draw_fractal(itr, i, sys);
+		i += 1;
 	}
-	return (itr);
 }

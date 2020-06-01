@@ -23,7 +23,6 @@ int		main()
 
 	set_system(sys);
 	clear_screen(sys);
-
 	calc_fractal(sys);
 
 	mlx_put_image_to_window(sys->mlx, sys->win, sys->img, 0, 0);
@@ -36,7 +35,6 @@ int		main()
 	mlx_hook(sys->win, 6, 0, mouse_move, sys);
 	mlx_hook(sys->win, 17, 0, close_fractol, sys);
 	mlx_loop(sys->mlx);
-
 
 	return (0);
 }
@@ -74,7 +72,6 @@ void	set_k(t_sys *sys)
 	}
 }
 
-
 void	clear_screen(t_sys *sys)
 {
 	int		i;
@@ -111,105 +108,54 @@ t_comp	int_to_comp(int id)
 	return (complex);
 }
 
-void	draw_fract(int itr, int i, t_sys *sys)
+void	calc_fractal(t_sys *sys)
 {
-	if (itr == ITER)
+	if (sys->fract == 0)
 	{
-		sys->imgout[i] = FRACT_C;
+		calc_Zulia(sys);
 		return ;
 	}
-	if (sys->bitset & 0b00001000)
-		sys->imgout[i] = itr * 1000;
+	if (sys->fract == 1)
+	{
+		calc_Mandelbrot(sys);
+		return ;
+	}
+	if (sys->fract == 2)
+	{
+		calc_BurningShip(sys);
+		return ;
+	}
+	if (sys->fract == 3)
+	{
+		calc_Mandelbar(sys);
+		return ;
+	}
+	calc_fractal_nest(sys);
 }
 
-void	calc_fractal(t_sys	*sys)
+void	calc_fractal_nest(t_sys *sys)
 {
-	int		i;
-	t_comp	z;
-
-	i = 0;
-	while (i < sys->imgvol)
+	if (sys->fract == 4)
 	{
-		z = int_to_comp(i);
-		scale_comp(&z, sys->scale);
-		
-		if (sys->fract == 0)
-			draw_fract(calc_Zulia(z, sys->k[0]), i, sys);
-		if (sys->fract == 1)
-			draw_fract(calc_Mandelbrot(z, sys->k[1]), i, sys);
-		if (sys->fract == 2)
-			draw_fract(calc_BurningShip(z, sys->k[2]), i, sys);
-		if (sys->fract == 3)
-			draw_fract(calc_Mandelbar(z, sys->k[3]), i, sys);
-		if (sys->fract == 4)
-			draw_fract(calc_AbsReal(z, sys->k[4]), i, sys);
-		if (sys->fract == 5)
-			draw_fract(calc_AbsImg(z, sys->k[5]), i, sys);
-		if (sys->fract == 6)
-			draw_fract(calc_Power3(z, sys->k[6]), i, sys);
-		if (sys->fract == 7)
-			draw_fract(calc_AbsRealP4(z, sys->k[7]), i, sys);
-
-		i += 1;
+		calc_AbsReal(sys);
+		return ;
+	}
+	if (sys->fract == 5)
+	{
+		calc_AbsImg(sys);
+		return ;
+	}
+	if (sys->fract == 6)
+	{
+		calc_Power3(sys);
+		return ;
+	}
+	if (sys->fract == 7)
+	{
+		calc_AbsRealP4(sys);
+		return ;
 	}
 }
-
-void	draw_axis(t_sys *sys)
-{
-	int		img_w;
-	int		center_h;
-	int		i;
-
-	img_w = WIDTH - MENU_W;
-	i = img_w / 2;
-	while (i < sys->imgvol)
-	{
-		sys->imgout[i] = AXIS_C;
-		i += img_w;
-	}
-	
-	i = img_w * HEIGHT / 2;
-	center_h = i + img_w;
-	while (i < center_h)
-	{
-		sys->imgout[i] = AXIS_C;
-		i += 1;
-	}
-}
-
-void	draw_image(t_sys *sys)
-{
-		clear_screen(sys);
-		calc_fractal(sys);
-		if (sys->bitset & 0b00010000)
-			draw_axis(sys);
-		mlx_put_image_to_window(sys->mlx, sys->win, sys->img, 0, 0);
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -24,11 +24,6 @@ int		key_press(int keycode, void *param)
 	if (keycode == 12)
 	{
 		sys->scale += 10;
-		// fill_screen(sys);
-		// calc_fractal(sys);
-		// if (sys->bitset & 0b00010000)
-		// 	draw_axis(sys);
-		// mlx_put_image_to_window(sys->mlx, sys->win, sys->img, 0, 0);
 		draw_image(sys);
 		return (0);
 	}
@@ -46,11 +41,6 @@ int		key_press(int keycode, void *param)
 			mlx_put_image_to_window(sys->mlx, sys->win, sys->img, 0, 0);
 			return (0);
 		}
-		// fill_screen(sys);
-		// calc_fractal(sys);
-		// if (sys->bitset & 0b00010000)
-		// 	draw_axis(sys);
-		// mlx_put_image_to_window(sys->mlx, sys->win, sys->img, 0, 0);
 		draw_image(sys);
 		return (0);
 	}
@@ -61,11 +51,6 @@ int		key_press(int keycode, void *param)
 	if (keycode == 50)
 	{
 		sys->bitset ^= 0b00001000;
-		// fill_screen(sys);
-		// calc_fractal(sys);
-		// if (sys->bitset & 0b00010000)
-		// 	draw_axis(sys);
-		// mlx_put_image_to_window(sys->mlx, sys->win, sys->img, 0, 0);
 		draw_image(sys);
 		return (0);
 	}
@@ -73,11 +58,6 @@ int		key_press(int keycode, void *param)
 	if (keycode == 48)
 	{
 		sys->bitset ^= 0b00010000;
-		// fill_screen(sys);
-		// calc_fractal(sys);
-		// if (sys->bitset & 0b00010000)
-		// 	draw_axis(sys);
-		// mlx_put_image_to_window(sys->mlx, sys->win, sys->img, 0, 0);
 		draw_image(sys);
 		return (0);
 	}
@@ -92,11 +72,6 @@ char	change_fractal(int keycode, t_sys *sys)
 		if (sys->fract == 0)
 			return (1);
 		sys->fract = 0;
-		// fill_screen(sys);
-		// calc_fractal(sys);
-		// if (sys->bitset & 0b00010000)
-		// 	draw_axis(sys);
-		// mlx_put_image_to_window(sys->mlx, sys->win, sys->img, 0, 0);
 		draw_image(sys);
 		return (1);
 	}
@@ -106,11 +81,6 @@ char	change_fractal(int keycode, t_sys *sys)
 		if (sys->fract == 1)
 			return (1);
 		sys->fract = 1;
-		// fill_screen(sys);
-		// calc_fractal(sys);
-		// if (sys->bitset & 0b00010000)
-		// 	draw_axis(sys);
-		// mlx_put_image_to_window(sys->mlx, sys->win, sys->img, 0, 0);
 		draw_image(sys);
 		return (1);
 	}
@@ -120,11 +90,6 @@ char	change_fractal(int keycode, t_sys *sys)
 		if (sys->fract == 2)
 			return (1);
 		sys->fract = 2;
-		// fill_screen(sys);
-		// calc_fractal(sys);
-		// if (sys->bitset & 0b00010000)
-		// 	draw_axis(sys);
-		// mlx_put_image_to_window(sys->mlx, sys->win, sys->img, 0, 0);
 		draw_image(sys);
 		return (1);
 	}
@@ -134,11 +99,6 @@ char	change_fractal(int keycode, t_sys *sys)
 		if (sys->fract == 3)
 			return (1);
 		sys->fract = 3;
-		// fill_screen(sys);
-		// calc_fractal(sys);
-		// if (sys->bitset & 0b00010000)
-		// 	draw_axis(sys);
-		// mlx_put_image_to_window(sys->mlx, sys->win, sys->img, 0, 0);
 		draw_image(sys);
 		return (1);
 	}
@@ -148,11 +108,6 @@ char	change_fractal(int keycode, t_sys *sys)
 		if (sys->fract == 4)
 			return (1);
 		sys->fract = 4;
-		// fill_screen(sys);
-		// calc_fractal(sys);
-		// if (sys->bitset & 0b00010000)
-		// 	draw_axis(sys);
-		// mlx_put_image_to_window(sys->mlx, sys->win, sys->img, 0, 0);
 		draw_image(sys);
 		return (1);
 	}
@@ -162,11 +117,6 @@ char	change_fractal(int keycode, t_sys *sys)
 		if (sys->fract == 5)
 			return (1);
 		sys->fract = 5;
-		// fill_screen(sys);
-		// calc_fractal(sys);
-		// if (sys->bitset & 0b00010000)
-		// 	draw_axis(sys);
-		// mlx_put_image_to_window(sys->mlx, sys->win, sys->img, 0, 0);
 		draw_image(sys);
 		return (1);
 	}
@@ -176,11 +126,6 @@ char	change_fractal(int keycode, t_sys *sys)
 		if (sys->fract == 6)
 			return (1);
 		sys->fract = 6;
-		// fill_screen(sys);
-		// calc_fractal(sys);
-		// if (sys->bitset & 0b00010000)
-		// 	draw_axis(sys);
-		// mlx_put_image_to_window(sys->mlx, sys->win, sys->img, 0, 0);
 		draw_image(sys);
 		return (1);
 	}
@@ -190,11 +135,6 @@ char	change_fractal(int keycode, t_sys *sys)
 		if (sys->fract == 7)
 			return (1);
 		sys->fract = 7;
-		// fill_screen(sys);
-		// calc_fractal(sys);
-		// if (sys->bitset & 0b00010000)
-		// 	draw_axis(sys);
-		// mlx_put_image_to_window(sys->mlx, sys->win, sys->img, 0, 0);
 		draw_image(sys);
 		return (1);
 	}
@@ -212,12 +152,6 @@ int		mouse_move(int x, int y, void *param)
 		return (0);
 
 	sys->k[(int)sys->fract] = init_comp((double)(x - (WIDTH - MENU_W) / 2) / 400, (double)(y - HEIGHT / 2) / 400);
-
-	// fill_screen(sys);
-	// calc_fractal(sys);
-	// if (sys->bitset & 0b00010000)
-	// 		draw_axis(sys);
-	// mlx_put_image_to_window(sys->mlx, sys->win, sys->img, 0, 0);
 	draw_image(sys);
 
 	return (0);
@@ -229,24 +163,13 @@ int		mouse_press(int button, int x, int y, void *param)
 
 	sys = (t_sys *)param;
 
-	
 	if (button == 1)
 	{
-
 		sys->k[(int)sys->fract] = init_comp((double)(x - (WIDTH - MENU_W) / 2) / 400, (double)(y - HEIGHT / 2) / 400);
-
-		// fill_screen(sys);
-		// calc_fractal(sys);
-		// if (sys->bitset & 0b00010000)
-		// 	draw_axis(sys);
-		// mlx_put_image_to_window(sys->mlx, sys->win, sys->img, 0, 0);
 		draw_image(sys);
 		sys->bitset ^= 0b00000001;
 		return (0);
 	}
-
-
-
 
 	if (button == 2)
 	{
@@ -255,12 +178,6 @@ int		mouse_press(int button, int x, int y, void *param)
 			return (0);	
 		sys->k[(int)sys->fract].real = 0;
 		sys->k[(int)sys->fract].img = 0;
-
-		// fill_screen(sys);
-		// calc_fractal(sys);
-		// if (sys->bitset & 0b00010000)
-		// 	draw_axis(sys);
-		// mlx_put_image_to_window(sys->mlx, sys->win, sys->img, 0, 0);
 		draw_image(sys);
 		return (0);
 	} 
