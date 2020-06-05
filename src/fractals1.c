@@ -27,7 +27,7 @@ void	calc_Zulia(t_sys *sys)
 		while (itr < ITER)
 		{
 			if (itr)
-				z = add_comp(pow2_comp(z), sys->k[(int)sys->fract]);
+				z = add_comp(pow2_comp(z), sys->k[(int)sys->index]);
 			if (len_comp(z) > 4)
 				break ;
 			itr += 1;
@@ -55,7 +55,7 @@ void	calc_Mandelbrot(t_sys *sys)
 		{
 			if (itr)
 				z = add_comp(pow2_comp(z),
-					add_comp(c, sys->k[(int)sys->fract]));
+					add_comp(c, sys->k[(int)sys->index]));
 			if (len_comp(z) > 4)
 				break ;
 			itr += 1;
@@ -82,7 +82,7 @@ void	calc_BurningShip(t_sys *sys)
 		while (itr < ITER)
 		{
 			z = add_comp(pow2_comp(abs_comp(z)),
-				add_comp(c, sys->k[(int)sys->fract]));
+				add_comp(c, sys->k[(int)sys->index]));
 			if (len_comp(z) > 4)
 				break ;
 			itr += 1;
@@ -111,7 +111,7 @@ void	calc_Mandelbar(t_sys *sys)
 		{
 			tmp_z.real = z.real * z.real - z.img * z.img;
 			tmp_z.img = z.real * z.img * -2;
-			z = add_comp(tmp_z, add_comp(c, sys->k[(int)sys->fract]));
+			z = add_comp(tmp_z, add_comp(c, sys->k[(int)sys->index]));
 			if (len_comp(z) > 4)
 				break ;
 			itr += 1;

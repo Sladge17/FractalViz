@@ -13,6 +13,20 @@
 #include "fractol.h"
 
 
+// int		main()
+// {
+// 	int		numb;
+// 	char	*string;
+
+// 	numb = 132;
+// 	string = ft_itoa(12);
+
+
+// 	printf("%s\n", string);
+// 	return (0);
+// }
+
+
 int		main()
 // int		main(int argc, char **argv)
 {
@@ -23,10 +37,13 @@ int		main()
 
 	set_system(sys);
 	clear_screen(sys);
+
+	draw_rgbtriangle(sys, MENU_W / 2, 100, 10);
 	calc_fractal(sys);
 
 	mlx_put_image_to_window(sys->mlx, sys->win, sys->img, 0, 0);
 	mlx_put_image_to_window(sys->mlx, sys->win, sys->mnu, WIDTH - MENU_W, 0);
+	mlx_string_put(sys->mlx, sys->win, 0, 0, 0x00FF00, sys->name);
 
 	mlx_hook(sys->win, 2, 0, key_press, sys);
 	// mlx_hook(setting.sys.win, 3, 0, key_release, &setting);
@@ -56,7 +73,8 @@ void	set_system(t_sys *sys)
 
 	sys->scale = 200;
 	sys->bitset = 0b00001000;
-	sys->fract = 1;
+	sys->index = 1;
+	sys->name = "Mandelbrot";
 	set_k(sys);
 }
 
@@ -101,31 +119,36 @@ t_comp	int_to_comp(int id)
 {
 	t_comp	complex;
 
+	// complex.real = id % (WIDTH - MENU_W);
+	// complex.img = id / (WIDTH - MENU_W);
+	// complex.real -= (WIDTH - MENU_W) / 2;
+	// complex.img -= HEIGHT / 2;
+
 	complex.real = id % (WIDTH - MENU_W);
-	complex.img = id / (WIDTH - MENU_W);
+	complex.img = -id / (WIDTH - MENU_W);
 	complex.real -= (WIDTH - MENU_W) / 2;
-	complex.img -= HEIGHT / 2;
+	complex.img += HEIGHT / 2;
 	return (complex);
 }
 
 void	calc_fractal(t_sys *sys)
 {
-	if (sys->fract == 0)
+	if (sys->index == 0)
 	{
 		calc_Zulia(sys);
 		return ;
 	}
-	if (sys->fract == 1)
+	if (sys->index == 1)
 	{
 		calc_Mandelbrot(sys);
 		return ;
 	}
-	if (sys->fract == 2)
+	if (sys->index == 2)
 	{
 		calc_BurningShip(sys);
 		return ;
 	}
-	if (sys->fract == 3)
+	if (sys->index == 3)
 	{
 		calc_Mandelbar(sys);
 		return ;
@@ -135,22 +158,22 @@ void	calc_fractal(t_sys *sys)
 
 void	calc_fractal_nest(t_sys *sys)
 {
-	if (sys->fract == 4)
+	if (sys->index == 4)
 	{
 		calc_AbsReal(sys);
 		return ;
 	}
-	if (sys->fract == 5)
+	if (sys->index == 5)
 	{
 		calc_AbsImg(sys);
 		return ;
 	}
-	if (sys->fract == 6)
+	if (sys->index == 6)
 	{
 		calc_Power3(sys);
 		return ;
 	}
-	if (sys->fract == 7)
+	if (sys->index == 7)
 	{
 		calc_AbsRealP4(sys);
 		return ;

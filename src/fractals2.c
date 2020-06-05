@@ -29,7 +29,7 @@ void	calc_AbsReal(t_sys *sys)
 		while (itr < ITER)
 		{
 			z = add_comp(pow2_comp(absreal_comp(z)),
-				add_comp(c, sys->k[(int)sys->fract]));
+				add_comp(c, sys->k[(int)sys->index]));
 			if (len_comp(z) > 4)
 				break ;
 			itr += 1;
@@ -56,7 +56,7 @@ void	calc_AbsImg(t_sys *sys)
 		while (itr < ITER)
 		{
 			z = add_comp(pow2_comp(absimg_comp(z)),
-				add_comp(c, sys->k[(int)sys->fract]));
+				add_comp(c, sys->k[(int)sys->index]));
 			if (len_comp(z) > 4)
 				break ;
 			itr += 1;
@@ -81,7 +81,7 @@ void	calc_Power3(t_sys *sys)
 		while (itr < ITER)
 		{
 			if (itr)
-				z = add_comp(ppow_comp(z, 3), sys->k[(int)sys->fract]);
+				z = add_comp(ppow_comp(z, 3), sys->k[(int)sys->index]);
 			if (len_comp(z) > 4)
 				break ;
 			itr += 1;
@@ -108,7 +108,7 @@ void	calc_AbsRealP4(t_sys *sys)
 		while (itr < ITER)
 		{
 			z = add_comp(ppow_comp(absreal_comp(z), 4),
-				add_comp(c, sys->k[(int)sys->fract]));
+				add_comp(c, sys->k[(int)sys->index]));
 			if (len_comp(z) > 4)
 				break ;
 			itr += 1;

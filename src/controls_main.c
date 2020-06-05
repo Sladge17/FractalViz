@@ -69,72 +69,80 @@ char	change_fractal(int keycode, t_sys *sys)
 {
 	if (keycode == 18)
 	{
-		if (sys->fract == 0)
+		if (sys->index == 0)
 			return (1);
-		sys->fract = 0;
+		sys->index = 0;
+		sys->name = "Zulia";
 		draw_image(sys);
 		return (1);
 	}
 
 	if (keycode == 19)
 	{
-		if (sys->fract == 1)
+		if (sys->index == 1)
 			return (1);
-		sys->fract = 1;
+		sys->index = 1;
+		sys->name = "Mandelbrot";
 		draw_image(sys);
 		return (1);
 	}
 
 	if (keycode == 20)
 	{
-		if (sys->fract == 2)
+		if (sys->index == 2)
 			return (1);
-		sys->fract = 2;
+		sys->index = 2;
+		sys->name = "BurningShip";
 		draw_image(sys);
 		return (1);
 	}
 
 	if (keycode == 21)
 	{
-		if (sys->fract == 3)
+		if (sys->index == 3)
 			return (1);
-		sys->fract = 3;
+		sys->index = 3;
+		sys->name = "Mandelbar";
 		draw_image(sys);
 		return (1);
 	}
 
 	if (keycode == 23)
 	{
-		if (sys->fract == 4)
+		if (sys->index == 4)
 			return (1);
-		sys->fract = 4;
+		sys->index = 4;
+		sys->name = "AbsReal";
 		draw_image(sys);
 		return (1);
 	}
 
 	if (keycode == 22)
 	{
-		if (sys->fract == 5)
+		if (sys->index == 5)
 			return (1);
-		sys->fract = 5;
+		sys->index = 5;
+		sys->name = "AbsImg";
 		draw_image(sys);
 		return (1);
 	}
 
 	if (keycode == 26)
 	{
-		if (sys->fract == 6)
+		if (sys->index == 6)
 			return (1);
-		sys->fract = 6;
+		sys->index = 6;
+		sys->name = "Power3";
 		draw_image(sys);
 		return (1);
 	}
 
 	if (keycode == 28)
 	{
-		if (sys->fract == 7)
+		if (sys->index == 7)
 			return (1);
-		sys->fract = 7;
+		sys->index = 7;
+		sys->name = "AbsRealP4";
 		draw_image(sys);
 		return (1);
 	}
@@ -147,11 +155,15 @@ int		mouse_move(int x, int y, void *param)
 	t_sys		*sys;
 
 	sys = (t_sys *)param;
+
+	sys->cursor.real = (x - (WIDTH - MENU_W) / 2) / (double)sys->scale;
+	sys->cursor.img = -(y - HEIGHT / 2) / (double)sys->scale;
+	// printf("%f %f\n", sys->cursor.real, sys->cursor.img);
 	
 	if (!(sys->bitset & 0b00000001))
 		return (0);
 
-	sys->k[(int)sys->fract] = init_comp((double)(x - (WIDTH - MENU_W) / 2) / 400, (double)(y - HEIGHT / 2) / 400);
+	sys->k[(int)sys->index] = init_comp((double)(x - (WIDTH - MENU_W) / 2) / 400, (double)(y - HEIGHT / 2) / 400);
 	draw_image(sys);
 
 	return (0);
@@ -165,7 +177,7 @@ int		mouse_press(int button, int x, int y, void *param)
 
 	if (button == 1)
 	{
-		sys->k[(int)sys->fract] = init_comp((double)(x - (WIDTH - MENU_W) / 2) / 400, (double)(y - HEIGHT / 2) / 400);
+		sys->k[(int)sys->index] = init_comp((double)(x - (WIDTH - MENU_W) / 2) / 400, (double)(y - HEIGHT / 2) / 400);
 		draw_image(sys);
 		sys->bitset ^= 0b00000001;
 		return (0);
@@ -174,10 +186,10 @@ int		mouse_press(int button, int x, int y, void *param)
 	if (button == 2)
 	{
 
-		if (sys->k[(int)sys->fract].real == 0 && sys->k[(int)sys->fract].img == 0)
+		if (sys->k[(int)sys->index].real == 0 && sys->k[(int)sys->index].img == 0)
 			return (0);	
-		sys->k[(int)sys->fract].real = 0;
-		sys->k[(int)sys->fract].img = 0;
+		sys->k[(int)sys->index].real = 0;
+		sys->k[(int)sys->index].img = 0;
 		draw_image(sys);
 		return (0);
 	} 

@@ -49,11 +49,13 @@ typedef struct	s_sys
 	int			scale;
 	char		bitset;
 
-	char		fract;
+	char		index;
+	char		*name;
+	t_comp		cursor;		
 	t_comp		k[8];
 
 
-}					t_sys;
+}				t_sys;
 
 
 /*
@@ -66,6 +68,15 @@ int		close_fractol(void *param);
 t_comp	int_to_comp(int idx);
 void	calc_fractal(t_sys	*sys);
 void	calc_fractal_nest(t_sys *sys);
+
+/*
+** rgb_triangle.c
+*/
+void	draw_rgbtriangle(t_sys *sys, int x0, int y0, int offset);
+void	fill_triangle(t_sys *sys, int *tris, int height, int widthhalf);
+void	def_rgbset(char *rgb_set, int color0, int color1);
+int		set_color(char *rgb_set, int color0, double int_xc);
+void	draw_horline(t_sys *system, int *v0, int *v1);
 
 /*
 ** drawing.c
