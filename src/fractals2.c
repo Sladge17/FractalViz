@@ -22,7 +22,7 @@ void	calc_AbsReal(t_sys *sys)
 	i = 0;
 	while (i < sys->imgvol)
 	{
-		z = int_to_comp(i);
+		z = int_to_comp(i, &sys->shift[0]);
 		scale_comp(&z, sys->scale);
 		c = z;
 		itr = 0;
@@ -49,7 +49,7 @@ void	calc_AbsImg(t_sys *sys)
 	i = 0;
 	while (i < sys->imgvol)
 	{
-		z = int_to_comp(i);
+		z = int_to_comp(i, &sys->shift[0]);
 		scale_comp(&z, sys->scale);
 		c = z;
 		itr = 0;
@@ -75,7 +75,7 @@ void	calc_Power3(t_sys *sys)
 	i = 0;
 	while (i < sys->imgvol)
 	{
-		z = int_to_comp(i);
+		z = int_to_comp(i, &sys->shift[0]);
 		scale_comp(&z, sys->scale);
 		itr = 0;
 		while (itr < ITER)
@@ -101,7 +101,7 @@ void	calc_AbsRealP4(t_sys *sys)
 	i = 0;
 	while (i < sys->imgvol)
 	{
-		z = int_to_comp(i);
+		z = int_to_comp(i, &sys->shift[0]);
 		scale_comp(&z, sys->scale);
 		c = z;
 		itr = 0;

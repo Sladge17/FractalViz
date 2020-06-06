@@ -14,13 +14,13 @@
 
 void	draw_image(t_sys *sys)
 {
-		clear_screen(sys);
+		clear_image(sys);
 		calc_fractal(sys);
-		if (sys->bitset & 0b00010000)
+		if (sys->bitset & 0b00001000)
 			draw_axis(sys);
 		mlx_put_image_to_window(sys->mlx, sys->win, sys->img, 0, 0);
 		mlx_string_put(sys->mlx, sys->win, 0, 0, 0x00FF00, sys->name);
-		if (sys->bitset & 0b00010000)
+		if (sys->bitset & 0b00001000)
 		{
 			// NEED OPTIMIZE!!!!!!!!!!!!
 			mlx_string_put(sys->mlx, sys->win, 5, HEIGHT / 2 - 24, AXIS_C, "-real");
@@ -35,10 +35,10 @@ void	draw_fractal(int itr, int i, t_sys *sys)
 {
 	if (itr == ITER)
 	{
-		sys->imgout[i] = FRACT_C;
+		sys->imgout[i] = sys->color;
 		return ;
 	}
-	if (sys->bitset & 0b00001000)
+	if (sys->bitset & 0b00000100)
 		sys->imgout[i] = itr * 1000;
 }
 
@@ -96,6 +96,23 @@ void	draw_axis(t_sys *sys)
 		}
 		j += 1;
 	}
+}
+
+void	redraw_image(t_sys *sys, int x, int y)
+{
+	int		color;
+	int		i;
+
+	color = sys->mnuout[x - (WIDTH - MENU_W) + MENU_W * y];
+	i = 0;
+	while (i < sys->imgvol)
+	{
+		if (sys->imgout[i] == sys->color)
+			sys->imgout[i] = color;
+		i += 1;
+	}
+	sys->color = color;
+	mlx_put_image_to_window(sys->mlx, sys->win, sys->img, 0, 0);
 }
 
 

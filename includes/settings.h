@@ -22,6 +22,7 @@
 # define FRACT_C 0xFF0000
 # define AXIS_C 0xFFFFFF
 
-# define ITER 100 
+# define ITER 100
+# define SHIFT 10
 
 

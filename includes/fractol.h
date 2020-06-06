@@ -47,10 +47,15 @@ typedef struct	s_sys
 	int			*mnuout;
 
 	int			scale;
-	char		bitset;
+	unsigned char		bitset;
 
 	char		index;
 	char		*name;
+	int			color;
+	int			shift[2];
+
+	int			rgbtris_y[2];
+
 	t_comp		cursor;		
 	t_comp		k[8];
 
@@ -63,16 +68,17 @@ typedef struct	s_sys
 */
 void	set_system(t_sys *sys);
 void	set_k(t_sys *sys);
-void	clear_screen(t_sys *sys);
+void	clear_image(t_sys *sys);
+void	draw_menu(t_sys *sys);
 int		close_fractol(void *param);
-t_comp	int_to_comp(int idx);
+t_comp	int_to_comp(int idx, int *shift);
 void	calc_fractal(t_sys	*sys);
 void	calc_fractal_nest(t_sys *sys);
 
 /*
 ** rgb_triangle.c
 */
-void	draw_rgbtriangle(t_sys *sys, int x0, int y0, int offset);
+void	draw_rgbtriangle(t_sys *sys, int x0, int offset_x);
 void	fill_triangle(t_sys *sys, int *tris, int height, int widthhalf);
 void	def_rgbset(char *rgb_set, int color0, int color1);
 int		set_color(char *rgb_set, int color0, double int_xc);
@@ -84,6 +90,7 @@ void	draw_horline(t_sys *system, int *v0, int *v1);
 void	draw_image(t_sys *sys);
 void	draw_fractal(int itr, int i, t_sys *sys);
 void	draw_axis(t_sys *sys);
+void	redraw_image(t_sys *sys, int x, int y);
 
 
 
@@ -125,10 +132,25 @@ void	calc_AbsRealP4(t_sys *sys);
 ** controls_main.c
 */
 int		key_press(int keycode, void *param);
-char	change_fractal(int keycode, t_sys *sys);
+int		key_release(int keycode, void *param);
 int		mouse_move(int x, int y, void *param);
 int		mouse_press(int button, int x, int y, void *param);
 int		mouse_release(int button, int x, int y, void *param);
+
+/*
+** controls_keyboard.c
+*/
+char	change_fractal(int keycode, t_sys *sys);
+char	check_shiftfractal(int keycode, t_sys *sys);
+char	check_unshiftfractal(int keycode, t_sys *sys);
+
+/*
+** controls_keyboard.c
+*/
+void	shift_fractal(t_sys *sys);
+char	ortho_shift(t_sys *sys, unsigned char shift);
+char	diagonal_shift(t_sys *sys, unsigned char shift);
+void	shifting_fractal(t_sys *sys, char shift_x, char shift_y);
 
 #endif
 

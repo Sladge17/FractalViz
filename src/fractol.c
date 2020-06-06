@@ -12,33 +12,35 @@
 
 #include "fractol.h"
 
-
-// int		main()
-// {
-// 	int		numb;
-// 	char	*string;
-
-// 	numb = 132;
-// 	string = ft_itoa(12);
-
-
-// 	printf("%s\n", string);
-// 	return (0);
-// }
-
-
-int		main()
-// int		main(int argc, char **argv)
+int		main(int argc, char **argv)
 {
 	t_sys	*sys;
+
+	if (argc > 2)
+	{
+		puts("Hello\n");
+		exit(0);
+	}
 
 	if (!(sys = (t_sys *)malloc(sizeof(t_sys))))
 		exit(0);
 
-	set_system(sys);
-	clear_screen(sys);
+	if (argc == 1)
+		sys->index = 1;
+	if (argc == 2)
+	{
+		if (strlen(argv[1]) != 1 || argv[1][0] < '1' || argv[1][0] > '8')
+		{
+			puts("Hello\n");
+			exit(0);
+		}
+		sys->index = atoi(argv[1]) - 1;
+	}
 
-	draw_rgbtriangle(sys, MENU_W / 2, 100, 10);
+	set_system(sys);
+	clear_image(sys);
+	draw_menu(sys);
+
 	calc_fractal(sys);
 
 	mlx_put_image_to_window(sys->mlx, sys->win, sys->img, 0, 0);
@@ -46,7 +48,7 @@ int		main()
 	mlx_string_put(sys->mlx, sys->win, 0, 0, 0x00FF00, sys->name);
 
 	mlx_hook(sys->win, 2, 0, key_press, sys);
-	// mlx_hook(setting.sys.win, 3, 0, key_release, &setting);
+	mlx_hook(sys->win, 3, 0, key_release, sys);
 	mlx_hook(sys->win, 4, 0, mouse_press, sys);
 	mlx_hook(sys->win, 5, 0, mouse_release, sys);
 	mlx_hook(sys->win, 6, 0, mouse_move, sys);
@@ -72,9 +74,11 @@ void	set_system(t_sys *sys)
 		&sys->mnu_s[0], &sys->mnu_s[1], &sys->mnu_s[2]);
 
 	sys->scale = 200;
-	sys->bitset = 0b00001000;
-	sys->index = 1;
+	sys->bitset = 0b00000100;
 	sys->name = "Mandelbrot";
+	sys->color = 0xFF0000;
+	sys->shift[0] = 0;
+	sys->shift[1] = 0;
 	set_k(sys);
 }
 
@@ -90,7 +94,7 @@ void	set_k(t_sys *sys)
 	}
 }
 
-void	clear_screen(t_sys *sys)
+void	clear_image(t_sys *sys)
 {
 	int		i;
 	
@@ -100,6 +104,11 @@ void	clear_screen(t_sys *sys)
 		sys->imgout[i] = IMAGE_C;
 		i += 1;
 	}
+}
+
+void	draw_menu(t_sys *sys)
+{
+	int		i;
 
 	i = 0;
 	while (i < sys->mnuvol)
@@ -107,6 +116,8 @@ void	clear_screen(t_sys *sys)
 		sys->mnuout[i] = MENU_C;
 		i += 1;
 	}
+	sys->rgbtris_y[0] = 100;
+	draw_rgbtriangle(sys, MENU_W / 2, 10);
 }
 
 int		close_fractol(void *param)
@@ -115,7 +126,7 @@ int		close_fractol(void *param)
 	exit(0);
 }
 
-t_comp	int_to_comp(int id)
+t_comp	int_to_comp(int id, int *shift)
 {
 	t_comp	complex;
 
@@ -126,8 +137,8 @@ t_comp	int_to_comp(int id)
 
 	complex.real = id % (WIDTH - MENU_W);
 	complex.img = -id / (WIDTH - MENU_W);
-	complex.real -= (WIDTH - MENU_W) / 2;
-	complex.img += HEIGHT / 2;
+	complex.real -= (WIDTH - MENU_W) / 2 + shift[0];
+	complex.img += HEIGHT / 2 + shift[1];
 	return (complex);
 }
 

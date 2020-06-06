@@ -12,20 +12,21 @@
 
 #include "fractol.h"
 
-void	draw_rgbtriangle(t_sys *sys, int x0, int y0, int offset)
+void	draw_rgbtriangle(t_sys *sys, int x0, int offset_x)
 {
 	int		width;
 	int		height;
 	int		tris[3][3];
 
-	width = MENU_W - 2 * offset;
+	width = MENU_W - 2 * offset_x;
 	height = lround(width * sqrt(3) / 2);
+	sys->rgbtris_y[1] = sys->rgbtris_y[0] + height;
 	width /= 2;
 	tris[0][0] = x0;
-	tris[0][1] = y0;
+	tris[0][1] = sys->rgbtris_y[0];
 	tris[0][2] = 0xFF0000;
 	tris[1][0] = x0 - width;
-	tris[1][1] = y0 + height;
+	tris[1][1] = sys->rgbtris_y[1];
 	tris[1][2] = 0xFF00;
 	tris[2][0] = x0 + width;
 	tris[2][1] = tris[1][1];
