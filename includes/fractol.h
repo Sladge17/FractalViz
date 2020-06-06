@@ -52,7 +52,7 @@ typedef struct	s_sys
 	char		index;
 	char		*name;
 	int			color;
-	int			shift[2];
+	int			shift[8][2];
 
 	int			rgbtris_y[2];
 
@@ -67,11 +67,11 @@ typedef struct	s_sys
 ** fractol.c
 */
 void	set_system(t_sys *sys);
-void	set_k(t_sys *sys);
+void	set_tabparam(t_sys *sys);
 void	clear_image(t_sys *sys);
 void	draw_menu(t_sys *sys);
 int		close_fractol(void *param);
-t_comp	int_to_comp(int idx, int *shift);
+t_comp	int_to_comp(t_sys *sys, int id);
 void	calc_fractal(t_sys	*sys);
 void	calc_fractal_nest(t_sys *sys);
 

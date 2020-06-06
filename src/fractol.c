@@ -77,18 +77,18 @@ void	set_system(t_sys *sys)
 	sys->bitset = 0b00000100;
 	sys->name = "Mandelbrot";
 	sys->color = 0xFF0000;
-	sys->shift[0] = 0;
-	sys->shift[1] = 0;
-	set_k(sys);
+	set_tabparam(sys);
 }
 
-void	set_k(t_sys *sys)
+void	set_tabparam(t_sys *sys)
 {
 	char	i;
 
 	i = 0;
 	while (i < 8)
 	{
+		sys->shift[(int)i][0] = 0;
+		sys->shift[(int)i][1] = 0;
 		sys->k[(int)i] = init_comp(0, 0);
 		i += 1;
 	}
@@ -126,7 +126,7 @@ int		close_fractol(void *param)
 	exit(0);
 }
 
-t_comp	int_to_comp(int id, int *shift)
+t_comp	int_to_comp(t_sys *sys, int id)
 {
 	t_comp	complex;
 
@@ -137,8 +137,8 @@ t_comp	int_to_comp(int id, int *shift)
 
 	complex.real = id % (WIDTH - MENU_W);
 	complex.img = -id / (WIDTH - MENU_W);
-	complex.real -= (WIDTH - MENU_W) / 2 + shift[0];
-	complex.img += HEIGHT / 2 + shift[1];
+	complex.real -= (WIDTH - MENU_W) / 2 + sys->shift[(int)sys->index][0];
+	complex.img += HEIGHT / 2 + sys->shift[(int)sys->index][1];
 	return (complex);
 }
 
