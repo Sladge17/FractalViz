@@ -22,7 +22,8 @@ void	calc_Zulia(t_sys *sys)
 	while (i < sys->imgvol)
 	{
 		z = int_to_comp(sys, i);
-		scale_comp(&z, sys->scale);
+		// scale_comp(&z, sys->scale);
+		// scale_comp(&z, sys);
 		itr = 0;
 		while (itr < ITER)
 		{
@@ -48,7 +49,8 @@ void	calc_Mandelbrot(t_sys *sys)
 	while (i < sys->imgvol)
 	{
 		z = int_to_comp(sys, i);
-		scale_comp(&z, sys->scale);
+		// scale_comp(&z, sys->scale);
+		// scale_comp(&z, sys);
 		c = z;
 		itr = 0;
 		while (itr < ITER)
@@ -76,7 +78,8 @@ void	calc_BurningShip(t_sys *sys)
 	while (i < sys->imgvol)
 	{
 		z = int_to_comp(sys, i);
-		scale_comp(&z, sys->scale);
+		// scale_comp(&z, sys->scale);
+		// scale_comp(&z, sys);
 		c = z;
 		itr = 0;
 		while (itr < ITER)
@@ -104,7 +107,8 @@ void	calc_Mandelbar(t_sys *sys)
 	while (i < sys->imgvol)
 	{
 		z = int_to_comp(sys, i);
-		scale_comp(&z, sys->scale);
+		// scale_comp(&z, sys->scale);
+		// scale_comp(&z, sys);
 		c = z;
 		itr = 0;
 		while (itr < ITER)

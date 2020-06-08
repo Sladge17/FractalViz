@@ -74,7 +74,8 @@ t_comp	abs_comp(t_comp comp);
 t_comp	absreal_comp(t_comp comp);
 t_comp	absimg_comp(t_comp comp);
 double	len_comp(t_comp comp);
-void	scale_comp(t_comp *comp, int scale);
+// void	scale_comp(t_comp *comp, int scale);
+// void	scale_comp(t_comp *comp, t_sys *sys);
 
 /*
 ** fractals1.c

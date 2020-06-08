@@ -82,12 +82,18 @@ void	set_system(t_sys *sys)
 	sys->statout = (int *)mlx_get_data_addr(sys->stat,
 		&sys->stat_s[0], &sys->stat_s[1], &sys->stat_s[2]);
 
-
-
 	sys->scale = 200;
 	sys->bitset = 0b00000100;
 	sys->name = "Mandelbrot";
 	sys->color = 0xFF0000;
+
+	// sys->cursor[0] = (WIDTH - MENU_W) / 2;
+	// sys->cursor[1] = HEIGHT / 2;
+
+	sys->cursor[0] = 0;
+	sys->cursor[1] = 0;
+
+
 	set_tabparam(sys);
 }
 
@@ -153,15 +159,49 @@ t_comp	int_to_comp(t_sys *sys, int id)
 {
 	t_comp	complex;
 
-	// complex.real = id % (WIDTH - MENU_W);
-	// complex.img = id / (WIDTH - MENU_W);
-	// complex.real -= (WIDTH - MENU_W) / 2;
-	// complex.img -= HEIGHT / 2;
+	t_comp	cursor;
 
+	// id -= (WIDTH - MENU_W) / 2 + (WIDTH - MENU_W) * HEIGHT / 2;
+	// id += sys->cursor[0] + (WIDTH - MENU_W) * sys->cursor[1];
 	complex.real = id % (WIDTH - MENU_W);
-	complex.img = -id / (WIDTH - MENU_W);
-	complex.real -= (WIDTH - MENU_W) / 2 + sys->shift[(int)sys->index][0];
-	complex.img += HEIGHT / 2 + sys->shift[(int)sys->index][1];
+	complex.img = id / (WIDTH - MENU_W);
+
+	id += sys->cursor[0] + (WIDTH - MENU_W) * sys->cursor[1];
+	cursor.real = id % (WIDTH - MENU_W);
+	cursor.img = id / (WIDTH - MENU_W);
+
+	// add_comp(t_comp comp, t_comp comp_add)
+
+	complex = add_comp(complex, cursor);
+
+	// complex.real -=  sys->cursor[0];
+	// complex.img -= sys->cursor[1];
+
+
+	complex.real -= (WIDTH - MENU_W) / 2;
+	complex.img -= HEIGHT / 2;
+
+	// complex.real -=  sys->cursor[0];
+	// complex.img -= sys->cursor[1];
+
+	complex.real /= sys->scale;
+	complex.img /= sys->scale;
+
+
+
+
+
+	// NEED UNCOMMENT !!!!!!!!!!!!!
+	// complex.real = id % (WIDTH - MENU_W);
+	// complex.img = -id / (WIDTH - MENU_W);
+	// complex.real -= (WIDTH - MENU_W) / 2 + sys->shift[(int)sys->index][0];
+	// complex.img += HEIGHT / 2 + sys->shift[(int)sys->index][1];
+
+
+
+	// complex.real -= (WIDTH - MENU_W) / 2 + sys->shift[(int)sys->index][0];
+	// complex.img -= HEIGHT / 2 + sys->shift[(int)sys->index][1];
+
 	return (complex);
 }
 

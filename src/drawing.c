@@ -35,7 +35,8 @@ void	draw_stat(t_sys *sys)
 	clear_stat(sys);
 	mlx_put_image_to_window(sys->mlx, sys->win, sys->stat, WIDTH - MENU_W, HEIGHT / 2);
 	mlx_string_put(sys->mlx, sys->win, (WIDTH - MENU_W) + 10, (HEIGHT / 2) + 10, 0x00FF00, sys->name);
-	printf("%f %f\n", sys->cursorcomp.real, sys->cursorcomp.img);
+	// printf("%f %f\n", sys->cursorcomp.real, sys->cursorcomp.img);
+	printf("%d %d\n", sys->cursor[0], sys->cursor[1]);
 }
 
 void	draw_fractal(int itr, int i, t_sys *sys)
@@ -43,10 +44,14 @@ void	draw_fractal(int itr, int i, t_sys *sys)
 	if (itr == ITER)
 	{
 		sys->imgout[i] = sys->color;
+		// if (i - (sys->cursor[0] + (WIDTH - MENU_W) * sys->cursor[1]) >= 0)
+		// 	sys->imgout[i - (sys->cursor[0] + (WIDTH - MENU_W) * sys->cursor[1])] = sys->color;
 		return ;
 	}
 	if (sys->bitset & 0b00000100)
 		sys->imgout[i] = itr * 1000;
+		// if (i - (sys->cursor[0] + (WIDTH - MENU_W) * sys->cursor[1]) >= 0)
+		// 	sys->imgout[i - (sys->cursor[0] + (WIDTH - MENU_W) * sys->cursor[1])] = itr * 1000;
 }
 
 void	draw_axis(t_sys *sys)

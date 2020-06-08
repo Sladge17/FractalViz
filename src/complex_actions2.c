@@ -51,11 +51,14 @@ double	len_comp(t_comp comp)
 	return (len);
 }
 
-void	scale_comp(t_comp *comp, int scale)
-{
-	comp->real /= scale;
-	comp->img /= scale;
+// void	scale_comp(t_comp *comp, t_sys *sys)
+// {
+// 	comp->real /= sys->scale;
+// 	comp->img /= sys->scale;
 
-	// comp->real += - (WIDTH - MENU_W) / 2;
-	// comp->img /= - (WIDTH - MENU_W) * HEIGHT / 2;
-}
+// 	comp->real += sys->cursor[0];
+// 	comp->img += sys->cursor[1];
+
+// 	// comp->real += - (WIDTH - MENU_W) / 2;
+// 	// comp->img /= - (WIDTH - MENU_W) * HEIGHT / 2;
+// }

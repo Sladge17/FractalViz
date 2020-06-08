@@ -110,6 +110,9 @@ int		mouse_move(int x, int y, void *param)
 
 	if (x >= 0 && x < WIDTH - MENU_W && y >= 0 && y < HEIGHT)
 	{
+		sys->cursor[0] = x;
+		sys->cursor[1] = y;
+
 		sys->cursorcomp.real = (x - (WIDTH - MENU_W) / 2) / (double)sys->scale;
 		sys->cursorcomp.img = -(y - HEIGHT / 2) / (double)sys->scale;
 		draw_stat(sys);
