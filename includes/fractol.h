@@ -22,45 +22,9 @@
 # include <stdarg.h>
 # include <wchar.h>
 
-# include "settings.h"
+# include "constants.h"
+# include "structs.h"
 # include "forbidden.h"
-
-typedef struct	s_comp
-{
-	double		real;
-	double		img;
-}				t_comp;
-
-typedef struct	s_sys
-{
-	void		*mlx;
-	void		*win;
-
-	int			imgvol;
-	void		*img;
-	int			img_s[3];
-	int			*imgout;
-
-	int			mnuvol;
-	void		*mnu;
-	int			mnu_s[3];
-	int			*mnuout;
-
-	int			scale;
-	unsigned char		bitset;
-
-	char		index;
-	char		*name;
-	int			color;
-	int			shift[8][2];
-
-	int			rgbtris_y[2];
-
-	t_comp		cursor;		
-	t_comp		k[8];
-
-
-}				t_sys;
 
 
 /*
@@ -69,6 +33,7 @@ typedef struct	s_sys
 void	set_system(t_sys *sys);
 void	set_tabparam(t_sys *sys);
 void	clear_image(t_sys *sys);
+void	clear_stat(t_sys *sys);
 void	draw_menu(t_sys *sys);
 int		close_fractol(void *param);
 t_comp	int_to_comp(t_sys *sys, int id);
@@ -88,11 +53,10 @@ void	draw_horline(t_sys *system, int *v0, int *v1);
 ** drawing.c
 */
 void	draw_image(t_sys *sys);
+void	draw_stat(t_sys *sys);
 void	draw_fractal(int itr, int i, t_sys *sys);
 void	draw_axis(t_sys *sys);
 void	redraw_image(t_sys *sys, int x, int y);
-
-
 
 /*
 ** complex_actions1.c

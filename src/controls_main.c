@@ -54,6 +54,14 @@ int		key_press(int keycode, void *param)
 		return (0);
 	}
 
+	if (keycode == 8)
+	{
+		sys->shift[(int)sys->index][0] = 0;
+		sys->shift[(int)sys->index][1] = 0;
+		draw_image(sys);
+		return (0);
+	}
+
 	if (keycode == 50)
 	{
 		sys->bitset ^= 0b00000100;
@@ -90,15 +98,24 @@ int		mouse_move(int x, int y, void *param)
 
 	sys = (t_sys *)param;
 
-	sys->cursor.real = (x - (WIDTH - MENU_W) / 2) / (double)sys->scale;
-	sys->cursor.img = -(y - HEIGHT / 2) / (double)sys->scale;
-	// printf("%f %f\n", sys->cursor.real, sys->cursor.img);
-	
-	if (!(sys->bitset & 0b00000001))
+	if (sys->bitset & 0b00000001)
+	{
+		sys->cursorcomp.real = (x - (WIDTH - MENU_W) / 2) / (double)sys->scale;
+		sys->cursorcomp.img = -(y - HEIGHT / 2) / (double)sys->scale;
+		sys->k[(int)sys->index] = sys->cursorcomp;
+		draw_image(sys);
+		draw_stat(sys);
 		return (0);
+	}
 
-	sys->k[(int)sys->index] = init_comp((double)(x - (WIDTH - MENU_W) / 2) / 400, (double)(y - HEIGHT / 2) / 400);
-	draw_image(sys);
+	if (x >= 0 && x < WIDTH - MENU_W && y >= 0 && y < HEIGHT)
+	{
+		sys->cursorcomp.real = (x - (WIDTH - MENU_W) / 2) / (double)sys->scale;
+		sys->cursorcomp.img = -(y - HEIGHT / 2) / (double)sys->scale;
+		draw_stat(sys);
+		return (0);
+	}
+
 
 	return (0);
 }
@@ -111,7 +128,15 @@ int		mouse_press(int button, int x, int y, void *param)
 
 	if (button == 1)
 	{
-		// sys->color = sys->imgout[x + (WIDTH - MENU_W) * y];
+
+		if (x >= 0 && x < WIDTH - MENU_W && y >= 0 && y < HEIGHT)
+		{
+			sys->k[(int)sys->index] = sys->cursorcomp;
+			sys->bitset ^= 0b00000001;
+			draw_image(sys);
+			return (0);
+		}
+
 		if (x >= WIDTH - MENU_W && y >= sys->rgbtris_y[0] && y <= sys->rgbtris_y[1] &&
 			sys->mnuout[x - (WIDTH - MENU_W) + MENU_W * y] != MENU_C)
 		{
@@ -121,21 +146,10 @@ int		mouse_press(int button, int x, int y, void *param)
 				return (0);
 			}
 			sys->color = sys->mnuout[x - (WIDTH - MENU_W) + MENU_W * y];
-		}
-		// else
-		// {
-		// 	sys->k[(int)sys->index] = init_comp((double)(x - (WIDTH - MENU_W) / 2) / 400, (double)(y - HEIGHT / 2) / 400);
-		// }
-
-		if (x >= 0 && x < WIDTH - MENU_W && y >= 0 && y < HEIGHT)
-		{
-			sys->k[(int)sys->index] = init_comp((double)(x - (WIDTH - MENU_W) / 2) / 400, (double)(y - HEIGHT / 2) / 400);
-			sys->bitset ^= 0b00000001;
+			draw_image(sys);
+			return (0);
 		}
 
-
-		draw_image(sys);
-		// sys->bitset ^= 0b00000001;
 		return (0);
 	}
 
@@ -166,6 +180,10 @@ int		mouse_release(int button, int x, int y, void *param)
 	
 	return (0);
 }
+
+
+
+
 
 
 

@@ -14,21 +14,28 @@
 
 void	draw_image(t_sys *sys)
 {
-		clear_image(sys);
-		calc_fractal(sys);
-		if (sys->bitset & 0b00001000)
-			draw_axis(sys);
-		mlx_put_image_to_window(sys->mlx, sys->win, sys->img, 0, 0);
-		mlx_string_put(sys->mlx, sys->win, 0, 0, 0x00FF00, sys->name);
-		if (sys->bitset & 0b00001000)
-		{
-			// NEED OPTIMIZE!!!!!!!!!!!!
-			mlx_string_put(sys->mlx, sys->win, 5, HEIGHT / 2 - 24, AXIS_C, "-real");
-			mlx_string_put(sys->mlx, sys->win, (WIDTH - MENU_W) - 45, HEIGHT / 2 - 24, AXIS_C, "real");
-			mlx_string_put(sys->mlx, sys->win, (WIDTH - MENU_W) / 2 + 5, 2, AXIS_C, "img");
-			mlx_string_put(sys->mlx, sys->win, (WIDTH - MENU_W) / 2 + 5, HEIGHT - 26, AXIS_C, "-img");
-		}
-		// printf("%f %f\n", sys->cursor.real, sys->cursor.img);
+	clear_image(sys);
+	calc_fractal(sys);
+	if (sys->bitset & 0b00001000)
+		draw_axis(sys);
+	mlx_put_image_to_window(sys->mlx, sys->win, sys->img, 0, 0);
+	// mlx_string_put(sys->mlx, sys->win, 0, 0, 0x00FF00, sys->name);
+	if (sys->bitset & 0b00001000)
+	{
+		// NEED OPTIMIZE!!!!!!!!!!!!
+		mlx_string_put(sys->mlx, sys->win, 5, HEIGHT / 2 - 24, AXIS_C, "-real");
+		mlx_string_put(sys->mlx, sys->win, (WIDTH - MENU_W) - 45, HEIGHT / 2 - 24, AXIS_C, "real");
+		mlx_string_put(sys->mlx, sys->win, (WIDTH - MENU_W) / 2 + 5, 2, AXIS_C, "img");
+		mlx_string_put(sys->mlx, sys->win, (WIDTH - MENU_W) / 2 + 5, HEIGHT - 26, AXIS_C, "-img");
+	}
+}
+
+void	draw_stat(t_sys *sys)
+{
+	clear_stat(sys);
+	mlx_put_image_to_window(sys->mlx, sys->win, sys->stat, WIDTH - MENU_W, HEIGHT / 2);
+	mlx_string_put(sys->mlx, sys->win, (WIDTH - MENU_W) + 10, (HEIGHT / 2) + 10, 0x00FF00, sys->name);
+	printf("%f %f\n", sys->cursorcomp.real, sys->cursorcomp.img);
 }
 
 void	draw_fractal(int itr, int i, t_sys *sys)

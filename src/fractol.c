@@ -39,13 +39,17 @@ int		main(int argc, char **argv)
 
 	set_system(sys);
 	clear_image(sys);
+	clear_stat(sys);
 	draw_menu(sys);
 
 	calc_fractal(sys);
 
 	mlx_put_image_to_window(sys->mlx, sys->win, sys->img, 0, 0);
 	mlx_put_image_to_window(sys->mlx, sys->win, sys->mnu, WIDTH - MENU_W, 0);
-	mlx_string_put(sys->mlx, sys->win, 0, 0, 0x00FF00, sys->name);
+	mlx_put_image_to_window(sys->mlx, sys->win, sys->stat, WIDTH - MENU_W, HEIGHT / 2);
+
+	mlx_string_put(sys->mlx, sys->win, (WIDTH - MENU_W) + 10, (HEIGHT / 2) + 10, 0x00FF00, sys->name);
+	// mlx_string_put(sys->mlx, sys->win, 0, 0, 0x00FF00, sys->name);
 
 	mlx_hook(sys->win, 2, 0, key_press, sys);
 	mlx_hook(sys->win, 3, 0, key_release, sys);
@@ -68,10 +72,17 @@ void	set_system(t_sys *sys)
 	sys->imgout = (int *)mlx_get_data_addr(sys->img,
 		&sys->img_s[0], &sys->img_s[1], &sys->img_s[2]);
 
-	sys->mnuvol = MENU_W * HEIGHT;
-	sys->mnu = mlx_new_image(sys->mlx, MENU_W, HEIGHT);
+	sys->mnuvol = MENU_W * HEIGHT / 2;
+	sys->mnu = mlx_new_image(sys->mlx, MENU_W, HEIGHT / 2);
 	sys->mnuout = (int *)mlx_get_data_addr(sys->mnu,
 		&sys->mnu_s[0], &sys->mnu_s[1], &sys->mnu_s[2]);
+
+	sys->statvol = MENU_W * HEIGHT / 2;
+	sys->stat = mlx_new_image(sys->mlx, MENU_W, HEIGHT / 2);
+	sys->statout = (int *)mlx_get_data_addr(sys->stat,
+		&sys->stat_s[0], &sys->stat_s[1], &sys->stat_s[2]);
+
+
 
 	sys->scale = 200;
 	sys->bitset = 0b00000100;
@@ -102,6 +113,18 @@ void	clear_image(t_sys *sys)
 	while (i < sys->imgvol)
 	{
 		sys->imgout[i] = IMAGE_C;
+		i += 1;
+	}
+}
+
+void	clear_stat(t_sys *sys)
+{
+	int		i;
+	
+	i = 0;
+	while (i < sys->statvol)
+	{
+		sys->statout[i] = STAT_C;
 		i += 1;
 	}
 }
