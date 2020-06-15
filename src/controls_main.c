@@ -23,7 +23,9 @@ int		key_press(int keycode, void *param)
 
 	if (keycode == 12)
 	{
-		sys->scale += 10;
+		printf("%d %d\n", sys->cursor[0], sys->cursor[1]);
+		sys->scale += ADD_SCALE;
+		def_delta(sys);
 		draw_image(sys);
 		return (0);
 	}

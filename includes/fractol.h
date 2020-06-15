@@ -37,6 +37,8 @@ void	clear_stat(t_sys *sys);
 void	draw_menu(t_sys *sys);
 int		close_fractol(void *param);
 t_comp	int_to_comp(t_sys *sys, int id);
+void	conv_1d_2d(t_sys *sys, int id, int *id2d);
+void	def_delta(t_sys *sys);
 void	calc_fractal(t_sys	*sys);
 void	calc_fractal_nest(t_sys *sys);
 

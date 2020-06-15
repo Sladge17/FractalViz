@@ -42,7 +42,9 @@ int		main(int argc, char **argv)
 	clear_stat(sys);
 	draw_menu(sys);
 
+	printf("%d %d\n", sys->cursor[0], sys->cursor[1]);
 	calc_fractal(sys);
+	// draw_axis(sys);
 
 	mlx_put_image_to_window(sys->mlx, sys->win, sys->img, 0, 0);
 	mlx_put_image_to_window(sys->mlx, sys->win, sys->mnu, WIDTH - MENU_W, 0);
@@ -82,16 +84,22 @@ void	set_system(t_sys *sys)
 	sys->statout = (int *)mlx_get_data_addr(sys->stat,
 		&sys->stat_s[0], &sys->stat_s[1], &sys->stat_s[2]);
 
-	sys->scale = 200;
+	sys->scale = SCALE;
 	sys->bitset = 0b00000100;
 	sys->name = "Mandelbrot";
 	sys->color = 0xFF0000;
 
-	// sys->cursor[0] = (WIDTH - MENU_W) / 2;
-	// sys->cursor[1] = HEIGHT / 2;
+	sys->cursor[0] = (WIDTH - MENU_W) / 2;
+	sys->cursor[1] = HEIGHT / 2;
 
-	sys->cursor[0] = 0;
-	sys->cursor[1] = 0;
+	// sys->cursor[0] = 689;
+	// sys->cursor[1] = 126;	
+
+	// sys->cursor[0] = 0;
+	// sys->cursor[1] = 0;
+
+	// sys->cursor[0] += (WIDTH - MENU_W) / 2;
+	// sys->cursor[1] += HEIGHT / 2;
 
 
 	set_tabparam(sys);
@@ -155,55 +163,391 @@ int		close_fractol(void *param)
 	exit(0);
 }
 
+// // // NEED UNCOMMENT !!!!!!!!!!!!!
+// t_comp	int_to_comp(t_sys *sys, int id)
+// {
+// 	t_comp	complex;
+
+// 	complex.real = id % (WIDTH - MENU_W);
+// 	complex.img = -id / (WIDTH - MENU_W);
+// 	complex.real -= (WIDTH - MENU_W) / 2 + sys->shift[(int)sys->index][0];
+// 	complex.img += HEIGHT / 2 + sys->shift[(int)sys->index][1];
+// 	complex.real /= sys->scale;
+// 	complex.img /= sys->scale;
+// 	return (complex);
+// }
+
+
+// t_comp	int_to_comp(t_sys *sys, int id)
+// {
+// 	// sys->cursor[0] -= (WIDTH - MENU_W) / 2;
+// 	// sys->cursor[1] -= HEIGHT / 2;
+
+
+// 	t_comp	min;
+// 	t_comp	max;
+// 	t_comp	cursor;
+
+// 	min.real = -(WIDTH - MENU_W) / 2;
+// 	min.img = -HEIGHT / 2;
+// 	max.real = (WIDTH - MENU_W) / 2;
+// 	max.img = HEIGHT / 2;
+
+// 	// cursor.real = min.real + (max.real - min.real) * ((double)sys->cursor[0] / (WIDTH - MENU_W));
+// 	// cursor.img = min.img + (max.img - min.img) * ((double)sys->cursor[1] / HEIGHT);
+
+// 	// cursor.real = min.real + (WIDTH - MENU_W) * ((double)sys->cursor[0] / (WIDTH - MENU_W));
+// 	// cursor.img = min.img + HEIGHT * ((double)sys->cursor[1] / HEIGHT);
+
+// 	cursor.real = sys->cursor[0] - (WIDTH - MENU_W) / 2;
+// 	cursor.img = sys->cursor[1] - HEIGHT / 2;
+
+// 	double	k = 1;
+
+// 	min.real = cursor.real + ((min.real - cursor.real) / ((double)sys->scale) / k);
+// 	min.img = cursor.img + ((min.img - cursor.img) / ((double)sys->scale) / k);
+// 	max.real = cursor.real + ((max.real - cursor.real) / ((double)sys->scale) / k);
+// 	max.img = cursor.img + ((max.img - cursor.img) / ((double)sys->scale) / k);
+
+// 	// min.real = cursor.real + ((min.real - cursor.real) / 1.01);
+// 	// min.img = cursor.img + ((min.img - cursor.img) / 1.01);
+// 	// max.real = cursor.real + ((max.real - cursor.real) / 1.01);
+// 	// max.img = cursor.img + ((max.img - cursor.img) / 1.01);
+
+// 	// ------------------------------
+
+// 	// int k = 1;
+
+// 	// min.real = min.real + ((cursor.real - min.real) / ((double)sys->scale) * k);
+// 	// min.img = min.img + ((cursor.img - min.img) / ((double)sys->scale) * k);
+// 	// max.real = max.real + ((cursor.real - max.real) / ((double)sys->scale) * k);
+// 	// max.img = max.img + ((cursor.img - max.img) / ((double)sys->scale) * k);
+
+// 	// min.real = min.real + ((min.real - cursor.real) / ((double)sys->scale) * k);
+// 	// min.img = min.img + ((min.img - cursor.img) / ((double)sys->scale) * k);
+// 	// max.real = max.real + ((max.real - cursor.real) / ((double)sys->scale) * k);
+// 	// max.img = max.img + ((max.img - cursor.img) / ((double)sys->scale) * k);
+
+// 	// min.real = cursor.real + ((cursor.real - min.real) / ((double)sys->scale) * k);
+// 	// min.img = cursor.img + ((cursor.img - min.img) / ((double)sys->scale) * k);
+// 	// max.real = cursor.real + ((cursor.real - max.real) / ((double)sys->scale) * k);
+// 	// max.img = cursor.img + ((cursor.img - max.img) / ((double)sys->scale) * k);
+
+// 	// ------------------------
+
+// 	t_comp	complex;
+
+// 	complex.real = min.real + (max.real - min.real) * ((double)(id % (WIDTH - MENU_W)) / (WIDTH - MENU_W));
+// 	complex.img = min.img + (max.img - min.img) * ((double)(id / (WIDTH - MENU_W)) / HEIGHT);
+
+// 	complex.real /= (double)sys->scale;
+// 	complex.img /= (double)sys->scale;
+
+
+// 	// if (sys->cursor[0] & sys->cursor[1])
+// 	// {
+// 	// complex.real -= (WIDTH - MENU_W) / 2;
+// 	// complex.img -= HEIGHT / 2;
+
+// 	return (complex);
+// }
+
+
+
+// t_comp	int_to_comp(t_sys *sys, int id)
+// {
+// 	t_comp	min;
+// 	t_comp	max;
+// 	t_comp	cursor;
+
+// 	min.real =  -((double)(WIDTH - MENU_W) / sys->scale) / 2;
+// 	min.img = -((double)HEIGHT / sys->scale) / 2;
+// 	max.real =  ((double)(WIDTH - MENU_W) / sys->scale) / 2;
+// 	max.img = ((double)HEIGHT / sys->scale) / 2;
+
+// 	cursor.real = (double)sys->cursor[0] / ((WIDTH - MENU_W) / (max.real - min.real)) + min.real;
+// 	cursor.img = (double)sys->cursor[1] / (HEIGHT / (max.img - min.img)) + min.img;
+// 	// double mouseRe = (double)mouse_x / (WIN_L / (e->Re.max - e->Re.min)) + e->Re.min;
+// 	// double mouseIm = (double)mouse_y / (WIN_H / (e->Im.max - e->Im.min)) + e->Im.min;
+
+// 	min.real = cursor.real + ((min.real - cursor.real) / sys->scale);
+// 	min.img = cursor.img + ((min.img - cursor.img) / sys->scale);
+// 	max.real = cursor.real + ((max.real - cursor.real) / sys->scale);
+// 	max.img = cursor.img + ((max.img - cursor.img) / sys->scale);
+// 	// double interpolate(double start, double end, double interpolation)
+// 	// {
+// 	//     return start + ((end - start) * interpolation);
+// 	// }
+// 	// void applyZoom(t_fractal* e, double mouseRe, double mouseIm, double zoomFactor)
+// 	// {
+// 	//      double interpolation = 1.0 / zoomFactor;
+// 	//      e->Re.min = interpolate(mouseRe, e->Re.min, interpolation);
+// 	//      e->Im.min = interpolate(mouseIm, e->Im.min, interpolation);
+// 	//      e->Re.max = interpolate(mouseRe, e->Re.max, interpolation);
+// 	//      e->Im.max = interpolate(mouseIm, e->Im.max, interpolation);
+// 	// }
+
+// 	// printf("min: %f %f\n", min.real, min.img);
+// 	// printf("max: %f %f\n", max.real, max.img);
+
+// 	t_comp	complex;
+
+// 	complex.real = id % (WIDTH - MENU_W);
+// 	complex.img = id / (WIDTH - MENU_W);
+// 	// complex.real /= sys->scale;
+// 	// complex.img /= sys->scale;
+
+// 	// complex.real += min.real;
+// 	// complex.img += min.img;
+
+// 	complex.real = (max.real - min.real) * complex.real;
+// 	complex.img = (max.img - min.img) * complex.img;
+
+// 	return (complex);
+// }
+
+
+
+// t_comp	int_to_comp(t_sys *sys, int id)
+// {
+// 	t_comp	complex;
+	
+// 	// double	idd;
+
+// 	int		shift;
+// 	shift = (WIDTH - MENU_W) / 2 + (WIDTH - MENU_W) * HEIGHT / 2;
+
+// 	// id -= shift;
+// 	// curs1d -= shift;
+
+// 	// id += curs1d;
+
+// 	// t_comp	curscomp;
+// 	// curscomp.real = sys->cursor[0];
+// 	// curscomp.img = sys->cursor[1];
+// 	// curscomp.real = (double)sys->cursor[0] / sys->scale;
+// 	// curscomp.img = (double)sys->cursor[1] / sys->scale;
+
+
+// 	// shift = 0;
+// 	// id = lround(id / (double)(sys->scale) + shift);
+
+
+// 	// id -= (WIDTH - MENU_W) / 2 + (WIDTH - MENU_W) * HEIGHT / 2;
+// 	// id += sys->cursor[0] + (WIDTH - MENU_W) * sys->cursor[1];
+
+// 	// int		curs1d;
+// 	// curs1d = sys->cursor[0] + (WIDTH - MENU_W) * sys->cursor[1];
+// 	// id += curs1d;
+
+// 	// if (id < 0 && !(abs(id) % WIDTH))
+// 	// {
+// 	// 	complex.real = -(WIDTH - MENU_W);
+// 	// 	complex.img = id / (WIDTH - MENU_W) + 1;
+// 	// }
+// 	// else
+// 	// {
+// 	// 	complex.real = id % (WIDTH - MENU_W);
+// 	// 	complex.img = id / (WIDTH - MENU_W);
+// 	// }
+
+// 	// t_comp	cursor;
+// 	// cursor.real = fabs((sys->cursor[0] / (double)sys->scale) - (double)sys->cursor[0]);
+// 	// cursor.img = fabs((sys->cursor[1] / (double)sys->scale) - (double)sys->cursor[1]);
+
+// 	complex.real = id % (WIDTH - MENU_W);
+// 	complex.img = id / (WIDTH - MENU_W);
+
+// 	// complex.real -= (WIDTH - MENU_W) / 2;
+// 	// complex.img -= HEIGHT / 2;
+
+// 	// complex.real -= curscomp.real;
+// 	// complex.img -= curscomp.img;
+
+// 	complex.real /= sys->scale;
+// 	complex.img /= sys->scale;
+
+// 	// complex.real -= cursor.real;
+// 	// complex.img -= cursor.img;
+
+
+// 	// id = lround(complex.real + (WIDTH - MENU_W) * complex.img) - curs1d;
+// 	// complex.real = id % (WIDTH - MENU_W);
+// 	// complex.img = id / (WIDTH - MENU_W);
+
+
+// 	// idd = complex.real + (WIDTH - MENU_W) * complex.img;
+// 	// id = lround(idd + (double)curs1d);
+
+// 	// complex.real = id % (WIDTH - MENU_W);
+// 	// complex.img = id / (WIDTH - MENU_W);
+
+// 	// complex.real += sys->cursor[0];
+// 	// complex.img += sys->cursor[1];
+
+// 	return (complex);
+// }
+
+// t_comp	int_to_comp(t_sys *sys, int id)
+// {
+// 	// static int i = 0;
+// 	// sys->cursor[0] -= (WIDTH - MENU_W) / 2;
+// 	// sys->cursor[1] -=  HEIGHT / 2;
+
+// 	t_comp	scalecomp;
+// 	scalecomp.real = sys->cursor[0] / (double)SCALE;
+// 	scalecomp.img = sys->cursor[1] / (double)SCALE;
+
+// 	t_comp	curscomp;
+// 	curscomp.real = sys->cursor[0] / (double)sys->scale;
+// 	curscomp.img = sys->cursor[1] / (double)sys->scale;
+
+// 	t_comp	shiftcomp;
+// 	// shiftcomp.real = curscomp.real - scalecomp.real;
+// 	// shiftcomp.img = curscomp.img - scalecomp.img;
+// 	shiftcomp.real = scalecomp.real - curscomp.real;
+// 	shiftcomp.img = scalecomp.img - curscomp.img;
+
+// 	shiftcomp.real = shiftcomp.real * sys->scale;
+// 	shiftcomp.img = shiftcomp.img * sys->scale;
+// 	// shiftcomp.real = shiftcomp.real * SCALE;
+// 	// shiftcomp.img = shiftcomp.img * SCALE;
+// 	// shiftcomp.real = shiftcomp.real * ((sys->scale + SCALE) / (double)2);
+// 	// shiftcomp.img = shiftcomp.img * ((sys->scale + SCALE) / (double)2);
+
+
+// 	int		shift_1d;
+// 	int		offset_x;
+// 	int		offset_y;
+// 	// offset_x = 0; // "-" is right offset
+// 	// offset_y = 0; // "-" is down offset
+
+// 	offset_x = lround(shiftcomp.real);
+// 	offset_y = lround(shiftcomp.img);
+
+// 	shift_1d = offset_x + (WIDTH - MENU_W) * offset_y;
+
+	
+// 	// id -= (WIDTH - MENU_W) / 2 + (WIDTH - MENU_W) * HEIGHT / 2;
+// 	// // id += shift_1d;
+
+// 	// t_comp	complex;
+// 	// if (id < 0 && -id % (WIDTH - MENU_W) > (WIDTH - MENU_W) / 2)
+// 	// {
+// 	// 	complex.real = (WIDTH - MENU_W) + id % (WIDTH - MENU_W);
+// 	// 	complex.img = id / (WIDTH - MENU_W) - 1;
+// 	// }
+// 	// else if (id > 0 && id % (WIDTH - MENU_W) >= (WIDTH - MENU_W) / 2)
+// 	// {
+// 	// 	complex.real = -(WIDTH - MENU_W) + id % (WIDTH - MENU_W);
+// 	// 	complex.img = id / (WIDTH - MENU_W) + 1;
+// 	// }
+// 	// else
+// 	// {
+// 	// 	complex.real = id % (WIDTH - MENU_W);
+// 	// 	complex.img = id / (WIDTH - MENU_W);
+// 	// }
+
+
+// 	id += shift_1d;
+// 	t_comp	complex;
+// 	complex.real = id % (WIDTH - MENU_W);
+// 	complex.img = id / (WIDTH - MENU_W);
+// 	// complex.real -= (WIDTH - MENU_W) / 2;
+// 	// complex.img -= HEIGHT / 2;
+
+// 	complex.real /= (double)sys->scale;
+// 	complex.img /= (double)sys->scale;
+
+
+
+// 	// int		comp_1d;
+// 	// comp_1d = lround((complex.real + (WIDTH - MENU_W) * complex.img) * sys->scale);
+
+// 	// int		shift_1d;
+// 	// int		offset_x;
+// 	// int		offset_y;
+// 	// offset_x = 10; // "-" is right offset
+// 	// offset_y = 10; // "-" is down offset 
+// 	// shift_1d = offset_x + (WIDTH - MENU_W) * offset_y;
+
+// 	// comp_1d += shift_1d;
+
+// 	// complex.real = comp_1d % (WIDTH - MENU_W) / (double)sys->scale;
+// 	// complex.img = comp_1d / (WIDTH - MENU_W) / (double)sys->scale;
+// 	// printf("%f %f\n", complex.real, complex.img);
+	
+// 	// if (i == 3)
+// 	// 	exit(0);
+// 	// i += 1;
+// 	return (complex);
+// }
+
 t_comp	int_to_comp(t_sys *sys, int id)
 {
 	t_comp	complex;
+	int		id2d[2];
+	
+	id -= (WIDTH - MENU_W) / 2 + (WIDTH - MENU_W) * HEIGHT / 2;
+	conv_1d_2d(sys, id, &id2d[0]);
+	complex = init_comp(id2d[0] / (double)sys->scale, -id2d[1] / (double)sys->scale);
 
-	t_comp	cursor;
-
-	// id -= (WIDTH - MENU_W) / 2 + (WIDTH - MENU_W) * HEIGHT / 2;
-	// id += sys->cursor[0] + (WIDTH - MENU_W) * sys->cursor[1];
-	complex.real = id % (WIDTH - MENU_W);
-	complex.img = id / (WIDTH - MENU_W);
-
-	id += sys->cursor[0] + (WIDTH - MENU_W) * sys->cursor[1];
-	cursor.real = id % (WIDTH - MENU_W);
-	cursor.img = id / (WIDTH - MENU_W);
-
-	// add_comp(t_comp comp, t_comp comp_add)
-
-	complex = add_comp(complex, cursor);
-
-	// complex.real -=  sys->cursor[0];
-	// complex.img -= sys->cursor[1];
-
-
-	complex.real -= (WIDTH - MENU_W) / 2;
-	complex.img -= HEIGHT / 2;
-
-	// complex.real -=  sys->cursor[0];
-	// complex.img -= sys->cursor[1];
-
-	complex.real /= sys->scale;
-	complex.img /= sys->scale;
-
-
-
-
-
-	// NEED UNCOMMENT !!!!!!!!!!!!!
-	// complex.real = id % (WIDTH - MENU_W);
-	// complex.img = -id / (WIDTH - MENU_W);
-	// complex.real -= (WIDTH - MENU_W) / 2 + sys->shift[(int)sys->index][0];
-	// complex.img += HEIGHT / 2 + sys->shift[(int)sys->index][1];
-
-
-
-	// complex.real -= (WIDTH - MENU_W) / 2 + sys->shift[(int)sys->index][0];
-	// complex.img -= HEIGHT / 2 + sys->shift[(int)sys->index][1];
-
+	// complex.real /= (double)sys->scale;
+	// complex.img /= (double)sys->scale;
 	return (complex);
 }
+
+
+void	conv_1d_2d(t_sys *sys, int id, int *id2d)
+{
+	int		halfwidth = (WIDTH - MENU_W) / 2;
+
+	id2d[0] = id % (WIDTH - MENU_W);
+	id2d[1] = id / (WIDTH - MENU_W);
+	if (id < 0 && -id2d[0] > halfwidth)
+	{
+		id2d[0] += (WIDTH - MENU_W) + sys->delta[0];
+		id2d[1] += -1 + sys->delta[1];
+		return ;
+	}
+	if (id > 0 && id2d[0] >= halfwidth)
+	{
+		id2d[0] += -(WIDTH - MENU_W) + sys->delta[0];
+		id2d[1] += 1 + sys->delta[1];
+		return ;
+	}
+	id2d[0] += sys->delta[0];
+	id2d[1] += sys->delta[1];
+}
+
+
+
+void	def_delta(t_sys *sys)
+{
+	// t_comp	delta;
+	// t_comp	scaler;
+	double	scaler;
+
+	// delta.real = (sys->cursor[0] - (WIDTH - MENU_W) / 2) / (double)SCALE;
+	// delta.img = (sys->cursor[1] - HEIGHT / 2) / (double)SCALE;
+	// scaler.real = (sys->cursor[0] - (WIDTH - MENU_W) / 2) / (double)sys->scale;
+	// scaler.img = (sys->cursor[1] - HEIGHT / 2) / (double)sys->scale;
+	// delta.real = (delta.real - scaler.real) * sys->scale;
+	// delta.img = (delta.img - scaler.img) * sys->scale;
+
+	// sys->delta[0] = sys->cursor[0] - (WIDTH - MENU_W) / 2;
+	// sys->delta[1] = sys->cursor[1] - HEIGHT / 2;
+	// scaler = (double)sys->scale / SCALE - 1;
+	// sys->delta[0] *= scaler;
+	// sys->delta[1] *= scaler;
+
+	scaler = (double)sys->scale / SCALE - 1;
+	sys->delta[0] = lround((sys->cursor[0] - (WIDTH - MENU_W) / 2) * scaler);
+	sys->delta[1] = lround((sys->cursor[1] - HEIGHT / 2) * scaler);
+
+	return ;
+}
+
 
 void	calc_fractal(t_sys *sys)
 {

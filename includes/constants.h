@@ -26,4 +26,5 @@
 # define ITER 100
 # define SHIFT 10
 
-
+# define SCALE 200
+# define ADD_SCALE 10

@@ -36,7 +36,8 @@ void	draw_stat(t_sys *sys)
 	mlx_put_image_to_window(sys->mlx, sys->win, sys->stat, WIDTH - MENU_W, HEIGHT / 2);
 	mlx_string_put(sys->mlx, sys->win, (WIDTH - MENU_W) + 10, (HEIGHT / 2) + 10, 0x00FF00, sys->name);
 	// printf("%f %f\n", sys->cursorcomp.real, sys->cursorcomp.img);
-	printf("%d %d\n", sys->cursor[0], sys->cursor[1]);
+	// printf("%d %d\n", sys->cursor[0], sys->cursor[1]);
+	// printf("%d %d\n", sys->cursor[0] - (WIDTH - MENU_W) / 2, sys->cursor[1] - HEIGHT / 2);
 }
 
 void	draw_fractal(int itr, int i, t_sys *sys)
