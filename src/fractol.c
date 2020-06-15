@@ -489,8 +489,19 @@ t_comp	int_to_comp(t_sys *sys, int id)
 	int		id2d[2];
 	
 	id -= (WIDTH - MENU_W) / 2 + (WIDTH - MENU_W) * HEIGHT / 2;
+
+	// id = id + sys->shift[(int)sys->index][0] + (WIDTH - MENU_W) * sys->shift[(int)sys->index][1];
+
 	conv_1d_2d(sys, id, &id2d[0]);
+
+	// id2d[0] -= sys->shift[(int)sys->index][0];
+	// id2d[1] -= sys->shift[(int)sys->index][1];
+
+
 	complex = init_comp(id2d[0] / (double)sys->scale, -id2d[1] / (double)sys->scale);
+
+	// complex.real -= (WIDTH - MENU_W) / 2 + sys->shift[(int)sys->index][0];
+	// complex.img += HEIGHT / 2 + sys->shift[(int)sys->index][1];
 
 	// complex.real /= (double)sys->scale;
 	// complex.img /= (double)sys->scale;
@@ -506,27 +517,30 @@ void	conv_1d_2d(t_sys *sys, int id, int *id2d)
 	id2d[1] = id / (WIDTH - MENU_W);
 	if (id < 0 && -id2d[0] > halfwidth)
 	{
-		id2d[0] += (WIDTH - MENU_W) + sys->delta[0];
-		id2d[1] += -1 + sys->delta[1];
+		id2d[0] += (WIDTH - MENU_W) + sys->delta[0]
+			- sys->shift[(int)sys->index][0];
+		id2d[1] += -1 + sys->delta[1] - sys->shift[(int)sys->index][1];
 		return ;
 	}
 	if (id > 0 && id2d[0] >= halfwidth)
 	{
-		id2d[0] += -(WIDTH - MENU_W) + sys->delta[0];
-		id2d[1] += 1 + sys->delta[1];
+		id2d[0] += -(WIDTH - MENU_W) + sys->delta[0]
+			- sys->shift[(int)sys->index][0];
+		id2d[1] += 1 + sys->delta[1] - sys->shift[(int)sys->index][1];
 		return ;
 	}
-	id2d[0] += sys->delta[0];
-	id2d[1] += sys->delta[1];
+	id2d[0] += sys->delta[0] - sys->shift[(int)sys->index][0];
+	id2d[1] += sys->delta[1] - sys->shift[(int)sys->index][1];
 }
 
 
 
 void	def_delta(t_sys *sys)
 {
+	double	scaler;
+
 	// t_comp	delta;
 	// t_comp	scaler;
-	double	scaler;
 
 	// delta.real = (sys->cursor[0] - (WIDTH - MENU_W) / 2) / (double)SCALE;
 	// delta.img = (sys->cursor[1] - HEIGHT / 2) / (double)SCALE;
@@ -542,8 +556,8 @@ void	def_delta(t_sys *sys)
 	// sys->delta[1] *= scaler;
 
 	scaler = (double)sys->scale / SCALE - 1;
-	sys->delta[0] = lround((sys->cursor[0] - (WIDTH - MENU_W) / 2) * scaler);
-	sys->delta[1] = lround((sys->cursor[1] - HEIGHT / 2) * scaler);
+	sys->delta[0] = lround((sys->cursor[0] - (WIDTH - MENU_W) / 2 - sys->shift[(int)sys->index][0]) * scaler);
+	sys->delta[1] = lround((sys->cursor[1] - HEIGHT / 2 - sys->shift[(int)sys->index][1]) * scaler);
 
 	return ;
 }
