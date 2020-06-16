@@ -37,7 +37,6 @@ typedef struct	s_sys
 	int			*statout;
 
 	
-	// double		scale;
 	char		bitset;
 
 	char		index;
@@ -50,7 +49,6 @@ typedef struct	s_sys
 	int			cursor[2];
 	t_comp		cursorcomp;
 	int			scale;
-	// double		delta[2];
 	int			delta[2];
 	
 
