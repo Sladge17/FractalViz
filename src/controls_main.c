@@ -23,10 +23,14 @@ int		key_press(int keycode, void *param)
 
 	if (keycode == 12)
 	{
-		printf("%d %d\n", sys->cursor[0], sys->cursor[1]);
+		// printf("%d %d\n", sys->cursor[0], sys->cursor[1]);
+		// printf("1: %d %d\n", sys->delta0[0], sys->delta0[1]);
+		// printf("2: %d %d\n", sys->delta[0], sys->delta[1]);
+		// sys->scale0 = SCALE;
 		sys->scale += ADD_SCALE;
-		def_delta(sys);
+		// def_delta(sys); //TO WORKINGVERSION
 		draw_image(sys);
+		// sys->scale0 = sys->scale;
 		return (0);
 	}
 
@@ -87,6 +91,19 @@ int		key_release(int keycode, void *param)
 
 	sys = (t_sys *)param;
 
+	if (keycode == 12)
+	{
+		// sys->cursor0[0] = sys->cursor[0];
+		// sys->cursor0[1] = sys->cursor[1];
+		sys->delta0[0] += sys->delta[0];
+		sys->delta0[1] += sys->delta[1];
+		sys->scale0 = sys->scale;
+		// draw_image(sys);
+
+		// sys->flag0 = 1;
+		return (0);
+	}
+
 	// keycode = 1;
 	if (check_unshiftfractal(keycode, sys))
 		return (0);
@@ -117,6 +134,7 @@ int		mouse_move(int x, int y, void *param)
 
 		sys->cursorcomp.real = (x - (WIDTH - MENU_W) / 2) / (double)sys->scale;
 		sys->cursorcomp.img = -(y - HEIGHT / 2) / (double)sys->scale;
+		// draw_image(sys);
 		draw_stat(sys);
 		return (0);
 	}
