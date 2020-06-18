@@ -400,152 +400,157 @@ int		close_fractol(void *param)
 // }
 
 
-//--------------STAR_TESTINGVERSION------------------
-t_comp	int_to_comp(t_sys *sys, int id)
-{
-	// static int i = 0;
-	// sys->cursor[0] -= (WIDTH - MENU_W) / 2;
-	// sys->cursor[1] -=  HEIGHT / 2;
-
-	t_comp	scalecomp;
-	scalecomp.real = sys->cursor[0] / (double)sys->scale0;
-	scalecomp.real += sys->delta0[0] / (double)sys->scale0;
-
-	scalecomp.img = sys->cursor[1] / (double)sys->scale0;
-	scalecomp.img += sys->delta0[1] / (double)sys->scale0;
-
-	t_comp	curscomp;
-	curscomp.real = sys->cursor[0] / (double)sys->scale;
-	curscomp.real += sys->delta0[0] / (double)sys->scale;
-
-	curscomp.img = sys->cursor[1] / (double)sys->scale;
-	curscomp.img += sys->delta0[1] / (double)sys->scale;
-
-	t_comp	shiftcomp;
-	shiftcomp.real = scalecomp.real - curscomp.real;
-	shiftcomp.img = scalecomp.img - curscomp.img;
-
-	shiftcomp.real = shiftcomp.real * sys->scale;
-	shiftcomp.img = shiftcomp.img * sys->scale;
-
-	// sys->scale0 = sys->scale;
-
-	// int		shift_1d;
-	// int		offset_x;
-	// int		offset_y;
-	// offset_x = 0; // "-" is right offset
-	// offset_y = 0; // "-" is down offset
-
-	// offset_x = lround(shiftcomp.real) + sys->delta0[0];
-	// offset_y = lround(shiftcomp.img) + sys->delta0[1];
-	// shift_1d = offset_x + (WIDTH - MENU_W) * offset_y;
-
-
-	// int		shift_1d;
-	// sys->delta[0] = sys->delta0[0];
-	// sys->delta[1] = sys->delta0[1];	
-	// sys->delta[0] = lround(shiftcomp.real);
-	// sys->delta[1] = lround(shiftcomp.img);
-	// shift_1d = sys->delta[0] + (WIDTH - MENU_W) * sys->delta[1];
-
-	// id += shift_1d;
-
-	// if (sys->scale0 != sys->scale)
-	// 	id += sys->cursor[0] + (WIDTH - MENU_W) * sys->cursor[1];
-
-	sys->delta[0] = lround(shiftcomp.real);
-	sys->delta[1] = lround(shiftcomp.img);
-	// sys->delta[0] += sys->delta0[0];
-	// sys->delta[1] += sys->delta0[1];
-
-
-
-
-	t_comp	complex;
-	complex.real = id % (WIDTH - MENU_W);
-	complex.real += sys->delta0[0];
-	complex.real += sys->delta[0];
-
-	complex.img = id / (WIDTH - MENU_W);
-	complex.img += sys->delta0[1];
-	complex.img += sys->delta[1];
-
-
-	complex.real /= (double)sys->scale;
-	complex.img /= (double)sys->scale;
-
-	//-------------------
-	
-	// id -= (WIDTH - MENU_W) / 2 + (WIDTH - MENU_W) * HEIGHT / 2;
-	// // id += shift_1d;
-
-	// t_comp	complex;
-	// if (id < 0 && -id % (WIDTH - MENU_W) > (WIDTH - MENU_W) / 2)
-	// {
-	// 	complex.real = (WIDTH - MENU_W) + id % (WIDTH - MENU_W);
-	// 	complex.img = id / (WIDTH - MENU_W) - 1;
-	// }
-	// else if (id > 0 && id % (WIDTH - MENU_W) >= (WIDTH - MENU_W) / 2)
-	// {
-	// 	complex.real = -(WIDTH - MENU_W) + id % (WIDTH - MENU_W);
-	// 	complex.img = id / (WIDTH - MENU_W) + 1;
-	// }
-	// else
-	// {
-	// 	complex.real = id % (WIDTH - MENU_W);
-	// 	complex.img = id / (WIDTH - MENU_W);
-	// }
-
-
-	// int		comp_1d;
-	// comp_1d = lround((complex.real + (WIDTH - MENU_W) * complex.img) * sys->scale);
-
-	// int		shift_1d;
-	// int		offset_x;
-	// int		offset_y;
-	// offset_x = 10; // "-" is right offset
-	// offset_y = 10; // "-" is down offset 
-	// shift_1d = offset_x + (WIDTH - MENU_W) * offset_y;
-
-	// comp_1d += shift_1d;
-
-	// complex.real = comp_1d % (WIDTH - MENU_W) / (double)sys->scale;
-	// complex.img = comp_1d / (WIDTH - MENU_W) / (double)sys->scale;
-	// printf("%f %f\n", complex.real, complex.img);
-	
-	// if (i == 3)
-	// 	exit(0);
-	// i += 1;
-	return (complex);
-}
-//--------------END_TESTINGVERSION------------------
-
-// // ------------------------START_WORKINGVERSION----------------------------
-
+// //--------------STAR_TESTINGVERSION------------------
 // t_comp	int_to_comp(t_sys *sys, int id)
 // {
+// 	// static int i = 0;
+// 	// sys->cursor[0] -= (WIDTH - MENU_W) / 2;
+// 	// sys->cursor[1] -=  HEIGHT / 2;
+
+// 	t_comp	scalecomp;
+// 	scalecomp.real = sys->cursor[0] / (double)sys->scale0;
+// 	scalecomp.real += sys->delta0[0] / (double)sys->scale0;
+
+// 	scalecomp.img = sys->cursor[1] / (double)sys->scale0;
+// 	scalecomp.img += sys->delta0[1] / (double)sys->scale0;
+
+// 	t_comp	curscomp;
+// 	curscomp.real = sys->cursor[0] / (double)sys->scale;
+// 	curscomp.real += sys->delta0[0] / (double)sys->scale;
+
+// 	curscomp.img = sys->cursor[1] / (double)sys->scale;
+// 	curscomp.img += sys->delta0[1] / (double)sys->scale;
+
+// 	t_comp	shiftcomp;
+// 	shiftcomp.real = scalecomp.real - curscomp.real;
+// 	shiftcomp.img = scalecomp.img - curscomp.img;
+
+// 	shiftcomp.real = shiftcomp.real * sys->scale;
+// 	shiftcomp.img = shiftcomp.img * sys->scale;
+
+// 	// sys->scale0 = sys->scale;
+
+// 	// int		shift_1d;
+// 	// int		offset_x;
+// 	// int		offset_y;
+// 	// offset_x = 0; // "-" is right offset
+// 	// offset_y = 0; // "-" is down offset
+
+// 	// offset_x = lround(shiftcomp.real) + sys->delta0[0];
+// 	// offset_y = lround(shiftcomp.img) + sys->delta0[1];
+// 	// shift_1d = offset_x + (WIDTH - MENU_W) * offset_y;
+
+
+// 	// int		shift_1d;
+// 	// sys->delta[0] = sys->delta0[0];
+// 	// sys->delta[1] = sys->delta0[1];	
+// 	// sys->delta[0] = lround(shiftcomp.real);
+// 	// sys->delta[1] = lround(shiftcomp.img);
+// 	// shift_1d = sys->delta[0] + (WIDTH - MENU_W) * sys->delta[1];
+
+// 	// id += shift_1d;
+
+// 	// if (sys->scale0 != sys->scale)
+// 	// 	id += sys->cursor[0] + (WIDTH - MENU_W) * sys->cursor[1];
+
+// 	sys->delta[0] = lround(shiftcomp.real);
+// 	sys->delta[1] = lround(shiftcomp.img);
+// 	// sys->delta[0] += sys->delta0[0];
+// 	// sys->delta[1] += sys->delta0[1];
+
+
+
+
 // 	t_comp	complex;
-// 	int		id2d[2];
+// 	complex.real = id % (WIDTH - MENU_W);
+// 	complex.real += sys->delta0[0];
+// 	complex.real += sys->delta[0];
+
+// 	complex.img = id / (WIDTH - MENU_W);
+// 	complex.img += sys->delta0[1];
+// 	complex.img += sys->delta[1];
+
+
+// 	complex.real /= (double)sys->scale;
+// 	complex.img /= (double)sys->scale;
+
+// 	//-------------------
 	
-// 	id -= (WIDTH - MENU_W) / 2 + (WIDTH - MENU_W) * HEIGHT / 2;
+// 	// id -= (WIDTH - MENU_W) / 2 + (WIDTH - MENU_W) * HEIGHT / 2;
+// 	// // id += shift_1d;
 
-// 	// id = id + sys->shift[(int)sys->index][0] + (WIDTH - MENU_W) * sys->shift[(int)sys->index][1];
+// 	// t_comp	complex;
+// 	// if (id < 0 && -id % (WIDTH - MENU_W) > (WIDTH - MENU_W) / 2)
+// 	// {
+// 	// 	complex.real = (WIDTH - MENU_W) + id % (WIDTH - MENU_W);
+// 	// 	complex.img = id / (WIDTH - MENU_W) - 1;
+// 	// }
+// 	// else if (id > 0 && id % (WIDTH - MENU_W) >= (WIDTH - MENU_W) / 2)
+// 	// {
+// 	// 	complex.real = -(WIDTH - MENU_W) + id % (WIDTH - MENU_W);
+// 	// 	complex.img = id / (WIDTH - MENU_W) + 1;
+// 	// }
+// 	// else
+// 	// {
+// 	// 	complex.real = id % (WIDTH - MENU_W);
+// 	// 	complex.img = id / (WIDTH - MENU_W);
+// 	// }
 
-// 	conv_1d_2d(sys, id, &id2d[0]);
 
-// 	// id2d[0] -= sys->shift[(int)sys->index][0];
-// 	// id2d[1] -= sys->shift[(int)sys->index][1];
+// 	// int		comp_1d;
+// 	// comp_1d = lround((complex.real + (WIDTH - MENU_W) * complex.img) * sys->scale);
 
+// 	// int		shift_1d;
+// 	// int		offset_x;
+// 	// int		offset_y;
+// 	// offset_x = 10; // "-" is right offset
+// 	// offset_y = 10; // "-" is down offset 
+// 	// shift_1d = offset_x + (WIDTH - MENU_W) * offset_y;
 
-// 	complex = init_comp(id2d[0] / (double)sys->scale, -id2d[1] / (double)sys->scale);
+// 	// comp_1d += shift_1d;
 
-// 	// complex.real -= (WIDTH - MENU_W) / 2 + sys->shift[(int)sys->index][0];
-// 	// complex.img += HEIGHT / 2 + sys->shift[(int)sys->index][1];
-
-// 	// complex.real /= (double)sys->scale;
-// 	// complex.img /= (double)sys->scale;
+// 	// complex.real = comp_1d % (WIDTH - MENU_W) / (double)sys->scale;
+// 	// complex.img = comp_1d / (WIDTH - MENU_W) / (double)sys->scale;
+// 	// printf("%f %f\n", complex.real, complex.img);
+	
+// 	// if (i == 3)
+// 	// 	exit(0);
+// 	// i += 1;
 // 	return (complex);
 // }
+// //--------------END_TESTINGVERSION------------------
+
+// ------------------------START_WORKINGVERSION----------------------------
+
+t_comp	int_to_comp(t_sys *sys, int id)
+{
+	t_comp	complex;
+	int		id2d[2];
+	
+	id -= (WIDTH - MENU_W) / 2 + (WIDTH - MENU_W) * HEIGHT / 2;
+
+	// id = id + sys->shift[(int)sys->index][0] + (WIDTH - MENU_W) * sys->shift[(int)sys->index][1];
+
+	conv_1d_2d(sys, id, &id2d[0]);
+
+	// id2d[0] -= sys->shift[(int)sys->index][0];
+	// id2d[1] -= sys->shift[(int)sys->index][1];
+
+
+	complex = init_comp(id2d[0] / (double)sys->scale, -id2d[1] / (double)sys->scale);
+
+	// complex.real -= (WIDTH - MENU_W) / 2 + sys->shift[(int)sys->index][0];
+	// complex.img += HEIGHT / 2 + sys->shift[(int)sys->index][1];
+
+	// complex.real /= (double)sys->scale;
+	// complex.img /= (double)sys->scale;
+	return (complex);
+}
+
+// 	t_comp	complex;
+// 	complex.real = id % (WIDTH - MENU_W);
+// 	complex.real += sys->delta0[0];
+// 	complex.real += sys->delta[0];
 
 
 // void	conv_1d_2d(t_sys *sys, int id, int *id2d)
@@ -556,52 +561,124 @@ t_comp	int_to_comp(t_sys *sys, int id)
 // 	id2d[1] = id / (WIDTH - MENU_W);
 // 	if (id < 0 && -id2d[0] > halfwidth)
 // 	{
-// 		id2d[0] += (WIDTH - MENU_W) + sys->delta[0]
+// 		id2d[0] += sys->delta0[0] + (WIDTH - MENU_W) + sys->delta[0]
 // 			- sys->shift[(int)sys->index][0];
-// 		id2d[1] += -1 + sys->delta[1] - sys->shift[(int)sys->index][1];
+// 		id2d[1] += sys->delta0[1] + -1 + sys->delta[1] - sys->shift[(int)sys->index][1];
 // 		return ;
 // 	}
 // 	if (id > 0 && id2d[0] >= halfwidth)
 // 	{
-// 		id2d[0] += -(WIDTH - MENU_W) + sys->delta[0]
+// 		id2d[0] += sys->delta0[0] + -(WIDTH - MENU_W) + sys->delta[0]
 // 			- sys->shift[(int)sys->index][0];
-// 		id2d[1] += 1 + sys->delta[1] - sys->shift[(int)sys->index][1];
+// 		id2d[1] += sys->delta0[1] + 1 + sys->delta[1] - sys->shift[(int)sys->index][1];
 // 		return ;
 // 	}
-// 	id2d[0] += sys->delta[0] - sys->shift[(int)sys->index][0];
-// 	id2d[1] += sys->delta[1] - sys->shift[(int)sys->index][1];
+// 	id2d[0] += sys->delta0[0] + sys->delta[0] - sys->shift[(int)sys->index][0];
+// 	id2d[1] += sys->delta0[1] + sys->delta[1] - sys->shift[(int)sys->index][1];
 // }
 
+void	conv_1d_2d(t_sys *sys, int id, int *id2d)
+{
+	int		halfwidth = (WIDTH - MENU_W) / 2;
 
-// void	def_delta(t_sys *sys)
-// {
-// 	double	scaler;
+	int		tmp[2];
 
-// 	// t_comp	delta;
-// 	// t_comp	scaler;
+	tmp[0] = sys->delta0[0] + sys->delta[0] - sys->shift[(int)sys->index][0];
+	tmp[1] = sys->delta0[1] + sys->delta[1] - sys->shift[(int)sys->index][1];
+	// tmp[0] = sys->delta[0];
+	// tmp[1] = sys->delta[1];
 
-// 	// delta.real = (sys->cursor[0] - (WIDTH - MENU_W) / 2) / (double)SCALE;
-// 	// delta.img = (sys->cursor[1] - HEIGHT / 2) / (double)SCALE;
-// 	// scaler.real = (sys->cursor[0] - (WIDTH - MENU_W) / 2) / (double)sys->scale;
-// 	// scaler.img = (sys->cursor[1] - HEIGHT / 2) / (double)sys->scale;
-// 	// delta.real = (delta.real - scaler.real) * sys->scale;
-// 	// delta.img = (delta.img - scaler.img) * sys->scale;
+	id2d[0] = id % (WIDTH - MENU_W);
+	id2d[1] = id / (WIDTH - MENU_W);
+	if (id < 0 && -id2d[0] > halfwidth)
+	{
+		id2d[0] += tmp[0] + (WIDTH - MENU_W);
+		id2d[1] += tmp[1] - 1;
+		return ;
+	}
+	if (id > 0 && id2d[0] >= halfwidth)
+	{
+		id2d[0] += tmp[0] - (WIDTH - MENU_W);
+		id2d[1] += tmp[1] + 1;
+		return ;
+	}
+	id2d[0] += tmp[0];
+	id2d[1] += tmp[1];
+}
 
-// 	// sys->delta[0] = sys->cursor[0] - (WIDTH - MENU_W) / 2;
-// 	// sys->delta[1] = sys->cursor[1] - HEIGHT / 2;
-// 	// scaler = (double)sys->scale / SCALE - 1;
-// 	// sys->delta[0] *= scaler;
-// 	// sys->delta[1] *= scaler;
+void	def_delta(t_sys *sys)
+{
+	// t_comp	delta;
+	// t_comp	scaler;
 
-// 	scaler = (double)sys->scale / SCALE - 1;
-// 	sys->delta[0] = lround((sys->cursor[0] - (WIDTH - MENU_W) / 2 - sys->shift[(int)sys->index][0]) * scaler);
-// 	sys->delta[1] = lround((sys->cursor[1] - HEIGHT / 2 - sys->shift[(int)sys->index][1]) * scaler);
+	// delta.real = (sys->cursor[0] - (WIDTH - MENU_W) / 2) / (double)SCALE;
+	// delta.img = (sys->cursor[1] - HEIGHT / 2) / (double)SCALE;
+	// scaler.real = (sys->cursor[0] - (WIDTH - MENU_W) / 2) / (double)sys->scale;
+	// scaler.img = (sys->cursor[1] - HEIGHT / 2) / (double)sys->scale;
+	// delta.real = (delta.real - scaler.real) * sys->scale;
+	// delta.img = (delta.img - scaler.img) * sys->scale;
 
-// 	return ;
-// }
+	// sys->delta[0] = sys->cursor[0] - (WIDTH - MENU_W) / 2;
+	// sys->delta[1] = sys->cursor[1] - HEIGHT / 2;
+	// scaler = (double)sys->scale / SCALE - 1;
+	// sys->delta[0] *= scaler;
+	// sys->delta[1] *= scaler;
+
+	// 	t_comp	scalecomp;
+	// 	scalecomp.real = sys->cursor[0] / (double)sys->scale0;
+	// 	scalecomp.real += sys->delta0[0] / (double)sys->scale0;
 
 
-// // ------------------------END_WORKINGVERSION----------------------------
+	// double	scaler;
+
+	// scaler = (double)sys->scale / sys->scale0 - 1;
+	// sys->delta[0] = lround((sys->cursor[0] - (WIDTH - MENU_W) / 2 - sys->shift[(int)sys->index][0] + sys->delta0[0]) * scaler);
+	// sys->delta[1] = lround((sys->cursor[1] - HEIGHT / 2 - sys->shift[(int)sys->index][1] + sys->delta0[1]) * scaler);
+
+
+	double	prevpos[2];
+	double	curpos[2];
+
+	prevpos[0] =  sys->cursor[0] / (double)sys->scale0;
+	prevpos[0] += sys->delta0[0] / (double)sys->scale0;
+	prevpos[0] -= ((WIDTH - MENU_W) / 2) / (double)sys->scale0;
+	prevpos[0] -= sys->shift[(int)sys->index][0] / (double)sys->scale0;
+
+	prevpos[1] =  sys->cursor[1] / (double)sys->scale0;
+	prevpos[1] += sys->delta0[1] / (double)sys->scale0;
+	prevpos[1] -= (HEIGHT / 2) / (double)sys->scale0;
+	prevpos[1] -= sys->shift[(int)sys->index][1] / (double)sys->scale0;
+
+
+	curpos[0] =  sys->cursor[0] / (double)sys->scale;
+	curpos[0] += sys->delta0[0] / (double)sys->scale;
+	curpos[0] -= ((WIDTH - MENU_W) / 2) / (double)sys->scale;
+	curpos[0] -= sys->shift[(int)sys->index][0] / (double)sys->scale;
+
+	curpos[1] =  sys->cursor[1] / (double)sys->scale;
+	curpos[1] += sys->delta0[1] / (double)sys->scale;
+	curpos[1] -= (HEIGHT / 2) / (double)sys->scale;
+	curpos[1] -= sys->shift[(int)sys->index][1] / (double)sys->scale;
+
+	double	curdelta[2];
+
+	curdelta[0] = prevpos[0] - curpos[0];
+	curdelta[0] *= sys->scale;
+
+	curdelta[1] = prevpos[1] - curpos[1];
+	curdelta[1] *= sys->scale;
+
+	sys->delta[0] = lround(curdelta[0]);
+	sys->delta[1] = lround(curdelta[1]);
+
+	// sys->delta[0] += sys->delta0[0] - sys->shift[(int)sys->index][0];
+	// sys->delta[1] += sys->delta0[1] - sys->shift[(int)sys->index][1];
+
+	return ;
+}
+
+
+// ------------------------END_WORKINGVERSION----------------------------
 
 void	calc_fractal(t_sys *sys)
 {

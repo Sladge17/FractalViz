@@ -28,7 +28,7 @@ int		key_press(int keycode, void *param)
 		// printf("2: %d %d\n", sys->delta[0], sys->delta[1]);
 		// sys->scale0 = SCALE;
 		sys->scale += ADD_SCALE;
-		// def_delta(sys); //TO WORKINGVERSION
+		def_delta(sys); //TO WORKINGVERSION
 		draw_image(sys);
 		// sys->scale0 = sys->scale;
 		return (0);
@@ -38,7 +38,7 @@ int		key_press(int keycode, void *param)
 	{
 		if (!sys->scale)
 			return (0);
-		sys->scale -= 10;
+		sys->scale -= ADD_SCALE;
 		if (sys->scale <= 0)
 		{
 			sys->scale = 0;
@@ -47,6 +47,7 @@ int		key_press(int keycode, void *param)
 			mlx_put_image_to_window(sys->mlx, sys->win, sys->img, 0, 0);
 			return (0);
 		}
+		def_delta(sys);
 		draw_image(sys);
 		return (0);
 	}
@@ -91,13 +92,15 @@ int		key_release(int keycode, void *param)
 
 	sys = (t_sys *)param;
 
-	if (keycode == 12)
+	if (keycode == 12 || keycode == 13)
 	{
 		// sys->cursor0[0] = sys->cursor[0];
 		// sys->cursor0[1] = sys->cursor[1];
 		sys->delta0[0] += sys->delta[0];
 		sys->delta0[1] += sys->delta[1];
 		sys->scale0 = sys->scale;
+		// sys->shift[(int)sys->index][0] += sys->delta0[0];
+		// sys->shift[(int)sys->index][1] += sys->delta0[1];
 		// draw_image(sys);
 
 		// sys->flag0 = 1;
