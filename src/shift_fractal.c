@@ -23,6 +23,10 @@ void	shift_fractal(t_sys *sys)
 		return ;
 	sys->shift[(int)sys->index][0] = 0;
 	sys->shift[(int)sys->index][1] = 0;
+	sys->delta0[0] = 0;
+	sys->delta0[1] = 0;
+	sys->delta[0] = 0;
+	sys->delta[1] = 0;
 	draw_image(sys);
 }
 
@@ -78,14 +82,14 @@ char	diagonal_shift(t_sys *sys, unsigned char shift)
 
 void	shifting_fractal(t_sys *sys, char shift_x, char shift_y)
 {
-	sys->delta0[0] -= sys->delta[0];
-	sys->delta0[1] -= sys->delta[1];
+	// sys->delta0[0] -= sys->delta[0];
+	// sys->delta0[1] -= sys->delta[1];
 
 	sys->shift[(int)sys->index][0] += shift_x * SHIFT;
 	sys->shift[(int)sys->index][1] += shift_y * SHIFT;
-	// def_delta(sys);
+	def_delta(sys);
 	draw_image(sys);
 
-	sys->delta0[0] += sys->delta[0];
-	sys->delta0[1] += sys->delta[1];
+	// sys->delta0[0] += sys->delta[0];
+	// sys->delta0[1] += sys->delta[1];
 }

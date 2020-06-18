@@ -96,8 +96,8 @@ int		key_release(int keycode, void *param)
 	{
 		// sys->cursor0[0] = sys->cursor[0];
 		// sys->cursor0[1] = sys->cursor[1];
-		sys->delta0[0] += sys->delta[0];
-		sys->delta0[1] += sys->delta[1];
+		sys->delta0[0] = sys->delta[0] + sys->shift[(int)sys->index][0];
+		sys->delta0[1] = sys->delta[1] + sys->shift[(int)sys->index][1];;
 		sys->scale0 = sys->scale;
 		// sys->shift[(int)sys->index][0] += sys->delta0[0];
 		// sys->shift[(int)sys->index][1] += sys->delta0[1];
