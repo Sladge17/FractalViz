@@ -17,20 +17,21 @@ void	shift_fractal(t_sys *sys)
 	unsigned char	shift;
 
 	shift = 0b11110000 & sys->bitset;
-	if (ortho_shift(sys, shift))
+	if (shift_ortho(sys, shift))
 		return ;
-	if (diagonal_shift(sys, shift))
+	if (shift_diagonal(sys, shift))
 		return ;
-	sys->shift[(int)sys->index][0] = 0;
-	sys->shift[(int)sys->index][1] = 0;
-	sys->delta[0][(int)sys->index][0] = 0;
-	sys->delta[0][(int)sys->index][1] = 0;
-	sys->delta[1][(int)sys->index][0] = 0;
-	sys->delta[1][(int)sys->index][1] = 0;
-	draw_image(sys);
+	shift_reset(sys);
+	// sys->shift[(int)sys->index][0] = 0;
+	// sys->shift[(int)sys->index][1] = 0;
+	// sys->delta[0][(int)sys->index][0] = 0;
+	// sys->delta[0][(int)sys->index][1] = 0;
+	// sys->delta[1][(int)sys->index][0] = 0;
+	// sys->delta[1][(int)sys->index][1] = 0;
+	// draw_image(sys);
 }
 
-char	ortho_shift(t_sys *sys, unsigned char shift)
+char	shift_ortho(t_sys *sys, unsigned char shift)
 {
 	if (shift == 0b10000000)
 	{
@@ -55,7 +56,7 @@ char	ortho_shift(t_sys *sys, unsigned char shift)
 	return (0);
 }
 
-char	diagonal_shift(t_sys *sys, unsigned char shift)
+char	shift_diagonal(t_sys *sys, unsigned char shift)
 {
 	if (shift == 0b10100000)
 	{
@@ -93,3 +94,26 @@ void	shifting_fractal(t_sys *sys, char shift_x, char shift_y)
 	// sys->delta0[0] += sys->delta[0];
 	// sys->delta0[1] += sys->delta[1];
 }
+
+void	shift_reset(t_sys *sys)
+{
+	sys->shift[(int)sys->index][0] = 0;
+	sys->shift[(int)sys->index][1] = 0;
+	sys->delta[0][(int)sys->index][0] = 0;
+	sys->delta[0][(int)sys->index][1] = 0;
+	sys->delta[1][(int)sys->index][0] = 0;
+	sys->delta[1][(int)sys->index][1] = 0;
+	draw_image(sys);
+}
+
+
+
+
+
+
+
+
+
+
+
+

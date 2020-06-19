@@ -23,21 +23,23 @@ int		key_press(int keycode, void *param)
 
 	if (keycode == 12)
 	{
-		sys->scale[1][(int)sys->index] += ADD_SCALE;
-		def_delta(sys);
-		draw_image(sys);
+		scale_up(sys);
+		// sys->scale[1][(int)sys->index] += ADD_SCALE;
+		// def_delta(sys);
+		// draw_image(sys);
 		return (0);
 	}
 
 	if (keycode == 13)
 	{
-		if (sys->scale[1][(int)sys->index] == MIN_SCALE)
-			return (0);
-		sys->scale[1][(int)sys->index] -= ADD_SCALE;
-		if (sys->scale[1][(int)sys->index] < MIN_SCALE)
-			sys->scale[1][(int)sys->index] = MIN_SCALE;
-		def_delta(sys);
-		draw_image(sys);
+		scale_down(sys);
+		// if (sys->scale[1][(int)sys->index] == MIN_SCALE)
+		// 	return (0);
+		// sys->scale[1][(int)sys->index] -= ADD_SCALE;
+		// if (sys->scale[1][(int)sys->index] < MIN_SCALE)
+		// 	sys->scale[1][(int)sys->index] = MIN_SCALE;
+		// def_delta(sys);
+		// draw_image(sys);
 		return (0);
 	}
 
@@ -52,9 +54,10 @@ int		key_press(int keycode, void *param)
 
 	if (keycode == 8)
 	{
-		sys->shift[(int)sys->index][0] = 0;
-		sys->shift[(int)sys->index][1] = 0;
-		draw_image(sys);
+		shift_reset(sys);
+		// sys->shift[(int)sys->index][0] = 0;
+		// sys->shift[(int)sys->index][1] = 0;
+		// draw_image(sys);
 		return (0);
 	}
 
@@ -83,16 +86,10 @@ int		key_release(int keycode, void *param)
 
 	if (keycode == 12 || keycode == 13)
 	{
-		// sys->cursor0[0] = sys->cursor[0];
-		// sys->cursor0[1] = sys->cursor[1];
-		sys->delta[0][(int)sys->index][0] = sys->delta[1][(int)sys->index][0] + sys->shift[(int)sys->index][0];
-		sys->delta[0][(int)sys->index][1] = sys->delta[1][(int)sys->index][1] + sys->shift[(int)sys->index][1];
-		sys->scale[0][(int)sys->index] = sys->scale[1][(int)sys->index];
-		// sys->shift[(int)sys->index][0] += sys->delta0[0];
-		// sys->shift[(int)sys->index][1] += sys->delta0[1];
-		// draw_image(sys);
-
-		// sys->flag0 = 1;
+		set_deltazero(sys);
+		// sys->delta[0][(int)sys->index][0] = sys->delta[1][(int)sys->index][0] + sys->shift[(int)sys->index][0];
+		// sys->delta[0][(int)sys->index][1] = sys->delta[1][(int)sys->index][1] + sys->shift[(int)sys->index][1];
+		// sys->scale[0][(int)sys->index] = sys->scale[1][(int)sys->index];
 		return (0);
 	}
 
@@ -177,6 +174,51 @@ int		mouse_press(int button, int x, int y, void *param)
 		sys->k[(int)sys->index].img = 0;
 		draw_image(sys);
 		return (0);
+	}
+
+	if (button == 3)
+	{
+		scale_reset(sys);
+		// sys->scale[0][(int)sys->index] = DEF_SCALE;
+		// sys->scale[1][(int)sys->index] = DEF_SCALE;
+		// sys->shift[(int)sys->index][0] = 0;
+		// sys->shift[(int)sys->index][1] = 0;
+		// sys->delta[0][(int)sys->index][0] = 0;
+		// sys->delta[0][(int)sys->index][1] = 0;
+		// sys->delta[1][(int)sys->index][0] = 0;
+		// sys->delta[1][(int)sys->index][1] = 0;
+		// draw_image(sys);
+		return (0);	
+	}
+
+	if (button == 4)
+	{
+		scale_down(sys);
+		set_deltazero(sys);
+		// if (sys->scale[1][(int)sys->index] == MIN_SCALE)
+		// 	return (0);
+		// sys->scale[1][(int)sys->index] -= ADD_SCALE;
+		// if (sys->scale[1][(int)sys->index] < MIN_SCALE)
+		// 	sys->scale[1][(int)sys->index] = MIN_SCALE;
+		// def_delta(sys);
+		// draw_image(sys);
+		// sys->delta[0][(int)sys->index][0] = sys->delta[1][(int)sys->index][0] + sys->shift[(int)sys->index][0];
+		// sys->delta[0][(int)sys->index][1] = sys->delta[1][(int)sys->index][1] + sys->shift[(int)sys->index][1];
+		// sys->scale[0][(int)sys->index] = sys->scale[1][(int)sys->index];
+		return (0);
+	}
+
+	if (button == 5)
+	{
+		scale_up(sys);
+		set_deltazero(sys);
+		// sys->scale[1][(int)sys->index] += ADD_SCALE;
+		// def_delta(sys);
+		// draw_image(sys);
+		// sys->delta[0][(int)sys->index][0] = sys->delta[1][(int)sys->index][0] + sys->shift[(int)sys->index][0];
+		// sys->delta[0][(int)sys->index][1] = sys->delta[1][(int)sys->index][1] + sys->shift[(int)sys->index][1];
+		// sys->scale[0][(int)sys->index] = sys->scale[1][(int)sys->index];
+		return (0);		
 	}
 
 	return (0);

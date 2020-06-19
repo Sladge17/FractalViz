@@ -112,12 +112,21 @@ char	check_shiftfractal(int keycode, t_sys *sys);
 char	check_unshiftfractal(int keycode, t_sys *sys);
 
 /*
-** controls_keyboard.c
+** shift_fractal.c
 */
 void	shift_fractal(t_sys *sys);
-char	ortho_shift(t_sys *sys, unsigned char shift);
-char	diagonal_shift(t_sys *sys, unsigned char shift);
+char	shift_ortho(t_sys *sys, unsigned char shift);
+char	shift_diagonal(t_sys *sys, unsigned char shift);
 void	shifting_fractal(t_sys *sys, char shift_x, char shift_y);
+void	shift_reset(t_sys *sys);
+
+/*
+** scale_fractal.c
+*/
+void	scale_up(t_sys *sys);
+void	scale_down(t_sys *sys);
+void	scale_reset(t_sys *sys);
+void	set_deltazero(t_sys *sys);
 
 #endif
 
