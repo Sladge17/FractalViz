@@ -23,10 +23,10 @@ void	shift_fractal(t_sys *sys)
 		return ;
 	sys->shift[(int)sys->index][0] = 0;
 	sys->shift[(int)sys->index][1] = 0;
-	sys->delta0[0] = 0;
-	sys->delta0[1] = 0;
-	sys->delta[0] = 0;
-	sys->delta[1] = 0;
+	sys->delta0[(int)sys->index][0] = 0;
+	sys->delta0[(int)sys->index][1] = 0;
+	sys->delta[(int)sys->index][0] = 0;
+	sys->delta[(int)sys->index][1] = 0;
 	draw_image(sys);
 }
 

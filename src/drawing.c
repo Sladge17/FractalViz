@@ -83,13 +83,13 @@ void	draw_axis(t_sys *sys)
 	i = (WIDTH - MENU_W) * HEIGHT / 2 + (WIDTH - MENU_W) / 2 - (WIDTH - MENU_W) * 3;
 	j = 1;
 	
-	while (i + sys->scale * j < i + (WIDTH - MENU_W) / 2)
+	while (i + sys->scale[(int)sys->index] * j < i + (WIDTH - MENU_W) / 2)
 	{
 		n = 0;
 		while(n < 7)
 		{
-			sys->imgout[i + n * (WIDTH - MENU_W) + sys->scale * j] = AXIS_C;
-			sys->imgout[i + n * (WIDTH - MENU_W) - sys->scale * j] = AXIS_C;
+			sys->imgout[i + n * (WIDTH - MENU_W) + sys->scale[(int)sys->index] * j] = AXIS_C;
+			sys->imgout[i + n * (WIDTH - MENU_W) - sys->scale[(int)sys->index] * j] = AXIS_C;
 			n += 1;
 		}
 		j += 1;
@@ -98,13 +98,13 @@ void	draw_axis(t_sys *sys)
 	i = (WIDTH - MENU_W) * HEIGHT / 2 + (WIDTH - MENU_W) / 2 - 3;
 	j = 1;
 
-	while (i + j * (WIDTH - MENU_W) * sys->scale < sys->imgvol)
+	while (i + j * (WIDTH - MENU_W) * sys->scale[(int)sys->index] < sys->imgvol)
 	{
 		n = 0;
 		while(n < 7)
 		{
-			sys->imgout[i + (WIDTH - MENU_W) * sys->scale * j + n] = AXIS_C;
-			sys->imgout[i - (WIDTH - MENU_W) * sys->scale * j + n] = AXIS_C;
+			sys->imgout[i + (WIDTH - MENU_W) * sys->scale[(int)sys->index] * j + n] = AXIS_C;
+			sys->imgout[i - (WIDTH - MENU_W) * sys->scale[(int)sys->index] * j + n] = AXIS_C;
 			n += 1;
 		}
 		j += 1;

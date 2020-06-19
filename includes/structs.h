@@ -48,13 +48,11 @@ typedef struct	s_sys
 
 	int			cursor[2];
 	t_comp		cursorcomp;
-	int			scale;
-	int			delta[2];
+	int			scale[8];
+	int			delta[8][2];
 
-	int			delta0[2];
-	int			scale0;
-	int			cursor0[2];
-	char		flag0;
+	int			delta0[8][2];
+	int			scale0[8];
 	
 
 	t_comp		k[8];
