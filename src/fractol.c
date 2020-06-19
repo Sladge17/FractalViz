@@ -92,9 +92,6 @@ void	set_system(t_sys *sys)
 	sys->color = 0xFF0000;
 
 
-	
-	
-
 	sys->cursor[0] = 0;
 	sys->cursor[1] = 0;
 
@@ -112,13 +109,13 @@ void	set_tabparam(t_sys *sys)
 		sys->shift[(int)i][0] = 0;
 		sys->shift[(int)i][1] = 0;
 
-		sys->delta0[(int)i][0] = 0;
-		sys->delta0[(int)i][1] = 0;
-		sys->delta[(int)i][0] = 0;
-		sys->delta[(int)i][1] = 0;
+		sys->delta[0][(int)i][0] = 0;
+		sys->delta[0][(int)i][1] = 0;
+		sys->delta[1][(int)i][0] = 0;
+		sys->delta[1][(int)i][1] = 0;
 
-		sys->scale0[(int)i] = SCALE;
-		sys->scale[(int)i] = SCALE;
+		sys->scale[0][(int)i] = DEF_SCALE;
+		sys->scale[1][(int)i] = DEF_SCALE;
 
 
 		sys->k[(int)i] = init_comp(0, 0);
@@ -327,7 +324,7 @@ t_comp	int_to_comp(t_sys *sys, int id)
 	// id2d[0] -= sys->shift[(int)sys->index][0];
 	// id2d[1] -= sys->shift[(int)sys->index][1];
 
-	complex = init_comp(id2d[0] / (double)sys->scale[(int)sys->index], -id2d[1] / (double)sys->scale[(int)sys->index]);
+	complex = init_comp(id2d[0] / (double)sys->scale[1][(int)sys->index], -id2d[1] / (double)sys->scale[1][(int)sys->index]);
 
 	// complex.real -= (WIDTH - MENU_W) / 2 + sys->shift[(int)sys->index][0];
 	// complex.img += HEIGHT / 2 + sys->shift[(int)sys->index][1];
@@ -382,18 +379,18 @@ void	conv_1d_2d(t_sys *sys, int id, int *id2d)
 	id2d[1] = id / (WIDTH - MENU_W);
 	if (id < 0 && -id2d[0] > halfwidth)
 	{
-		id2d[0] += sys->delta[(int)sys->index][0] + (WIDTH - MENU_W);
-		id2d[1] += sys->delta[(int)sys->index][1] - 1;
+		id2d[0] += sys->delta[1][(int)sys->index][0] + (WIDTH - MENU_W);
+		id2d[1] += sys->delta[1][(int)sys->index][1] - 1;
 		return ;
 	}
 	if (id > 0 && id2d[0] >= halfwidth)
 	{
-		id2d[0] += sys->delta[(int)sys->index][0] - (WIDTH - MENU_W);
-		id2d[1] += sys->delta[(int)sys->index][1] + 1;
+		id2d[0] += sys->delta[1][(int)sys->index][0] - (WIDTH - MENU_W);
+		id2d[1] += sys->delta[1][(int)sys->index][1] + 1;
 		return ;
 	}
-	id2d[0] += sys->delta[(int)sys->index][0];
-	id2d[1] += sys->delta[(int)sys->index][1];
+	id2d[0] += sys->delta[1][(int)sys->index][0];
+	id2d[1] += sys->delta[1][(int)sys->index][1];
 }
 
 void	def_delta(t_sys *sys)
@@ -421,18 +418,18 @@ void	def_delta(t_sys *sys)
 
 	double	scaler;
 
-	scaler = (double)sys->scale[(int)sys->index] / sys->scale0[(int)sys->index] - 1;
+	scaler = (double)sys->scale[1][(int)sys->index] / sys->scale[0][(int)sys->index] - 1;
 	// sys->delta[(int)sys->index][0] = lround((sys->cursor[0] - (WIDTH - MENU_W) / 2 - sys->shift[(int)sys->index][0]
 	// 	+ sys->delta0[(int)sys->index][0]) * scaler);
-	sys->delta[(int)sys->index][0] = lround((sys->delta0[(int)sys->index][0] + sys->cursor[0]
+	sys->delta[1][(int)sys->index][0] = lround((sys->delta[0][(int)sys->index][0] + sys->cursor[0]
 		- (WIDTH - MENU_W) / 2 - sys->shift[(int)sys->index][0]) * scaler);
-	sys->delta[(int)sys->index][0] += sys->delta0[(int)sys->index][0] - sys->shift[(int)sys->index][0];
+	sys->delta[1][(int)sys->index][0] += sys->delta[0][(int)sys->index][0] - sys->shift[(int)sys->index][0];
 
 	// sys->delta[(int)sys->index][1] = lround((sys->cursor[1] - HEIGHT / 2 - sys->shift[(int)sys->index][1]
 	// 	+ sys->delta0[(int)sys->index][1]) * scaler);
-	sys->delta[(int)sys->index][1] = lround((sys->delta0[(int)sys->index][1] + sys->cursor[1]
+	sys->delta[1][(int)sys->index][1] = lround((sys->delta[0][(int)sys->index][1] + sys->cursor[1]
 		- HEIGHT / 2 - sys->shift[(int)sys->index][1]) * scaler);
-	sys->delta[(int)sys->index][1] += sys->delta0[(int)sys->index][1] - sys->shift[(int)sys->index][1];
+	sys->delta[1][(int)sys->index][1] += sys->delta[0][(int)sys->index][1] - sys->shift[(int)sys->index][1];
 
 	// double	prevpos[2];
 	// double	curpos[2];

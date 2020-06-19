@@ -23,30 +23,19 @@ int		key_press(int keycode, void *param)
 
 	if (keycode == 12)
 	{
-		// printf("%d %d\n", sys->cursor[0], sys->cursor[1]);
-		// printf("1: %d %d\n", sys->delta0[0], sys->delta0[1]);
-		// printf("2: %d %d\n", sys->delta[0], sys->delta[1]);
-		// sys->scale0 = SCALE;
-		sys->scale[(int)sys->index] += ADD_SCALE;
-		def_delta(sys); //TO WORKINGVERSION
+		sys->scale[1][(int)sys->index] += ADD_SCALE;
+		def_delta(sys);
 		draw_image(sys);
-		// sys->scale0 = sys->scale;
 		return (0);
 	}
 
 	if (keycode == 13)
 	{
-		if (!sys->scale[(int)sys->index])
+		if (sys->scale[1][(int)sys->index] == MIN_SCALE)
 			return (0);
-		sys->scale[(int)sys->index] -= ADD_SCALE;
-		if (sys->scale[(int)sys->index] <= 0)
-		{
-			sys->scale[(int)sys->index] = 0;
-			clear_image(sys);
-			sys->imgout[sys->imgvol / 2 + (WIDTH - MENU_W) / 2] = 0xFF0000;
-			mlx_put_image_to_window(sys->mlx, sys->win, sys->img, 0, 0);
-			return (0);
-		}
+		sys->scale[1][(int)sys->index] -= ADD_SCALE;
+		if (sys->scale[1][(int)sys->index] < MIN_SCALE)
+			sys->scale[1][(int)sys->index] = MIN_SCALE;
 		def_delta(sys);
 		draw_image(sys);
 		return (0);
@@ -96,9 +85,9 @@ int		key_release(int keycode, void *param)
 	{
 		// sys->cursor0[0] = sys->cursor[0];
 		// sys->cursor0[1] = sys->cursor[1];
-		sys->delta0[(int)sys->index][0] = sys->delta[(int)sys->index][0] + sys->shift[(int)sys->index][0];
-		sys->delta0[(int)sys->index][1] = sys->delta[(int)sys->index][1] + sys->shift[(int)sys->index][1];
-		sys->scale0[(int)sys->index] = sys->scale[(int)sys->index];
+		sys->delta[0][(int)sys->index][0] = sys->delta[1][(int)sys->index][0] + sys->shift[(int)sys->index][0];
+		sys->delta[0][(int)sys->index][1] = sys->delta[1][(int)sys->index][1] + sys->shift[(int)sys->index][1];
+		sys->scale[0][(int)sys->index] = sys->scale[1][(int)sys->index];
 		// sys->shift[(int)sys->index][0] += sys->delta0[0];
 		// sys->shift[(int)sys->index][1] += sys->delta0[1];
 		// draw_image(sys);
@@ -122,8 +111,8 @@ int		mouse_move(int x, int y, void *param)
 
 	if (sys->bitset & 0b00000001)
 	{
-		sys->cursorcomp.real = (x - (WIDTH - MENU_W) / 2) / (double)sys->scale[(int)sys->index];
-		sys->cursorcomp.img = -(y - HEIGHT / 2) / (double)sys->scale[(int)sys->index];
+		sys->cursorcomp.real = (x - (WIDTH - MENU_W) / 2) / (double)sys->scale[1][(int)sys->index];
+		sys->cursorcomp.img = -(y - HEIGHT / 2) / (double)sys->scale[1][(int)sys->index];
 		sys->k[(int)sys->index] = sys->cursorcomp;
 		draw_image(sys);
 		draw_stat(sys);
@@ -135,8 +124,8 @@ int		mouse_move(int x, int y, void *param)
 		sys->cursor[0] = x;
 		sys->cursor[1] = y;
 
-		sys->cursorcomp.real = (x - (WIDTH - MENU_W) / 2) / (double)sys->scale[(int)sys->index];
-		sys->cursorcomp.img = -(y - HEIGHT / 2) / (double)sys->scale[(int)sys->index];
+		sys->cursorcomp.real = (x - (WIDTH - MENU_W) / 2) / (double)sys->scale[1][(int)sys->index];
+		sys->cursorcomp.img = -(y - HEIGHT / 2) / (double)sys->scale[1][(int)sys->index];
 		// draw_image(sys);
 		draw_stat(sys);
 		return (0);
@@ -188,7 +177,7 @@ int		mouse_press(int button, int x, int y, void *param)
 		sys->k[(int)sys->index].img = 0;
 		draw_image(sys);
 		return (0);
-	} 
+	}
 
 	return (0);
 }
