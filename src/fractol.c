@@ -17,41 +17,35 @@ int		main(int argc, char **argv)
 	t_sys	*sys;
 
 	if (argc > 2)
-	{
-		puts("Hello\n");
-		exit(0);
-	}
+		fractol_discr();
 
 	if (!(sys = (t_sys *)malloc(sizeof(t_sys))))
 		exit(0);
 
 	if (argc == 1)
+	{
 		sys->index = 1;
-	if (argc == 2)
+		sys->name = "Mandelbrot";
+		set_system(sys);
+		clear_image(sys);
+		calc_Mandelbrot(sys);
+	}
+	else
 	{
 		if (strlen(argv[1]) != 1 || argv[1][0] < '1' || argv[1][0] > '8')
-		{
-			puts("Hello\n");
-			exit(0);
-		}
+			fractol_discr();
 		sys->index = atoi(argv[1]) - 1;
+		sys->name = set_fractname(sys);
+		set_system(sys);
+		clear_image(sys);
+		calc_fractal(sys);
 	}
-
-	set_system(sys);
-	clear_image(sys);
-	clear_stat(sys);
+	mlx_put_image_to_window(sys->mlx, sys->win, sys->img, 0, 0);
+	
 	draw_menu(sys);
 
-	// printf("%d %d\n", sys->cursor[0], sys->cursor[1]);
-	// printf("1: %d %d\n", sys->delta0[0], sys->delta0[1]);
-	// printf("2: %d %d\n", sys->delta[0], sys->delta[1]);
-	calc_fractal(sys);
-	// draw_axis(sys);
-
-	mlx_put_image_to_window(sys->mlx, sys->win, sys->img, 0, 0);
-	mlx_put_image_to_window(sys->mlx, sys->win, sys->mnu, WIDTH - MENU_W, 0);
+	clear_stat(sys);
 	mlx_put_image_to_window(sys->mlx, sys->win, sys->stat, WIDTH - MENU_W, HEIGHT / 2);
-
 	mlx_string_put(sys->mlx, sys->win, (WIDTH - MENU_W) + 10, (HEIGHT / 2) + 10, 0x00FF00, sys->name);
 	// mlx_string_put(sys->mlx, sys->win, 0, 0, 0x00FF00, sys->name);
 
@@ -64,6 +58,25 @@ int		main(int argc, char **argv)
 	mlx_loop(sys->mlx);
 
 	return (0);
+}
+
+char	*set_fractname(t_sys *sys)
+{
+	if (sys->index == 0)
+		return ("Zulia");
+	if (sys->index == 1)
+		return ("Mandelbrot");
+	if (sys->index == 2)
+		return ("BurningShip");
+	if (sys->index == 3)
+		return ("Mandelbar");
+	if (sys->index == 4)
+		return ("AbsReal");
+	if (sys->index == 5)
+		return ("AbsImg");
+	if (sys->index == 6)
+		return ("Power3");
+	return ("AbsRealP4");
 }
 
 void	set_system(t_sys *sys)
@@ -88,7 +101,7 @@ void	set_system(t_sys *sys)
 
 	
 	sys->bitset = 0b00000100;
-	sys->name = "Mandelbrot";
+	
 	sys->color = 0xFF0000;
 
 
@@ -159,6 +172,7 @@ void	draw_menu(t_sys *sys)
 	}
 	sys->rgbtris_y[0] = 100;
 	draw_rgbtriangle(sys, MENU_W / 2, 10);
+	mlx_put_image_to_window(sys->mlx, sys->win, sys->mnu, WIDTH - MENU_W, 0);
 }
 
 int		close_fractol(void *param)
@@ -520,14 +534,16 @@ void	calc_fractal_nest(t_sys *sys)
 		calc_Power3(sys);
 		return ;
 	}
-	if (sys->index == 7)
-	{
-		calc_AbsRealP4(sys);
-		return ;
-	}
+	calc_AbsRealP4(sys);
 }
 
-
+void	fractol_discr()
+{
+	puts(TEXT_TITLE);
+	puts(TEXT_MAIN);
+	puts(TEXT_FRACTALS);
+	exit(0);
+}
 
 
 

@@ -30,6 +30,7 @@
 /*
 ** fractol.c
 */
+char	*set_fractname(t_sys *sys);
 void	set_system(t_sys *sys);
 void	set_tabparam(t_sys *sys);
 void	clear_image(t_sys *sys);
@@ -41,6 +42,7 @@ void	conv_1d_2d(t_sys *sys, int id, int *id2d);
 void	def_delta(t_sys *sys);
 void	calc_fractal(t_sys	*sys);
 void	calc_fractal_nest(t_sys *sys);
+void	fractol_discr();
 
 /*
 ** rgb_triangle.c
