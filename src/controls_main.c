@@ -12,6 +12,8 @@
 
 #include "fractol.h"
 
+void		*win2;
+
 int		key_press(int keycode, void *param)
 {
 	t_sys		*sys;
@@ -20,6 +22,24 @@ int		key_press(int keycode, void *param)
 
 	if (keycode == 53)
 		exit(0);
+
+	
+	if (keycode == 49)
+	{
+		sys->bitset ^= 0b00000010;
+		if (sys->bitset & 0b00000010)
+		{
+			sys->win_set = mlx_new_window(sys->mlx, SET_W, SET_H, "settings");
+			mlx_put_image_to_window(sys->mlx, sys->win_set, sys->set, 0, 0);
+			mlx_string_put(sys->mlx, sys->win_set, 10, 10, 0x00FF00, "Test-test");
+			mlx_hook(sys->win_set, 2, 0, key_press, sys);
+			mlx_hook(sys->win_set, 17, 0, close_setting, sys);
+		}
+		else
+			mlx_destroy_window(sys->mlx, sys->win_set);
+		return (0);
+	}
+
 
 	if (keycode == 12)
 	{
@@ -108,21 +128,21 @@ int		mouse_move(int x, int y, void *param)
 
 	if (sys->bitset & 0b00000001)
 	{
-		sys->cursorcomp.real = (x - (WIDTH - MENU_W) / 2) / (double)sys->scale[1][(int)sys->index];
-		sys->cursorcomp.img = -(y - HEIGHT / 2) / (double)sys->scale[1][(int)sys->index];
+		sys->cursorcomp.real = (x - (MAIN_W - MENU_W) / 2) / (double)sys->scale[1][(int)sys->index];
+		sys->cursorcomp.img = -(y - MAIN_H / 2) / (double)sys->scale[1][(int)sys->index];
 		sys->k[(int)sys->index] = sys->cursorcomp;
 		draw_image(sys);
 		draw_stat(sys);
 		return (0);
 	}
 
-	if (x >= 0 && x < WIDTH - MENU_W && y >= 0 && y < HEIGHT)
+	if (x >= 0 && x < MAIN_W - MENU_W && y >= 0 && y < MAIN_H)
 	{
 		sys->cursor[0] = x;
 		sys->cursor[1] = y;
 
-		sys->cursorcomp.real = (x - (WIDTH - MENU_W) / 2) / (double)sys->scale[1][(int)sys->index];
-		sys->cursorcomp.img = -(y - HEIGHT / 2) / (double)sys->scale[1][(int)sys->index];
+		sys->cursorcomp.real = (x - (MAIN_W - MENU_W) / 2) / (double)sys->scale[1][(int)sys->index];
+		sys->cursorcomp.img = -(y - MAIN_H / 2) / (double)sys->scale[1][(int)sys->index];
 		// draw_image(sys);
 		draw_stat(sys);
 		return (0);
@@ -141,7 +161,7 @@ int		mouse_press(int button, int x, int y, void *param)
 	if (button == 1)
 	{
 
-		if (x >= 0 && x < WIDTH - MENU_W && y >= 0 && y < HEIGHT)
+		if (x >= 0 && x < MAIN_W - MENU_W && y >= 0 && y < MAIN_H)
 		{
 			sys->k[(int)sys->index] = sys->cursorcomp;
 			sys->bitset ^= 0b00000001;
@@ -149,15 +169,15 @@ int		mouse_press(int button, int x, int y, void *param)
 			return (0);
 		}
 
-		if (x >= WIDTH - MENU_W && y >= sys->rgbtris_y[0] && y <= sys->rgbtris_y[1] &&
-			sys->mnuout[x - (WIDTH - MENU_W) + MENU_W * y] != MENU_C)
+		if (x >= MAIN_W - MENU_W && y >= sys->rgbtris_y[0] && y <= sys->rgbtris_y[1] &&
+			sys->mnuout[x - (MAIN_W - MENU_W) + MENU_W * y] != MENU_C)
 		{
 			if (!(sys->bitset & 0b00000100))
 			{
 				redraw_image(sys, x, y);
 				return (0);
 			}
-			sys->color = sys->mnuout[x - (WIDTH - MENU_W) + MENU_W * y];
+			sys->color = sys->mnuout[x - (MAIN_W - MENU_W) + MENU_W * y];
 			draw_image(sys);
 			return (0);
 		}

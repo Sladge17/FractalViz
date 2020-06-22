@@ -10,8 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# define WIDTH 1280
-# define HEIGHT 720
+# define MAIN_W 1280
+# define MAIN_H 720
+
+# define SET_W 400
+# define SET_H 600
 
 # define MENU_W 200
 

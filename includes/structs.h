@@ -19,7 +19,8 @@ typedef struct	s_comp
 typedef struct	s_sys
 {
 	void		*mlx;
-	void		*win;
+	void		*win_main;
+	void		*win_set;
 
 	int			imgvol;
 	void		*img;
@@ -36,6 +37,10 @@ typedef struct	s_sys
 	int			stat_s[3];
 	int			*statout;
 
+	int			setvol;
+	void		*set;
+	int			set_s[3];
+	int			*setout;
 	
 	char		bitset;
 
