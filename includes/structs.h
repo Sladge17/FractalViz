@@ -50,6 +50,7 @@ typedef struct	s_sys
 	int			shift[8][2];
 
 	int			rgbtris_y[2];
+	int			axis_c[8];
 
 	int			cursor[2];
 	t_comp		cursorcomp;

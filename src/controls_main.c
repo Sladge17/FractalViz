@@ -232,7 +232,9 @@ int		mouse_press(int button, int x, int y, void *param)
 	{
 		scale_up(sys);
 		set_deltazero(sys);
+
 		// sys->scale[1][(int)sys->index] += ADD_SCALE;
+
 		// def_delta(sys);
 		// draw_image(sys);
 		// sys->delta[0][(int)sys->index][0] = sys->delta[1][(int)sys->index][0] + sys->shift[(int)sys->index][0];

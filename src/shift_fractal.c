@@ -88,6 +88,7 @@ void	shifting_fractal(t_sys *sys, char shift_x, char shift_y)
 
 	sys->shift[(int)sys->index][0] += shift_x * SHIFT;
 	sys->shift[(int)sys->index][1] += shift_y * SHIFT;
+	AXIS_C[(int)sys->index] = AXISK_C;
 	def_delta(sys);
 	draw_image(sys);
 
@@ -103,6 +104,7 @@ void	shift_reset(t_sys *sys)
 	sys->delta[0][(int)sys->index][1] = 0;
 	sys->delta[1][(int)sys->index][0] = 0;
 	sys->delta[1][(int)sys->index][1] = 0;
+	AXIS_C[(int)sys->index] = AXISF_C;
 	draw_image(sys);
 }
 

@@ -132,6 +132,14 @@ void	scale_down(t_sys *sys);
 void	scale_reset(t_sys *sys);
 void	set_deltazero(t_sys *sys);
 
+/*
+** double_to_str.c
+*/
+char	*double_to_str(double input);
+int		intlen(int integer);
+void	fill_intpart(char *str, int integer, int i, char sign);
+void	fill_fractpart(char *str, int fraction, int i);
+
 #endif
 
 

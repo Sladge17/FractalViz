@@ -24,7 +24,9 @@
 # define STAT_C 0x909497
 
 # define FRACT_C 0xFF0000
-# define AXIS_C 0xFFFFFF
+# define AXISF_C 0xFFFFFF
+# define AXISK_C 0xAAAAAA
+# define AXIS_C sys->axis_c
 
 # define ITER 100
 # define SHIFT 10

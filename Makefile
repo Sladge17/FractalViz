@@ -22,7 +22,8 @@ SRC_LIST = fractol.c\
 			controls_main.c\
 			controls_keyboard.c\
 			shift_fractal.c\
-			scale_fractal.c
+			scale_fractal.c\
+			double_to_str.c
 SRC = $(addprefix $(SRC_DIR), $(SRC_LIST))
 
 OBJ_DIR = obj/

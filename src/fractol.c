@@ -135,6 +135,8 @@ void	set_tabparam(t_sys *sys)
 		sys->scale[0][(int)i] = DEF_SCALE;
 		sys->scale[1][(int)i] = DEF_SCALE;
 
+		sys->axis_c[(int)i] = AXISF_C;
+
 
 		sys->k[(int)i] = init_comp(0, 0);
 		i += 1;

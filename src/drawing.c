@@ -23,10 +23,10 @@ void	draw_image(t_sys *sys)
 	if (sys->bitset & 0b00001000)
 	{
 		// NEED OPTIMIZE!!!!!!!!!!!!
-		mlx_string_put(sys->mlx, sys->win_main, 5, MAIN_H / 2 - 24, AXIS_C, "-real");
-		mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) - 45, MAIN_H / 2 - 24, AXIS_C, "real");
-		mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) / 2 + 5, 2, AXIS_C, "img");
-		mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) / 2 + 5, MAIN_H - 26, AXIS_C, "-img");
+		mlx_string_put(sys->mlx, sys->win_main, 5, MAIN_H / 2 - 24, AXIS_C[(int)sys->index], "-real");
+		mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) - 45, MAIN_H / 2 - 24, AXIS_C[(int)sys->index], "real");
+		mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) / 2 + 5, 2, AXIS_C[(int)sys->index], "img");
+		mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) / 2 + 5, MAIN_H - 26, AXIS_C[(int)sys->index], "-img");
 	}
 }
 
@@ -35,7 +35,11 @@ void	draw_stat(t_sys *sys)
 	clear_stat(sys);
 	mlx_put_image_to_window(sys->mlx, sys->win_main, sys->stat, MAIN_W - MENU_W, MAIN_H / 2);
 	mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) + 10, (MAIN_H / 2) + 10, 0x00FF00, sys->name);
-	// printf("%f %f\n", sys->cursorcomp.real, sys->cursorcomp.img);
+
+	mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) + 10, (MAIN_H / 2) + 30, 0x00FF00, double_to_str(sys->cursorcomp.real));
+	mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) + 10, (MAIN_H / 2) + 50, 0x00FF00, double_to_str(sys->cursorcomp.img));
+
+	printf("%f %f\n", sys->cursorcomp.real, sys->cursorcomp.img);
 	// printf("%d %d\n", sys->cursor[0], sys->cursor[1]);
 	// printf("%d %d\n", sys->cursor[0] - (MAIN_W - MENU_W) / 2, sys->cursor[1] - MAIN_H / 2);
 }
@@ -65,7 +69,7 @@ void	draw_axis(t_sys *sys)
 	i = img_w / 2;
 	while (i < sys->imgvol)
 	{
-		sys->imgout[i] = AXIS_C;
+		sys->imgout[i] = AXIS_C[(int)sys->index];
 		i += img_w;
 	}
 	
@@ -73,7 +77,7 @@ void	draw_axis(t_sys *sys)
 	center_h = i + img_w;
 	while (i < center_h)
 	{
-		sys->imgout[i] = AXIS_C;
+		sys->imgout[i] = AXIS_C[(int)sys->index];
 		i += 1;
 	}
 
@@ -88,8 +92,8 @@ void	draw_axis(t_sys *sys)
 		n = 0;
 		while(n < 7)
 		{
-			sys->imgout[i + n * (MAIN_W - MENU_W) + sys->scale[1][(int)sys->index] * j] = AXIS_C;
-			sys->imgout[i + n * (MAIN_W - MENU_W) - sys->scale[1][(int)sys->index] * j] = AXIS_C;
+			sys->imgout[i + n * (MAIN_W - MENU_W) + sys->scale[1][(int)sys->index] * j] = AXIS_C[(int)sys->index];
+			sys->imgout[i + n * (MAIN_W - MENU_W) - sys->scale[1][(int)sys->index] * j] = AXIS_C[(int)sys->index];
 			n += 1;
 		}
 		j += 1;
@@ -103,8 +107,8 @@ void	draw_axis(t_sys *sys)
 		n = 0;
 		while(n < 7)
 		{
-			sys->imgout[i + (MAIN_W - MENU_W) * sys->scale[1][(int)sys->index] * j + n] = AXIS_C;
-			sys->imgout[i - (MAIN_W - MENU_W) * sys->scale[1][(int)sys->index] * j + n] = AXIS_C;
+			sys->imgout[i + (MAIN_W - MENU_W) * sys->scale[1][(int)sys->index] * j + n] = AXIS_C[(int)sys->index];
+			sys->imgout[i - (MAIN_W - MENU_W) * sys->scale[1][(int)sys->index] * j + n] = AXIS_C[(int)sys->index];
 			n += 1;
 		}
 		j += 1;
