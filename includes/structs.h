@@ -65,6 +65,8 @@ typedef struct	s_sys
 	
 
 	t_comp		k[8];
+	char		*str_k[8];
+	char		*str_scale[8];
 
 
 }				t_sys;

@@ -34,12 +34,36 @@ void	draw_stat(t_sys *sys)
 {
 	clear_stat(sys);
 	mlx_put_image_to_window(sys->mlx, sys->win_main, sys->stat, MAIN_W - MENU_W, MAIN_H / 2);
-	mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) + 10, (MAIN_H / 2) + 10, 0x00FF00, sys->name);
 
-	mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) + 10, (MAIN_H / 2) + 30, 0x00FF00, double_to_str(sys->cursorcomp.real));
-	mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) + 10, (MAIN_H / 2) + 50, 0x00FF00, double_to_str(sys->cursorcomp.img));
+	mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) + 10, (MAIN_H / 2), 0x00FF00, "Statistic");
+	mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) + 10, (MAIN_H / 2) + 30, 0x00FF00, "Fractal");
+	mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) + 10, (MAIN_H / 2) + 50, 0x00FF00, sys->name);
+	mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) + 10, (MAIN_H / 2) + 70, 0x00FF00, sys->str_k[(int)sys->index]);
+	mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) + 10, (MAIN_H / 2) + 90, 0x00FF00, sys->str_scale[(int)sys->index]);
+	
+	if (!sys->delta[1][(int)sys->index][0] && !sys->delta[1][(int)sys->index][1])
+		mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) + 10, (MAIN_H / 2) + 110, 0x00FF00, "position: in senter");
+	else
+		mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) + 10, (MAIN_H / 2) + 110, 0x00FF00, "position: shifted");
 
-	printf("%f %f\n", sys->cursorcomp.real, sys->cursorcomp.img);
+	mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) + 10, (MAIN_H / 2) + 140, 0x00FF00, "Scene");
+	mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) + 10, (MAIN_H / 2) + 160, 0x00FF00, "cursor position:");
+	mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) + 10, (MAIN_H / 2) + 180, 0x00FF00, double_to_str(sys->cursorcomp.real));
+	mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) + 10, (MAIN_H / 2) + 200, 0x00FF00, double_to_str(sys->cursorcomp.img));
+	if (sys->bitset & 0b00001000)
+		mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) + 10, (MAIN_H / 2) + 220, 0x00FF00, "complex axis: ON");
+	else
+		mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) + 10, (MAIN_H / 2) + 220, 0x00FF00, "complex axis: OFF");
+	if (sys->bitset & 0b00000100)
+		mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) + 10, (MAIN_H / 2) + 240, 0x00FF00, "isolation mode: OFF");
+	else
+		mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) + 10, (MAIN_H / 2) + 240, 0x00FF00, "isolation mode: ON");
+
+	mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) + 10, (MAIN_H / 2) + 260, 0x00FF00, "fractal color:");
+
+	// mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) + 10, (MAIN_H / 2) + 110, 0x00FF00, double_to_str(sys->scale[1][(int)sys->index]));
+	
+	// printf("%f %f\n", sys->cursorcomp.real, sys->cursorcomp.img);
 	// printf("%d %d\n", sys->cursor[0], sys->cursor[1]);
 	// printf("%d %d\n", sys->cursor[0] - (MAIN_W - MENU_W) / 2, sys->cursor[1] - MAIN_H / 2);
 }

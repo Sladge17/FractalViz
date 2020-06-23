@@ -85,6 +85,7 @@ int		key_press(int keycode, void *param)
 	{
 		sys->bitset ^= 0b00000100;
 		draw_image(sys);
+		draw_stat(sys);
 		return (0);
 	}
 
@@ -92,6 +93,7 @@ int		key_press(int keycode, void *param)
 	{
 		sys->bitset ^= 0b00001000;
 		draw_image(sys);
+		draw_stat(sys);
 		return (0);
 	}
 
@@ -132,7 +134,7 @@ int		mouse_move(int x, int y, void *param)
 		sys->cursorcomp.img = -(y - MAIN_H / 2) / (double)sys->scale[1][(int)sys->index];
 		sys->k[(int)sys->index] = sys->cursorcomp;
 		draw_image(sys);
-		draw_stat(sys);
+		write_k(sys);
 		return (0);
 	}
 
@@ -166,6 +168,9 @@ int		mouse_press(int button, int x, int y, void *param)
 			sys->k[(int)sys->index] = sys->cursorcomp;
 			sys->bitset ^= 0b00000001;
 			draw_image(sys);
+
+			write_k(sys);
+
 			return (0);
 		}
 
@@ -193,12 +198,20 @@ int		mouse_press(int button, int x, int y, void *param)
 		sys->k[(int)sys->index].real = 0;
 		sys->k[(int)sys->index].img = 0;
 		draw_image(sys);
+
+		sys->str_k[(int)sys->index][4] = '\0';
+		sys->str_k[(int)sys->index] = ft_strcat(sys->str_k[(int)sys->index], "0.000 + 0.000i");
+
+		draw_stat(sys);
 		return (0);
 	}
 
 	if (button == 3)
 	{
 		scale_reset(sys);
+		sys->str_scale[(int)sys->index][8] = '\0';
+		sys->str_scale[(int)sys->index] = ft_strcat(sys->str_scale[(int)sys->index], "1.000");
+		draw_stat(sys);
 		// sys->scale[0][(int)sys->index] = DEF_SCALE;
 		// sys->scale[1][(int)sys->index] = DEF_SCALE;
 		// sys->shift[(int)sys->index][0] = 0;
@@ -215,6 +228,9 @@ int		mouse_press(int button, int x, int y, void *param)
 	{
 		scale_down(sys);
 		set_deltazero(sys);
+		
+		write_scale(sys);
+
 		// if (sys->scale[1][(int)sys->index] == MIN_SCALE)
 		// 	return (0);
 		// sys->scale[1][(int)sys->index] -= ADD_SCALE;
@@ -232,6 +248,8 @@ int		mouse_press(int button, int x, int y, void *param)
 	{
 		scale_up(sys);
 		set_deltazero(sys);
+		
+		write_scale(sys);
 
 		// sys->scale[1][(int)sys->index] += ADD_SCALE;
 
@@ -261,7 +279,59 @@ int		mouse_release(int button, int x, int y, void *param)
 }
 
 
+void	write_k(t_sys *sys)
+{
+	char	*real;
+	char	*img;
+	char	*pointer;
+	char	i;
 
+	real = double_to_str(sys->cursorcomp.real);
+	img = double_to_str(sys->cursorcomp.img);
+	pointer = real;
+	
+	i = 4;
+	while (*pointer != '\0')
+	{
+		sys->str_k[(int)sys->index][(int)i] = *pointer;
+		pointer += 1;
+		i += 1;
+	}
+	sys->str_k[(int)sys->index][(int)i] = ' ';
+	sys->str_k[(int)sys->index][(int)i + 1] = '+';
+	sys->str_k[(int)sys->index][(int)i + 2] = ' ';
+	i += 3;
+
+	pointer = img;
+	while (*pointer != '\0')
+	{
+		sys->str_k[(int)sys->index][(int)i] = *pointer;
+		pointer += 1;
+		i += 1;
+	}
+	sys->str_k[(int)sys->index][(int)i] = 'i';
+	sys->str_k[(int)sys->index][(int)i + 1] = '\0';
+	draw_stat(sys);
+}
+
+void	write_scale(t_sys *sys)
+{
+	char	*scale;
+	char	*pointer;
+	char	i;
+
+	scale = double_to_str(sys->scale[1][(int)sys->index] / (double)DEF_SCALE);
+	pointer = scale;
+	i = 8;
+	while (*pointer != '\0')
+	{
+		sys->str_scale[(int)sys->index][(int)i] = *pointer;
+		pointer += 1;
+		i += 1;
+	}
+	sys->str_scale[(int)sys->index][(int)i] = '\0';
+	draw_stat(sys);
+}
 
 
 

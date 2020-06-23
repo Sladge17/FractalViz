@@ -16,7 +16,7 @@
 # define SET_W 400
 # define SET_H 600
 
-# define MENU_W 200
+# define MENU_W 220
 
 // # define IMAGE_C 0x909497
 # define IMAGE_C 0

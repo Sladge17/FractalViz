@@ -19,7 +19,7 @@ char	change_fractal(int keycode, t_sys *sys)
 		if (sys->index == 0)
 			return (1);
 		sys->index = 0;
-		sys->name = "Zulia";
+		sys->name = "name: Zulia";
 		draw_image(sys);
 		draw_stat(sys);
 		return (1);
@@ -30,7 +30,7 @@ char	change_fractal(int keycode, t_sys *sys)
 		if (sys->index == 1)
 			return (1);
 		sys->index = 1;
-		sys->name = "Mandelbrot";
+		sys->name = "name: Mandelbrot";
 		draw_image(sys);
 		draw_stat(sys);
 		return (1);
@@ -41,7 +41,7 @@ char	change_fractal(int keycode, t_sys *sys)
 		if (sys->index == 2)
 			return (1);
 		sys->index = 2;
-		sys->name = "BurningShip";
+		sys->name = "name: BurningShip";
 		draw_image(sys);
 		draw_stat(sys);
 		return (1);
@@ -52,7 +52,7 @@ char	change_fractal(int keycode, t_sys *sys)
 		if (sys->index == 3)
 			return (1);
 		sys->index = 3;
-		sys->name = "Mandelbar";
+		sys->name = "name: Mandelbar";
 		draw_image(sys);
 		draw_stat(sys);
 		return (1);
@@ -63,7 +63,7 @@ char	change_fractal(int keycode, t_sys *sys)
 		if (sys->index == 4)
 			return (1);
 		sys->index = 4;
-		sys->name = "AbsReal";
+		sys->name = "name: AbsReal";
 		draw_image(sys);
 		draw_stat(sys);
 		return (1);
@@ -74,7 +74,7 @@ char	change_fractal(int keycode, t_sys *sys)
 		if (sys->index == 5)
 			return (1);
 		sys->index = 5;
-		sys->name = "AbsImg";
+		sys->name = "name: AbsImg";
 		draw_image(sys);
 		draw_stat(sys);
 		return (1);
@@ -85,7 +85,7 @@ char	change_fractal(int keycode, t_sys *sys)
 		if (sys->index == 6)
 			return (1);
 		sys->index = 6;
-		sys->name = "Power3";
+		sys->name = "name: Power3";
 		draw_image(sys);
 		draw_stat(sys);
 		return (1);
@@ -96,7 +96,7 @@ char	change_fractal(int keycode, t_sys *sys)
 		if (sys->index == 7)
 			return (1);
 		sys->index = 7;
-		sys->name = "AbsRealP4";
+		sys->name = "name: AbsRealP4";
 		draw_image(sys);
 		draw_stat(sys);
 		return (1);

@@ -25,7 +25,7 @@ int		main(int argc, char **argv)
 	if (argc == 1)
 	{
 		sys->index = 1;
-		sys->name = "Mandelbrot";
+		sys->name = "name: Mandelbrot";
 		set_system(sys);
 		clear_image(sys);
 		calc_Mandelbrot(sys);
@@ -64,20 +64,20 @@ int		main(int argc, char **argv)
 char	*set_fractname(t_sys *sys)
 {
 	if (sys->index == 0)
-		return ("Zulia");
+		return ("name: Zulia");
 	if (sys->index == 1)
-		return ("Mandelbrot");
+		return ("name: Mandelbrot");
 	if (sys->index == 2)
-		return ("BurningShip");
+		return ("name: BurningShip");
 	if (sys->index == 3)
-		return ("Mandelbar");
+		return ("name: Mandelbar");
 	if (sys->index == 4)
-		return ("AbsReal");
+		return ("name: AbsReal");
 	if (sys->index == 5)
-		return ("AbsImg");
+		return ("name: AbsImg");
 	if (sys->index == 6)
-		return ("Power3");
-	return ("AbsRealP4");
+		return ("name: Power3");
+	return ("name: AbsRealP4");
 }
 
 void	set_system(t_sys *sys)
@@ -137,8 +137,17 @@ void	set_tabparam(t_sys *sys)
 
 		sys->axis_c[(int)i] = AXISF_C;
 
-
 		sys->k[(int)i] = init_comp(0, 0);
+		sys->str_k[(int)i] = ft_strnew(23);
+		sys->str_k[(int)i] = ft_strcat(sys->str_k[(int)i], "k = 0.000 + 0.000i");
+
+		sys->str_scale[(int)i] = ft_strnew(14);
+		sys->str_scale[(int)i] = ft_strcat(sys->str_scale[(int)i], "scale = 1.000");
+		// sys->str_k[(int)i][0] = 'k';
+		// sys->str_k[(int)i][1] = ' ';
+		// sys->str_k[(int)i][2] = '=';
+		// sys->str_k[(int)i][3] = ' ';
+		// fill_strk(sys);
 		i += 1;
 	}
 }
