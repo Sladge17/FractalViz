@@ -67,6 +67,8 @@ typedef struct	s_sys
 	t_comp		k[8];
 	char		*str_k[8];
 	char		*str_scale[8];
+	char		*hexnumbs;
+	char		*str_color;
 
 
 }				t_sys;

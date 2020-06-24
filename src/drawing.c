@@ -59,7 +59,7 @@ void	draw_stat(t_sys *sys)
 	else
 		mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) + 10, (MAIN_H / 2) + 240, 0x00FF00, "isolation mode: ON");
 
-	mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) + 10, (MAIN_H / 2) + 260, 0x00FF00, "fractal color:");
+	mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) + 10, (MAIN_H / 2) + 260, 0x00FF00, sys->str_color);
 
 	// mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) + 10, (MAIN_H / 2) + 110, 0x00FF00, double_to_str(sys->scale[1][(int)sys->index]));
 	

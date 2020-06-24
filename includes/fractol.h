@@ -110,6 +110,7 @@ int		mouse_release(int button, int x, int y, void *param);
 
 void	write_k(t_sys *sys);
 void	write_scale(t_sys *sys);
+void	write_color(t_sys *sys);
 
 /*
 ** controls_keyboard.c

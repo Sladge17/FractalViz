@@ -180,10 +180,12 @@ int		mouse_press(int button, int x, int y, void *param)
 			if (!(sys->bitset & 0b00000100))
 			{
 				redraw_image(sys, x, y);
+				write_color(sys);
 				return (0);
 			}
 			sys->color = sys->mnuout[x - (MAIN_W - MENU_W) + MENU_W * y];
 			draw_image(sys);
+			write_color(sys);
 			return (0);
 		}
 
@@ -330,6 +332,27 @@ void	write_scale(t_sys *sys)
 		i += 1;
 	}
 	sys->str_scale[(int)sys->index][(int)i] = '\0';
+	draw_stat(sys);
+}
+
+void	write_color(t_sys *sys)
+{
+	int		dec;
+	char	i;
+
+	dec = sys->color;
+	i = 20;
+	while (dec)
+	{
+		sys->str_color[(int)i] = sys->hexnumbs[dec % 16];
+		dec /= 16;
+		i -= 1;
+	}
+	while (i != 14)
+	{
+		sys->str_color[(int)i] = '0';
+		i -= 1;
+	}
 	draw_stat(sys);
 }
 

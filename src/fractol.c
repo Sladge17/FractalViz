@@ -113,6 +113,10 @@ void	set_system(t_sys *sys)
 	sys->cursor[0] = 0;
 	sys->cursor[1] = 0;
 
+	sys->hexnumbs = ft_strnew(16);
+	sys->hexnumbs = ft_strcat(sys->hexnumbs, "0123456789ABCDEF");
+	sys->str_color = ft_strnew(21);
+	sys->str_color = ft_strcat(sys->str_color, "fractal color: FF0000");
 
 	set_tabparam(sys);
 }
