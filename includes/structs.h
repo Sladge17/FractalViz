@@ -65,8 +65,13 @@ typedef struct	s_sys
 	
 
 	t_comp		k[8];
+	char		*cursorstr[2];
+	char		*str_cursor[2];
 	char		*str_k[8];
+
+	char		*scalestr;
 	char		*str_scale[8];
+
 	char		*hexnumbs;
 	char		*str_color;
 

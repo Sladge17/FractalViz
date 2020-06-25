@@ -108,6 +108,7 @@ int		mouse_move(int x, int y, void *param);
 int		mouse_press(int button, int x, int y, void *param);
 int		mouse_release(int button, int x, int y, void *param);
 
+void	write_cursor(t_sys *sys, char drawing);
 void	write_k(t_sys *sys);
 void	write_scale(t_sys *sys);
 void	write_color(t_sys *sys);
@@ -139,7 +140,8 @@ void	set_deltazero(t_sys *sys);
 /*
 ** double_to_str.c
 */
-char	*double_to_str(double input);
+// char	*double_to_str(double input);
+void	double_to_str(double input, char *str);
 int		intlen(int integer);
 void	fill_intpart(char *str, int integer, int i, char sign);
 void	fill_fractpart(char *str, int fraction, int i);

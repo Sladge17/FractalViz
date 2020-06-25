@@ -10,18 +10,24 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# define MAIN_W 1280
-# define MAIN_H 720
+# define MAIN_W 1920
+# define MAIN_H 1080
 
 # define SET_W 400
 # define SET_H 600
 
 # define MENU_W 250
+# define STAT_H 370
+# define Q 60
 
 // # define IMAGE_C 0x909497
 # define IMAGE_C 0
 # define MENU_C 0x2E4053
-# define STAT_C 0x909497
+# define TEXT_C 0xD0D3D4
+# define TITLE_C 0xC0C798
+// # define TITLE_C 0x6EC0A3
+
+// # define STAT_C 0x909497
 
 # define FRACT_C 0xFF0000
 # define AXISF_C 0xFFFFFF
@@ -31,7 +37,7 @@
 # define ITER 100
 # define SHIFT 10
 
-# define DEF_SCALE 200
+# define DEF_SCALE 300
 # define ADD_SCALE 10
 # define MIN_SCALE 100
 

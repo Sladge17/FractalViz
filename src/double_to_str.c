@@ -12,9 +12,10 @@
 
 #include "fractol.h"
 
-char	*double_to_str(double input)
+// char	*double_to_str(double input)
+void	double_to_str(double input, char *str)
 {
-	char	*str;
+	// char	*str;
 	int		integer;
 	char	sign;
 	int		len_int;
@@ -30,12 +31,12 @@ char	*double_to_str(double input)
 	integer = (int)input;
 	len_int = intlen(integer) + sign;
 	len_str = len_int + 5;
-	str = (char *)malloc(sizeof(char) * len_str);
+	// str = (char *)malloc(sizeof(char) * len_str);
 	fill_intpart(str, integer, len_int - 1, sign);
 	str[len_int] = '.';
 	fill_fractpart(str, (int)((input - integer) * 1000), len_str - 2);
 	str[len_str - 1] = '\0';
-	return (str);
+	// return (str);
 }
 
 int		intlen(int integer)

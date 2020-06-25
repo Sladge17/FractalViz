@@ -90,13 +90,13 @@ void	set_system(t_sys *sys)
 	sys->imgout = (int *)mlx_get_data_addr(sys->img,
 		&sys->img_s[0], &sys->img_s[1], &sys->img_s[2]);
 
-	sys->mnuvol = MENU_W * MAIN_H / 2;
-	sys->mnu = mlx_new_image(sys->mlx, MENU_W, MAIN_H / 2);
+	sys->mnuvol = MENU_W * MAIN_H;
+	sys->mnu = mlx_new_image(sys->mlx, MENU_W, MAIN_H);
 	sys->mnuout = (int *)mlx_get_data_addr(sys->mnu,
 		&sys->mnu_s[0], &sys->mnu_s[1], &sys->mnu_s[2]);
 
-	sys->statvol = MENU_W * MAIN_H / 2;
-	sys->stat = mlx_new_image(sys->mlx, MENU_W, MAIN_H / 2);
+	sys->statvol = MENU_W * STAT_H;
+	sys->stat = mlx_new_image(sys->mlx, MENU_W, STAT_H);
 	sys->statout = (int *)mlx_get_data_addr(sys->stat,
 		&sys->stat_s[0], &sys->stat_s[1], &sys->stat_s[2]);
 
@@ -105,13 +105,24 @@ void	set_system(t_sys *sys)
 	sys->setout = (int *)mlx_get_data_addr(sys->set,
 		&sys->set_s[0], &sys->set_s[1], &sys->set_s[2]);
 	
-	sys->bitset = 0b00000100;
+	sys->bitset = 0;
 	
 	sys->color = 0xFF0000;
 
 
 	sys->cursor[0] = 0;
 	sys->cursor[1] = 0;
+
+	sys->cursorstr[0] = ft_strnew(7);
+	sys->cursorstr[1] = ft_strnew(7);
+
+	sys->str_cursor[0] = ft_strnew(14);
+	sys->str_cursor[0] = ft_strcat(sys->str_cursor[0], "real = not def");
+	sys->str_cursor[1] = ft_strnew(14);
+	sys->str_cursor[1] = ft_strcat(sys->str_cursor[1], "img = not def");
+
+	// MAYBE NEED INCREASE !!!!!!!!
+	sys->scalestr = ft_strnew(6);
 
 	sys->hexnumbs = ft_strnew(16);
 	sys->hexnumbs = ft_strcat(sys->hexnumbs, "0123456789ABCDEF");
@@ -145,6 +156,7 @@ void	set_tabparam(t_sys *sys)
 		sys->str_k[(int)i] = ft_strnew(23);
 		sys->str_k[(int)i] = ft_strcat(sys->str_k[(int)i], "k = 0.000 + 0.000i");
 
+		// MAYBE NEED INCREASE !!!!!!!!
 		sys->str_scale[(int)i] = ft_strnew(14);
 		sys->str_scale[(int)i] = ft_strcat(sys->str_scale[(int)i], "scale = 1.000");
 		// sys->str_k[(int)i][0] = 'k';
@@ -175,7 +187,7 @@ void	clear_stat(t_sys *sys)
 	i = 0;
 	while (i < sys->statvol)
 	{
-		sys->statout[i] = STAT_C;
+		sys->statout[i] = MENU_C;
 		i += 1;
 	}
 }
@@ -190,9 +202,20 @@ void	draw_menu(t_sys *sys)
 		sys->mnuout[i] = MENU_C;
 		i += 1;
 	}
-	sys->rgbtris_y[0] = 100;
+	sys->rgbtris_y[0] = 325;
 	draw_rgbtriangle(sys, MENU_W / 2, 10);
 	mlx_put_image_to_window(sys->mlx, sys->win_main, sys->mnu, MAIN_W - MENU_W, 0);
+	mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) + 10, 20, TITLE_C, "Main settings");
+	mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) + 10, 60, TEXT_C, "1 - 8 - choose fractal");
+	mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) + 10, 100, TEXT_C, "LMB - transform fractal");
+	mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) + 10, 125, TEXT_C, "RMB - reset transform");
+	mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) + 10, 165, TEXT_C, "SMB - scale fractal");
+	mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) + 10, 190, TEXT_C, "MMB - reset scale");
+	mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) + 10, 230, TEXT_C, "ARROWS - shift fractal");
+	mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) + 10, 255, TEXT_C, "C - centred fractal");
+	mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) + 10, 295, TEXT_C, "Choose fractal color:");
+	mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) + 10, 550, TEXT_C, "SPACE - more settings");
+
 }
 
 void	fill_settings(t_sys *sys)
