@@ -30,6 +30,7 @@
 /*
 ** fractol.c
 */
+void	set_consts(t_sys *sys);
 char	*set_fractname(t_sys *sys);
 void	set_system(t_sys *sys);
 void	set_tabparam(t_sys *sys);
@@ -58,7 +59,7 @@ void	draw_horline(t_sys *system, int *v0, int *v1);
 /*
 ** drawing.c
 */
-void	firstdraw_image(t_sys *sys, int argc, char *argv);
+void	draw_winmain(t_sys *sys, int argc, char *argv);
 void	draw_image(t_sys *sys);
 void	draw_stat(t_sys *sys);
 void	draw_fractal(int itr, int i, t_sys *sys);

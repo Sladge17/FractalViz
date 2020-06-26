@@ -29,35 +29,35 @@ int		key_press(int keycode, void *param)
 		sys->bitset ^= 0b00000010;
 		if (sys->bitset & 0b00000010)
 		{
-			sys->win_set = mlx_new_window(sys->mlx, SET_W, SET_H, "settings");
-			mlx_put_image_to_window(sys->mlx, sys->win_set, sys->set, 0, 0);
-			mlx_string_put(sys->mlx, sys->win_set, 20, 20, TITLE_C, "Available fractals:");
-			mlx_string_put(sys->mlx, sys->win_set, 20, 45, TEXT_C, "1 - Zulia");
-			mlx_string_put(sys->mlx, sys->win_set, 20, 70, TEXT_C, "2 - Mandelbrot");
-			mlx_string_put(sys->mlx, sys->win_set, 20, 95, TEXT_C, "3 - BurningShip");
-			mlx_string_put(sys->mlx, sys->win_set, 20, 120, TEXT_C, "4 - Mandelbar");
-			mlx_string_put(sys->mlx, sys->win_set, 20, 145, TEXT_C, "5 - AbsReal");
-			mlx_string_put(sys->mlx, sys->win_set, 20, 170, TEXT_C, "6 - AbsImg");
-			mlx_string_put(sys->mlx, sys->win_set, 20, 195, TEXT_C, "7 - Power3");
-			mlx_string_put(sys->mlx, sys->win_set, 20, 220, TEXT_C, "8 - AbsRealP4");
-			mlx_string_put(sys->mlx, sys->win_set, 20, 260, TEXT_C, "LMB + move - transform fractal");
-			mlx_string_put(sys->mlx, sys->win_set, 20, 285, TEXT_C, "RMB - reset transform");
-			mlx_string_put(sys->mlx, sys->win_set, 20, 325, TEXT_C, "SMB - scale fractal to cursor");
-			mlx_string_put(sys->mlx, sys->win_set, 20, 350, TEXT_C, "MMB - reset scale");
-			mlx_string_put(sys->mlx, sys->win_set, 20, 390, TEXT_C, "ARROWS - shift fractal");
-			mlx_string_put(sys->mlx, sys->win_set, 20, 415, TEXT_C, "C or <- + -> - centred fractal");
-			mlx_string_put(sys->mlx, sys->win_set, 170, 440, TEXT_C, "(white complex axis)");
-			mlx_string_put(sys->mlx, sys->win_set, 20, 480, TEXT_C, "~ - ON / OFF isolation mode");
-			mlx_string_put(sys->mlx, sys->win_set, 20, 505, TEXT_C, "TAB - ON / OFF complex axis");
-			mlx_string_put(sys->mlx, sys->win_set, 20, 530, TEXT_C, "SPACE - ON / OFF settings window");
-			mlx_string_put(sys->mlx, sys->win_set, 20, 560, TEXT_C, "ESC - exit fractol");
+			sys->mlxset->win_set = mlx_new_window(sys->mlxset->mlx, SETT_W, SETT_H, "settings");
+			mlx_put_image_to_window(sys->mlxset->mlx, sys->mlxset->win_set, sys->mlxset->set, 0, 0);
+			mlx_string_put(sys->mlxset->mlx, sys->mlxset->win_set, 20, 20, TITLE_C, "Available fractals:");
+			mlx_string_put(sys->mlxset->mlx, sys->mlxset->win_set, 20, 45, TEXT_C, "1 - Zulia");
+			mlx_string_put(sys->mlxset->mlx, sys->mlxset->win_set, 20, 70, TEXT_C, "2 - Mandelbrot");
+			mlx_string_put(sys->mlxset->mlx, sys->mlxset->win_set, 20, 95, TEXT_C, "3 - BurningShip");
+			mlx_string_put(sys->mlxset->mlx, sys->mlxset->win_set, 20, 120, TEXT_C, "4 - Mandelbar");
+			mlx_string_put(sys->mlxset->mlx, sys->mlxset->win_set, 20, 145, TEXT_C, "5 - AbsReal");
+			mlx_string_put(sys->mlxset->mlx, sys->mlxset->win_set, 20, 170, TEXT_C, "6 - AbsImg");
+			mlx_string_put(sys->mlxset->mlx, sys->mlxset->win_set, 20, 195, TEXT_C, "7 - Power3");
+			mlx_string_put(sys->mlxset->mlx, sys->mlxset->win_set, 20, 220, TEXT_C, "8 - AbsRealP4");
+			mlx_string_put(sys->mlxset->mlx, sys->mlxset->win_set, 20, 260, TEXT_C, "LMB + move - transform fractal");
+			mlx_string_put(sys->mlxset->mlx, sys->mlxset->win_set, 20, 285, TEXT_C, "RMB - reset transform");
+			mlx_string_put(sys->mlxset->mlx, sys->mlxset->win_set, 20, 325, TEXT_C, "SMB - scale fractal to cursor");
+			mlx_string_put(sys->mlxset->mlx, sys->mlxset->win_set, 20, 350, TEXT_C, "MMB - reset scale");
+			mlx_string_put(sys->mlxset->mlx, sys->mlxset->win_set, 20, 390, TEXT_C, "ARROWS - shift fractal");
+			mlx_string_put(sys->mlxset->mlx, sys->mlxset->win_set, 20, 415, TEXT_C, "C or <- + -> - centred fractal");
+			mlx_string_put(sys->mlxset->mlx, sys->mlxset->win_set, 170, 440, TEXT_C, "(white complex axis)");
+			mlx_string_put(sys->mlxset->mlx, sys->mlxset->win_set, 20, 480, TEXT_C, "~ - ON / OFF isolation mode");
+			mlx_string_put(sys->mlxset->mlx, sys->mlxset->win_set, 20, 505, TEXT_C, "TAB - ON / OFF complex axis");
+			mlx_string_put(sys->mlxset->mlx, sys->mlxset->win_set, 20, 530, TEXT_C, "SPACE - ON / OFF settings window");
+			mlx_string_put(sys->mlxset->mlx, sys->mlxset->win_set, 20, 560, TEXT_C, "ESC - exit fractol");
 
 
-			mlx_hook(sys->win_set, 2, 0, key_press, sys);
-			mlx_hook(sys->win_set, 17, 0, close_setting, sys);
+			mlx_hook(sys->mlxset->win_set, 2, 0, key_press, sys);
+			mlx_hook(sys->mlxset->win_set, 17, 0, close_setting, sys);
 		}
 		else
-			mlx_destroy_window(sys->mlx, sys->win_set);
+			mlx_destroy_window(sys->mlxset->mlx, sys->mlxset->win_set);
 		return (0);
 	}
 
@@ -221,7 +221,7 @@ int		mouse_press(int button, int x, int y, void *param)
 		}
 
 		if (x >= MAIN_W - MENU_W && y >= sys->rgbtris_y[0] && y <= sys->rgbtris_y[1] &&
-			sys->mnuout[x - (MAIN_W - MENU_W) + MENU_W * y] != MENU_C)
+			sys->mlxset->mnuout[x - (MAIN_W - MENU_W) + MENU_W * y] != MENU_C)
 		{
 			if (!(sys->bitset & 0b00000100))
 			{
@@ -229,7 +229,7 @@ int		mouse_press(int button, int x, int y, void *param)
 				write_color(sys);
 				return (0);
 			}
-			sys->color = sys->mnuout[x - (MAIN_W - MENU_W) + MENU_W * y];
+			sys->color = sys->mlxset->mnuout[x - (MAIN_W - MENU_W) + MENU_W * y];
 			draw_image(sys);
 			write_color(sys);
 			return (0);
