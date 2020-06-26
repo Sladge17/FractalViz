@@ -19,6 +19,8 @@ void	scale_up(t_sys *sys)
 
 	if (sys->delta[1][(int)sys->index][0] || sys->delta[1][(int)sys->index][1])
 		AXIS_C[(int)sys->index] = AXISK_C;
+	else
+		AXIS_C[(int)sys->index] = AXISF_C;
 	
 	draw_image(sys);
 }
@@ -34,6 +36,8 @@ void	scale_down(t_sys *sys)
 
 	if (sys->delta[1][(int)sys->index][0] || sys->delta[1][(int)sys->index][1])
 		AXIS_C[(int)sys->index] = AXISK_C;
+	else
+		AXIS_C[(int)sys->index] = AXISF_C;
 
 	draw_image(sys);	
 }

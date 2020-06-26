@@ -10,6 +10,47 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+typedef struct s_consts
+{
+	int			image_w;
+	int			image_vol;
+	int			menu_vol;
+	int			stat_vol;
+	int			sett_vol;
+	int			image_centrx;
+	int			image_centry;
+	int			image_center;
+
+	int			menu_xoffset;
+}				t_consts;
+
+typedef struct s_mlxset
+{
+	void		*mlx;
+	void		*win_main;
+	void		*win_set;
+
+	// int			imgvol;
+	void		*img;
+	int			img_s[3];
+	int			*imgout;
+
+	// int			mnuvol;
+	void		*mnu;
+	int			mnu_s[3];
+	int			*mnuout;
+
+	// int			statvol;
+	void		*stat;
+	int			stat_s[3];
+	int			*statout;
+
+	// int			setvol;
+	void		*set;
+	int			set_s[3];
+	int			*setout;	
+}				t_mlxset;
+
 typedef struct	s_comp
 {
 	double		real;
@@ -18,34 +59,37 @@ typedef struct	s_comp
 
 typedef struct	s_sys
 {
-	void		*mlx;
-	void		*win_main;
-	void		*win_set;
+	t_consts	*consts;
 
-	int			imgvol;
-	void		*img;
-	int			img_s[3];
-	int			*imgout;
+	t_mlxset	*mlxset;
 
-	int			mnuvol;
-	void		*mnu;
-	int			mnu_s[3];
-	int			*mnuout;
+	// void		*mlx;
+	// void		*win_main;
+	// void		*win_set;
 
-	int			statvol;
-	void		*stat;
-	int			stat_s[3];
-	int			*statout;
+	// int			imgvol;
+	// void		*img;
+	// int			img_s[3];
+	// int			*imgout;
 
-	int			setvol;
-	void		*set;
-	int			set_s[3];
-	int			*setout;
+	// int			mnuvol;
+	// void		*mnu;
+	// int			mnu_s[3];
+	// int			*mnuout;
+
+	// int			statvol;
+	// void		*stat;
+	// int			stat_s[3];
+	// int			*statout;
+
+	// int			setvol;
+	// void		*set;
+	// int			set_s[3];
+	// int			*setout;
 	
 	char		bitset;
 
 	char		index;
-	char		*name;
 	int			color;
 	int			shift[8][2];
 
@@ -65,8 +109,14 @@ typedef struct	s_sys
 	
 
 	t_comp		k[8];
+	char		*str_name;
+	char		*cursorstr[2];
+	char		*str_cursor[2];
 	char		*str_k[8];
+
+	char		*scalestr;
 	char		*str_scale[8];
+
 	char		*hexnumbs;
 	char		*str_color;
 

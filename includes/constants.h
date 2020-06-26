@@ -10,18 +10,51 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+// # define MAIN_W 1920
+// # define MAIN_H 1080
 # define MAIN_W 1280
 # define MAIN_H 720
 
-# define SET_W 400
-# define SET_H 600
+# define SETT_W 400
+# define SETT_H 600
 
 # define MENU_W 250
+# define IMAGE_W sys->consts->image_w
+# define STAT_H 370
+
+# define IMAGE_VOL sys->consts->image_vol
+# define MENU_VOL sys->consts->menu_vol
+# define STAT_VOL sys->consts->stat_vol
+# define SETT_VOL sys->consts->sett_vol
+
+# define IMAGE_CENTRX sys->consts->image_centrx
+# define IMAGE_CENTRY sys->consts->image_centry
+# define IMAGE_CENTER sys->consts->image_center
+
+# define F_ID (int)sys->index
+
+# define Q 60 // NEED DELL!!!!!!!!!!!!!
+
+# define MLX sys->mlxset->mlx
+# define WINMAIN sys->mlxset->win_main
+# define WINSETT sys->mlxset->win_set
+# define IMAGE sys->mlxset->img
+# define MENU sys->mlxset->mnu
+# define STAT sys->mlxset->stat
+# define SETT sys->mlxset->set
+
+
+# define STR_X sys->consts->menu_xoffset
+# define STAT_Y 420
 
 // # define IMAGE_C 0x909497
 # define IMAGE_C 0
 # define MENU_C 0x2E4053
-# define STAT_C 0x909497
+# define STR_C 0xD0D3D4
+# define TITLE_C 0xC0C798
+// # define TITLE_C 0x6EC0A3
+
+// # define STAT_C 0x909497
 
 # define FRACT_C 0xFF0000
 # define AXISF_C 0xFFFFFF
@@ -31,6 +64,7 @@
 # define ITER 100
 # define SHIFT 10
 
+// # define DEF_SCALE 300
 # define DEF_SCALE 200
 # define ADD_SCALE 10
 # define MIN_SCALE 100
