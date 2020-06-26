@@ -29,49 +29,21 @@ int		key_press(int keycode, void *param)
 		sys->bitset ^= 0b00000010;
 		if (sys->bitset & 0b00000010)
 		{
-			sys->mlxset->win_set = mlx_new_window(sys->mlxset->mlx, SETT_W, SETT_H, "settings");
-			mlx_put_image_to_window(sys->mlxset->mlx, sys->mlxset->win_set, sys->mlxset->set, 0, 0);
-			mlx_string_put(sys->mlxset->mlx, sys->mlxset->win_set, 20, 20, TITLE_C, "Available fractals:");
-			mlx_string_put(sys->mlxset->mlx, sys->mlxset->win_set, 20, 45, TEXT_C, "1 - Zulia");
-			mlx_string_put(sys->mlxset->mlx, sys->mlxset->win_set, 20, 70, TEXT_C, "2 - Mandelbrot");
-			mlx_string_put(sys->mlxset->mlx, sys->mlxset->win_set, 20, 95, TEXT_C, "3 - BurningShip");
-			mlx_string_put(sys->mlxset->mlx, sys->mlxset->win_set, 20, 120, TEXT_C, "4 - Mandelbar");
-			mlx_string_put(sys->mlxset->mlx, sys->mlxset->win_set, 20, 145, TEXT_C, "5 - AbsReal");
-			mlx_string_put(sys->mlxset->mlx, sys->mlxset->win_set, 20, 170, TEXT_C, "6 - AbsImg");
-			mlx_string_put(sys->mlxset->mlx, sys->mlxset->win_set, 20, 195, TEXT_C, "7 - Power3");
-			mlx_string_put(sys->mlxset->mlx, sys->mlxset->win_set, 20, 220, TEXT_C, "8 - AbsRealP4");
-			mlx_string_put(sys->mlxset->mlx, sys->mlxset->win_set, 20, 260, TEXT_C, "LMB + move - transform fractal");
-			mlx_string_put(sys->mlxset->mlx, sys->mlxset->win_set, 20, 285, TEXT_C, "RMB - reset transform");
-			mlx_string_put(sys->mlxset->mlx, sys->mlxset->win_set, 20, 325, TEXT_C, "SMB - scale fractal to cursor");
-			mlx_string_put(sys->mlxset->mlx, sys->mlxset->win_set, 20, 350, TEXT_C, "MMB - reset scale");
-			mlx_string_put(sys->mlxset->mlx, sys->mlxset->win_set, 20, 390, TEXT_C, "ARROWS - shift fractal");
-			mlx_string_put(sys->mlxset->mlx, sys->mlxset->win_set, 20, 415, TEXT_C, "C or <- + -> - centred fractal");
-			mlx_string_put(sys->mlxset->mlx, sys->mlxset->win_set, 170, 440, TEXT_C, "(white complex axis)");
-			mlx_string_put(sys->mlxset->mlx, sys->mlxset->win_set, 20, 480, TEXT_C, "~ - ON / OFF isolation mode");
-			mlx_string_put(sys->mlxset->mlx, sys->mlxset->win_set, 20, 505, TEXT_C, "TAB - ON / OFF complex axis");
-			mlx_string_put(sys->mlxset->mlx, sys->mlxset->win_set, 20, 530, TEXT_C, "SPACE - ON / OFF settings window");
-			mlx_string_put(sys->mlxset->mlx, sys->mlxset->win_set, 20, 560, TEXT_C, "ESC - exit fractol");
-
-
-			mlx_hook(sys->mlxset->win_set, 2, 0, key_press, sys);
-			mlx_hook(sys->mlxset->win_set, 17, 0, close_setting, sys);
+			sys->win_set = mlx_new_window(sys->mlx, SET_W, SET_H, "settings");
+			mlx_put_image_to_window(sys->mlx, sys->win_set, sys->set, 0, 0);
+			mlx_string_put(sys->mlx, sys->win_set, 10, 10, 0x00FF00, "Test-test");
+			mlx_hook(sys->win_set, 2, 0, key_press, sys);
+			mlx_hook(sys->win_set, 17, 0, close_setting, sys);
 		}
 		else
-			mlx_destroy_window(sys->mlxset->mlx, sys->mlxset->win_set);
+			mlx_destroy_window(sys->mlx, sys->win_set);
 		return (0);
 	}
 
 
 	if (keycode == 12)
 	{
-		if (sys->cursor[0] >= 0 && sys->cursor[0] < (MAIN_W - MENU_W) && sys->cursor[1] >= 0 && sys->cursor[1] < MAIN_H)
-		{
-			scale_up(sys);
-			set_deltazero(sys);
-			
-			write_scale(sys);
-		}
-		// scale_up(sys);
+		scale_up(sys);
 		// sys->scale[1][(int)sys->index] += ADD_SCALE;
 		// def_delta(sys);
 		// draw_image(sys);
@@ -80,14 +52,7 @@ int		key_press(int keycode, void *param)
 
 	if (keycode == 13)
 	{
-		if (sys->cursor[0] >= 0 && sys->cursor[0] < MAIN_W - MENU_W && sys->cursor[1] >= 0 && sys->cursor[1] < MAIN_H)
-		{
-			scale_down(sys);
-			set_deltazero(sys);
-			
-			write_scale(sys);
-		}
-		// scale_down(sys);
+		scale_down(sys);
 		// if (sys->scale[1][(int)sys->index] == MIN_SCALE)
 		// 	return (0);
 		// sys->scale[1][(int)sys->index] -= ADD_SCALE;
@@ -163,39 +128,28 @@ int		mouse_move(int x, int y, void *param)
 
 	sys = (t_sys *)param;
 
-	sys->cursor[0] = x;
-	sys->cursor[1] = y;
-
 	if (sys->bitset & 0b00000001)
 	{
 		sys->cursorcomp.real = (x - (MAIN_W - MENU_W) / 2) / (double)sys->scale[1][(int)sys->index];
 		sys->cursorcomp.img = -(y - MAIN_H / 2) / (double)sys->scale[1][(int)sys->index];
 		sys->k[(int)sys->index] = sys->cursorcomp;
 		draw_image(sys);
-		
-		write_cursor(sys, 0);
 		write_k(sys);
 		return (0);
 	}
 
 	if (x >= 0 && x < MAIN_W - MENU_W && y >= 0 && y < MAIN_H)
 	{
-		// sys->cursor[0] = x;
-		// sys->cursor[1] = y;
+		sys->cursor[0] = x;
+		sys->cursor[1] = y;
 
 		sys->cursorcomp.real = (x - (MAIN_W - MENU_W) / 2) / (double)sys->scale[1][(int)sys->index];
 		sys->cursorcomp.img = -(y - MAIN_H / 2) / (double)sys->scale[1][(int)sys->index];
-
-		write_cursor(sys, 1);
 		// draw_image(sys);
-		// draw_stat(sys);
+		draw_stat(sys);
 		return (0);
 	}
-	sys->str_cursor[0][7] = '\0';
-	sys->str_cursor[0] = ft_strcat(sys->str_cursor[0], "not def");
-	sys->str_cursor[1][6] = '\0';
-	sys->str_cursor[1] = ft_strcat(sys->str_cursor[1], "not def");
-	draw_stat(sys);
+
 
 	return (0);
 }
@@ -221,7 +175,7 @@ int		mouse_press(int button, int x, int y, void *param)
 		}
 
 		if (x >= MAIN_W - MENU_W && y >= sys->rgbtris_y[0] && y <= sys->rgbtris_y[1] &&
-			sys->mlxset->mnuout[x - (MAIN_W - MENU_W) + MENU_W * y] != MENU_C)
+			sys->mnuout[x - (MAIN_W - MENU_W) + MENU_W * y] != MENU_C)
 		{
 			if (!(sys->bitset & 0b00000100))
 			{
@@ -229,7 +183,7 @@ int		mouse_press(int button, int x, int y, void *param)
 				write_color(sys);
 				return (0);
 			}
-			sys->color = sys->mlxset->mnuout[x - (MAIN_W - MENU_W) + MENU_W * y];
+			sys->color = sys->mnuout[x - (MAIN_W - MENU_W) + MENU_W * y];
 			draw_image(sys);
 			write_color(sys);
 			return (0);
@@ -272,7 +226,7 @@ int		mouse_press(int button, int x, int y, void *param)
 		return (0);	
 	}
 
-	if (button == 4 && x >= 0 && x < MAIN_W - MENU_W && y >= 0 && y < MAIN_H)
+	if (button == 4)
 	{
 		scale_down(sys);
 		set_deltazero(sys);
@@ -292,7 +246,7 @@ int		mouse_press(int button, int x, int y, void *param)
 		return (0);
 	}
 
-	if (button == 5 && x >= 0 && x < MAIN_W - MENU_W && y >= 0 && y < MAIN_H)
+	if (button == 5)
 	{
 		scale_up(sys);
 		set_deltazero(sys);
@@ -316,62 +270,28 @@ int		mouse_release(int button, int x, int y, void *param)
 {
 	t_sys		*sys;
 
-	// x = 0;
-	// y = 0;
+	x = 0;
+	y = 0;
 	sys = (t_sys *)param;
 
 	if (button == 1 && sys->bitset & 0b00000001)
-	{
 		sys->bitset ^= 0b00000001;
-		if (!(x >= 0 && x < MAIN_W - MENU_W && y >= 0 && y < MAIN_H))
-		{
-			sys->str_cursor[0][7] = '\0';
-			sys->str_cursor[0] = ft_strcat(sys->str_cursor[0], "not def");
-			sys->str_cursor[1][6] = '\0';
-			sys->str_cursor[1] = ft_strcat(sys->str_cursor[1], "not def");
-			draw_stat(sys);
-		}
-	}
 	
 	return (0);
-}
-
-void	write_cursor(t_sys *sys, char drawing)
-{
-	char	*pointer;
-	char	i;
-
-	double_to_str(sys->cursorcomp.real, sys->cursorstr[0]);
-	pointer = sys->cursorstr[0];
-	i = 7;
-	while (*pointer != '\0')
-	{
-		sys->str_cursor[0][(int)i] = *pointer;
-		pointer += 1;
-		i += 1;
-	}
-	sys->str_cursor[0][(int)i] = '\0';
-	double_to_str(sys->cursorcomp.img, sys->cursorstr[1]);
-	pointer = sys->cursorstr[1];
-	i = 6;
-	while (*pointer != '\0')
-	{
-		sys->str_cursor[1][(int)i] = *pointer;
-		pointer += 1;
-		i += 1;
-	}
-	sys->str_cursor[1][(int)i] = '\0';
-	if (drawing)
-		draw_stat(sys);
 }
 
 
 void	write_k(t_sys *sys)
 {
+	char	*real;
+	char	*img;
 	char	*pointer;
 	char	i;
 
-	pointer = sys->cursorstr[0];
+	real = double_to_str(sys->cursorcomp.real);
+	img = double_to_str(sys->cursorcomp.img);
+	pointer = real;
+	
 	i = 4;
 	while (*pointer != '\0')
 	{
@@ -383,7 +303,8 @@ void	write_k(t_sys *sys)
 	sys->str_k[(int)sys->index][(int)i + 1] = '+';
 	sys->str_k[(int)sys->index][(int)i + 2] = ' ';
 	i += 3;
-	pointer = sys->cursorstr[1];
+
+	pointer = img;
 	while (*pointer != '\0')
 	{
 		sys->str_k[(int)sys->index][(int)i] = *pointer;
@@ -397,11 +318,12 @@ void	write_k(t_sys *sys)
 
 void	write_scale(t_sys *sys)
 {
+	char	*scale;
 	char	*pointer;
 	char	i;
 
-	double_to_str(sys->scale[1][(int)sys->index] / (double)DEF_SCALE, sys->scalestr);
-	pointer = sys->scalestr;
+	scale = double_to_str(sys->scale[1][(int)sys->index] / (double)DEF_SCALE);
+	pointer = scale;
 	i = 8;
 	while (*pointer != '\0')
 	{

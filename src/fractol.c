@@ -18,62 +18,47 @@ int		main(int argc, char **argv)
 
 	if (argc > 2)
 		fractol_discr();
+
 	if (!(sys = (t_sys *)malloc(sizeof(t_sys))))
 		exit(0);
-	draw_winmain(sys, argc, argv[1]);
-	clear_settings(sys);
-	mlx_hook(WINMAIN, 2, 0, key_press, sys);
-	mlx_hook(WINMAIN, 3, 0, key_release, sys);
-	mlx_hook(WINMAIN, 4, 0, mouse_press, sys);
-	mlx_hook(WINMAIN, 5, 0, mouse_release, sys);
-	mlx_hook(WINMAIN, 6, 0, mouse_move, sys);
-	mlx_hook(WINMAIN, 17, 0, close_fractol, sys);
-	mlx_loop(MLX);
+
+	if (argc == 1)
+	{
+		sys->index = 1;
+		sys->name = "name: Mandelbrot";
+		set_system(sys);
+		clear_image(sys);
+		calc_Mandelbrot(sys);
+	}
+	else
+	{
+		if (strlen(argv[1]) != 1 || argv[1][0] < '1' || argv[1][0] > '8')
+			fractol_discr();
+		sys->index = atoi(argv[1]) - 1;
+		sys->name = set_fractname(sys);
+		set_system(sys);
+		clear_image(sys);
+		calc_fractal(sys);
+	}
+	mlx_put_image_to_window(sys->mlx, sys->win_main, sys->img, 0, 0);
+	
+	draw_menu(sys);
+	fill_settings(sys);
+
+	draw_stat(sys);
+	// clear_stat(sys);
+	// mlx_put_image_to_window(sys->mlx, sys->win, sys->stat, MAIN_W - MENU_W, MAIN_H / 2);
+	// mlx_string_put(sys->mlx, sys->win, (MAIN_W - MENU_W) + 10, (MAIN_H / 2) + 10, 0x00FF00, sys->name);
+
+	mlx_hook(sys->win_main, 2, 0, key_press, sys);
+	mlx_hook(sys->win_main, 3, 0, key_release, sys);
+	mlx_hook(sys->win_main, 4, 0, mouse_press, sys);
+	mlx_hook(sys->win_main, 5, 0, mouse_release, sys);
+	mlx_hook(sys->win_main, 6, 0, mouse_move, sys);
+	mlx_hook(sys->win_main, 17, 0, close_fractol, sys);
+	mlx_loop(sys->mlx);
+
 	return (0);
-}
-
-void	set_consts(t_sys *sys)
-{
-	if (!(sys->consts = (t_consts *)malloc(sizeof(t_consts))))
-		exit(0);
-	IMAGE_W = MAIN_W - MENU_W;
-	IMAGE_VOL = IMAGE_W * MAIN_H;
-	MENU_VOL = MENU_W * MAIN_H;
-	STAT_VOL = MENU_W * STAT_H;
-	SETT_VOL = SETT_W * SETT_H;
-
-	IMAGE_CENTRX = IMAGE_W / 2;
-	IMAGE_CENTRY = MAIN_H / 2;
-	IMAGE_CENTER = IMAGE_CENTRX + IMAGE_W * IMAGE_CENTRY;
-
-	XSTR = IMAGE_W + 10;
-}
-
-void	set_mlxset(t_sys *sys)
-{
-	if (!(sys->mlxset = (t_mlxset *)malloc(sizeof(t_mlxset))))
-		exit(0);
-	MLX = mlx_init();
-	IMAGE = mlx_new_image(MLX, IMAGE_W, MAIN_H);
-	sys->mlxset->imgout = (int *)mlx_get_data_addr(IMAGE,
-		&sys->mlxset->img_s[0],
-		&sys->mlxset->img_s[1],
-		&sys->mlxset->img_s[2]);
-	MENU = mlx_new_image(MLX, MENU_W, MAIN_H);
-	sys->mlxset->mnuout = (int *)mlx_get_data_addr(MENU,
-		&sys->mlxset->mnu_s[0],
-		&sys->mlxset->mnu_s[1],
-		&sys->mlxset->mnu_s[2]);
-	STAT = mlx_new_image(MLX, MENU_W, STAT_H);
-	sys->mlxset->statout = (int *)mlx_get_data_addr(STAT,
-		&sys->mlxset->stat_s[0],
-		&sys->mlxset->stat_s[1],
-		&sys->mlxset->stat_s[2]);
-	SETT = mlx_new_image(MLX, SETT_W, SETT_H);
-	sys->mlxset->setout = (int *)mlx_get_data_addr(SETT,
-		&sys->mlxset->set_s[0],
-		&sys->mlxset->set_s[1],
-		&sys->mlxset->set_s[2]);
 }
 
 char	*set_fractname(t_sys *sys)
@@ -97,23 +82,36 @@ char	*set_fractname(t_sys *sys)
 
 void	set_system(t_sys *sys)
 {
-	set_consts(sys);
-	set_mlxset(sys);
+	sys->mlx = mlx_init();
+	sys->win_main = mlx_new_window(sys->mlx, MAIN_W, MAIN_H, "fractol");
+	
+	sys->imgvol = (MAIN_W - MENU_W) * MAIN_H;
+	sys->img = mlx_new_image(sys->mlx, MAIN_W - MENU_W, MAIN_H);
+	sys->imgout = (int *)mlx_get_data_addr(sys->img,
+		&sys->img_s[0], &sys->img_s[1], &sys->img_s[2]);
 
-	sys->bitset = 0;	
+	sys->mnuvol = MENU_W * MAIN_H / 2;
+	sys->mnu = mlx_new_image(sys->mlx, MENU_W, MAIN_H / 2);
+	sys->mnuout = (int *)mlx_get_data_addr(sys->mnu,
+		&sys->mnu_s[0], &sys->mnu_s[1], &sys->mnu_s[2]);
+
+	sys->statvol = MENU_W * MAIN_H / 2;
+	sys->stat = mlx_new_image(sys->mlx, MENU_W, MAIN_H / 2);
+	sys->statout = (int *)mlx_get_data_addr(sys->stat,
+		&sys->stat_s[0], &sys->stat_s[1], &sys->stat_s[2]);
+
+	sys->setvol = SET_W * SET_H;
+	sys->set = mlx_new_image(sys->mlx, SET_W, SET_H);
+	sys->setout = (int *)mlx_get_data_addr(sys->set,
+		&sys->set_s[0], &sys->set_s[1], &sys->set_s[2]);
+	
+	sys->bitset = 0b00000100;
+	
 	sys->color = 0xFF0000;
+
+
 	sys->cursor[0] = 0;
 	sys->cursor[1] = 0;
-
-	sys->cursorstr[0] = ft_strnew(7);
-	sys->cursorstr[1] = ft_strnew(7);
-	sys->str_cursor[0] = ft_strnew(14);
-	sys->str_cursor[0] = ft_strcat(sys->str_cursor[0], "real = not def");
-	sys->str_cursor[1] = ft_strnew(14);
-	sys->str_cursor[1] = ft_strcat(sys->str_cursor[1], "img = not def");
-
-	// MAYBE NEED INCREASE !!!!!!!!
-	sys->scalestr = ft_strnew(6);
 
 	sys->hexnumbs = ft_strnew(16);
 	sys->hexnumbs = ft_strcat(sys->hexnumbs, "0123456789ABCDEF");
@@ -147,9 +145,13 @@ void	set_tabparam(t_sys *sys)
 		sys->str_k[(int)i] = ft_strnew(23);
 		sys->str_k[(int)i] = ft_strcat(sys->str_k[(int)i], "k = 0.000 + 0.000i");
 
-		// MAYBE NEED INCREASE !!!!!!!!
 		sys->str_scale[(int)i] = ft_strnew(14);
 		sys->str_scale[(int)i] = ft_strcat(sys->str_scale[(int)i], "scale = 1.000");
+		// sys->str_k[(int)i][0] = 'k';
+		// sys->str_k[(int)i][1] = ' ';
+		// sys->str_k[(int)i][2] = '=';
+		// sys->str_k[(int)i][3] = ' ';
+		// fill_strk(sys);
 		i += 1;
 	}
 }
@@ -159,9 +161,9 @@ void	clear_image(t_sys *sys)
 	int		i;
 	
 	i = 0;
-	while (i < IMAGE_VOL)
+	while (i < sys->imgvol)
 	{
-		sys->mlxset->imgout[i] = IMAGE_C;
+		sys->imgout[i] = IMAGE_C;
 		i += 1;
 	}
 }
@@ -171,73 +173,36 @@ void	clear_stat(t_sys *sys)
 	int		i;
 	
 	i = 0;
-	while (i < STAT_VOL)
+	while (i < sys->statvol)
 	{
-		sys->mlxset->statout[i] = 0;
+		sys->statout[i] = STAT_C;
 		i += 1;
 	}
 }
 
-// // FOR 1920 x 1080
-// void	draw_menu(t_sys *sys)
-// {
-// 	int		i;
-
-// 	i = 0;
-// 	while (i < sys->mnuvol)
-// 	{
-// 		sys->mnuout[i] = MENU_C;
-// 		i += 1;
-// 	}
-// 	sys->rgbtris_y[0] = 325;
-// 	draw_rgbtriangle(sys, MENU_W / 2, 10);
-// 	mlx_put_image_to_window(sys->mlx, sys->win_main, sys->mnu, MAIN_W - MENU_W, 0);
-// 	mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) + 10, 20, TITLE_C, "Main settings");
-// 	mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) + 10, 60, TEXT_C, "1 - 8 - choose fractal");
-// 	mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) + 10, 100, TEXT_C, "LMB - transform fractal");
-// 	mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) + 10, 125, TEXT_C, "RMB - reset transform");
-// 	mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) + 10, 165, TEXT_C, "SMB - scale fractal");
-// 	mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) + 10, 190, TEXT_C, "MMB - reset scale");
-// 	mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) + 10, 230, TEXT_C, "ARROWS - shift fractal");
-// 	mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) + 10, 255, TEXT_C, "C - centred fractal");
-// 	mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) + 10, 295, TEXT_C, "Choose fractal color:");
-// 	mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) + 10, 550, TEXT_C, "SPACE - more settings");
-// }
-// FOR 1280 x 720
 void	draw_menu(t_sys *sys)
 {
 	int		i;
 
 	i = 0;
-	while (i < MENU_VOL)
+	while (i < sys->mnuvol)
 	{
-		sys->mlxset->mnuout[i] = MENU_C;
+		sys->mnuout[i] = MENU_C;
 		i += 1;
 	}
-	sys->rgbtris_y[0] = 245;
-	draw_rgbtriangle(sys, MENU_W / 2, 40);
-	mlx_put_image_to_window(MLX, WINMAIN, MENU, IMAGE_W, 0);
-	mlx_string_put(MLX, WINMAIN, XSTR, 10, TITLE_C, "Main settings");
-	mlx_string_put(MLX, WINMAIN, XSTR, 40, TEXT_C, "1 - 8 - choose fractal");
-	mlx_string_put(MLX, WINMAIN, XSTR, 70, TEXT_C, "LMB - transform fractal");
-	mlx_string_put(MLX, WINMAIN, XSTR, 90, TEXT_C, "RMB - reset transform");
-	mlx_string_put(MLX, WINMAIN, XSTR, 120, TEXT_C, "SMB - scale fractal");
-	mlx_string_put(MLX, WINMAIN, XSTR, 140, TEXT_C, "MMB - reset scale");
-	mlx_string_put(MLX, WINMAIN, XSTR, 170, TEXT_C, "ARROWS - shift fractal");
-	mlx_string_put(MLX, WINMAIN, XSTR, 190, TEXT_C, "C - centred fractal");
-	mlx_string_put(MLX, WINMAIN, XSTR, 220, TEXT_C, "Choose fractal color:");
-	mlx_string_put(MLX, WINMAIN, XSTR, 400, TEXT_C, "SPACE - more settings");
+	sys->rgbtris_y[0] = 100;
+	draw_rgbtriangle(sys, MENU_W / 2, 10);
+	mlx_put_image_to_window(sys->mlx, sys->win_main, sys->mnu, MAIN_W - MENU_W, 0);
 }
 
-
-void	clear_settings(t_sys *sys)
+void	fill_settings(t_sys *sys)
 {
 	int		i;
 
 	i = 0;
-	while (i < SETT_VOL)
+	while (i < sys->setvol)
 	{
-		sys->mlxset->setout[i] = MENU_C;
+		sys->setout[i] = MENU_C;
 		i += 1;
 	}
 }
@@ -256,6 +221,23 @@ int		close_setting(void *param)
 	sys->bitset ^= 0b00000010;
 	return (0);
 }
+
+// // // NOT NEED UNCOMMENT !!!!!!!!!!!!!
+// t_comp	int_to_comp(t_sys *sys, int id)
+// {
+// 	t_comp	complex;
+
+// 	complex.real = id % (MAIN_W - MENU_W);
+// 	complex.img = -id / (MAIN_W - MENU_W);
+// 	complex.real -= (MAIN_W - MENU_W) / 2 + sys->shift[(int)sys->index][0];
+// 	complex.img += MAIN_H / 2 + sys->shift[(int)sys->index][1];
+// 	complex.real /= sys->scale;
+// 	complex.img /= sys->scale;
+// 	return (complex);
+// }
+
+
+
 
 
 // //--------------STAR_TESTINGVERSION------------------
@@ -384,48 +366,167 @@ t_comp	int_to_comp(t_sys *sys, int id)
 {
 	t_comp	complex;
 	int		id2d[2];
+	
+	id -= (MAIN_W - MENU_W) / 2 + (MAIN_W - MENU_W) * MAIN_H / 2;
 
-	id -= IMAGE_CENTER;
+	// id = id + sys->shift[(int)sys->index][0] + (MAIN_W - MENU_W) * sys->shift[(int)sys->index][1];
+
+	
+	// sys->delta[0] = sys->delta0[0] + sys->delta[0] - sys->shift[(int)sys->index][0];
+	// sys->delta[1] = sys->delta0[1] + sys->delta[1] - sys->shift[(int)sys->index][1];
 	conv_1d_2d(sys, id, &id2d[0]);
-	complex = init_comp(id2d[0] / (double)sys->scale[1][F_ID],
-		-id2d[1] / (double)sys->scale[1][F_ID]);
+
+	// id2d[0] -= sys->shift[(int)sys->index][0];
+	// id2d[1] -= sys->shift[(int)sys->index][1];
+
+	complex = init_comp(id2d[0] / (double)sys->scale[1][(int)sys->index], -id2d[1] / (double)sys->scale[1][(int)sys->index]);
+
+	// complex.real -= (MAIN_W - MENU_W) / 2 + sys->shift[(int)sys->index][0];
+	// complex.img += MAIN_H / 2 + sys->shift[(int)sys->index][1];
+
+	// complex.real /= (double)sys->scale;
+	// complex.img /= (double)sys->scale;
 	return (complex);
 }
 
+// 	t_comp	complex;
+// 	complex.real = id % (MAIN_W - MENU_W);
+// 	complex.real += sys->delta0[0];
+// 	complex.real += sys->delta[0];
+
+
+// void	conv_1d_2d(t_sys *sys, int id, int *id2d)
+// {
+// 	int		halfwidth = (MAIN_W - MENU_W) / 2;
+
+// 	id2d[0] = id % (MAIN_W - MENU_W);
+// 	id2d[1] = id / (MAIN_W - MENU_W);
+// 	if (id < 0 && -id2d[0] > halfwidth)
+// 	{
+// 		id2d[0] += sys->delta0[0] + (MAIN_W - MENU_W) + sys->delta[0]
+// 			- sys->shift[(int)sys->index][0];
+// 		id2d[1] += sys->delta0[1] + -1 + sys->delta[1] - sys->shift[(int)sys->index][1];
+// 		return ;
+// 	}
+// 	if (id > 0 && id2d[0] >= halfwidth)
+// 	{
+// 		id2d[0] += sys->delta0[0] + -(MAIN_W - MENU_W) + sys->delta[0]
+// 			- sys->shift[(int)sys->index][0];
+// 		id2d[1] += sys->delta0[1] + 1 + sys->delta[1] - sys->shift[(int)sys->index][1];
+// 		return ;
+// 	}
+// 	id2d[0] += sys->delta0[0] + sys->delta[0] - sys->shift[(int)sys->index][0];
+// 	id2d[1] += sys->delta0[1] + sys->delta[1] - sys->shift[(int)sys->index][1];
+// }
+
 void	conv_1d_2d(t_sys *sys, int id, int *id2d)
 {
-	id2d[0] = id % IMAGE_W;
-	id2d[1] = id / IMAGE_W;
-	if (id < 0 && -id2d[0] > IMAGE_CENTRX)
+	int		halfwidth = (MAIN_W - MENU_W) / 2;
+
+	// int		tmp[2];
+
+	// tmp[0] = sys->delta0[0] + sys->delta[0] - sys->shift[(int)sys->index][0];
+	// tmp[1] = sys->delta0[1] + sys->delta[1] - sys->shift[(int)sys->index][1];
+	// tmp[0] = sys->delta[0];
+	// tmp[1] = sys->delta[1];
+
+	id2d[0] = id % (MAIN_W - MENU_W);
+	id2d[1] = id / (MAIN_W - MENU_W);
+	if (id < 0 && -id2d[0] > halfwidth)
 	{
-		id2d[0] += sys->delta[1][F_ID][0] + IMAGE_W;
-		id2d[1] += sys->delta[1][F_ID][1] - 1;
+		id2d[0] += sys->delta[1][(int)sys->index][0] + (MAIN_W - MENU_W);
+		id2d[1] += sys->delta[1][(int)sys->index][1] - 1;
 		return ;
 	}
-	if (id > 0 && id2d[0] >= IMAGE_CENTRX)
+	if (id > 0 && id2d[0] >= halfwidth)
 	{
-		id2d[0] += sys->delta[1][F_ID][0] - IMAGE_W;
-		id2d[1] += sys->delta[1][F_ID][1] + 1;
+		id2d[0] += sys->delta[1][(int)sys->index][0] - (MAIN_W - MENU_W);
+		id2d[1] += sys->delta[1][(int)sys->index][1] + 1;
 		return ;
 	}
-	id2d[0] += sys->delta[1][F_ID][0];
-	id2d[1] += sys->delta[1][F_ID][1];
+	id2d[0] += sys->delta[1][(int)sys->index][0];
+	id2d[1] += sys->delta[1][(int)sys->index][1];
 }
 
 void	def_delta(t_sys *sys)
 {
+	// t_comp	delta;
+	// t_comp	scaler;
+
+	// delta.real = (sys->cursor[0] - (MAIN_W - MENU_W) / 2) / (double)SCALE;
+	// delta.img = (sys->cursor[1] - MAIN_H / 2) / (double)SCALE;
+	// scaler.real = (sys->cursor[0] - (MAIN_W - MENU_W) / 2) / (double)sys->scale;
+	// scaler.img = (sys->cursor[1] - MAIN_H / 2) / (double)sys->scale;
+	// delta.real = (delta.real - scaler.real) * sys->scale;
+	// delta.img = (delta.img - scaler.img) * sys->scale;
+
+	// sys->delta[0] = sys->cursor[0] - (MAIN_W - MENU_W) / 2;
+	// sys->delta[1] = sys->cursor[1] - MAIN_H / 2;
+	// scaler = (double)sys->scale / SCALE - 1;
+	// sys->delta[0] *= scaler;
+	// sys->delta[1] *= scaler;
+
+	// 	t_comp	scalecomp;
+	// 	scalecomp.real = sys->cursor[0] / (double)sys->scale0;
+	// 	scalecomp.real += sys->delta0[0] / (double)sys->scale0;
+
+
 	double	scaler;
 
-	scaler = (double)sys->scale[1][F_ID]
-		/ sys->scale[0][F_ID] - 1;
+	scaler = (double)sys->scale[1][(int)sys->index] / sys->scale[0][(int)sys->index] - 1;
+	// sys->delta[(int)sys->index][0] = lround((sys->cursor[0] - (MAIN_W - MENU_W) / 2 - sys->shift[(int)sys->index][0]
+	// 	+ sys->delta0[(int)sys->index][0]) * scaler);
+	sys->delta[1][(int)sys->index][0] = lround((sys->delta[0][(int)sys->index][0] + sys->cursor[0]
+		- (MAIN_W - MENU_W) / 2 - sys->shift[(int)sys->index][0]) * scaler);
+	sys->delta[1][(int)sys->index][0] += sys->delta[0][(int)sys->index][0] - sys->shift[(int)sys->index][0];
 
-	sys->delta[1][F_ID][0] = lround((sys->delta[0][F_ID][0] + sys->cursor[0]
-		- (MAIN_W - MENU_W) / 2 - sys->shift[F_ID][0]) * scaler);
-	sys->delta[1][F_ID][0] += sys->delta[0][F_ID][0] - sys->shift[F_ID][0];
+	// sys->delta[(int)sys->index][1] = lround((sys->cursor[1] - MAIN_H / 2 - sys->shift[(int)sys->index][1]
+	// 	+ sys->delta0[(int)sys->index][1]) * scaler);
+	sys->delta[1][(int)sys->index][1] = lround((sys->delta[0][(int)sys->index][1] + sys->cursor[1]
+		- MAIN_H / 2 - sys->shift[(int)sys->index][1]) * scaler);
+	sys->delta[1][(int)sys->index][1] += sys->delta[0][(int)sys->index][1] - sys->shift[(int)sys->index][1];
 
-	sys->delta[1][F_ID][1] = lround((sys->delta[0][F_ID][1] + sys->cursor[1]
-		- MAIN_H / 2 - sys->shift[F_ID][1]) * scaler);
-	sys->delta[1][F_ID][1] += sys->delta[0][F_ID][1] - sys->shift[F_ID][1];
+	// double	prevpos[2];
+	// double	curpos[2];
+
+	// prevpos[0] =  sys->cursor[0] / (double)sys->scale0;
+	// prevpos[0] += sys->delta0[0] / (double)sys->scale0;
+	// prevpos[0] -= ((MAIN_W - MENU_W) / 2) / (double)sys->scale0;
+	// prevpos[0] -= sys->shift[(int)sys->index][0] / (double)sys->scale0;
+
+	// prevpos[1] =  sys->cursor[1] / (double)sys->scale0;
+	// prevpos[1] += sys->delta0[1] / (double)sys->scale0;
+	// prevpos[1] -= (MAIN_H / 2) / (double)sys->scale0;
+	// prevpos[1] -= sys->shift[(int)sys->index][1] / (double)sys->scale0;
+
+
+	// curpos[0] =  sys->cursor[0] / (double)sys->scale;
+	// curpos[0] += sys->delta0[0] / (double)sys->scale;
+	// curpos[0] -= ((MAIN_W - MENU_W) / 2) / (double)sys->scale;
+	// curpos[0] -= sys->shift[(int)sys->index][0] / (double)sys->scale;
+
+	// curpos[1] =  sys->cursor[1] / (double)sys->scale;
+	// curpos[1] += sys->delta0[1] / (double)sys->scale;
+	// curpos[1] -= (MAIN_H / 2) / (double)sys->scale;
+	// curpos[1] -= sys->shift[(int)sys->index][1] / (double)sys->scale;
+
+	// double	curdelta[2];
+
+	// curdelta[0] = prevpos[0] - curpos[0];
+	// curdelta[0] *= sys->scale;
+
+	// curdelta[1] = prevpos[1] - curpos[1];
+	// curdelta[1] *= sys->scale;
+
+	// sys->delta[0] = lround(curdelta[0]);
+	// sys->delta[1] = lround(curdelta[1]);
+
+	// sys->delta[0] = sys->delta0[0] + sys->delta[0] - sys->shift[(int)sys->index][0];
+	// sys->delta[1] = sys->delta0[1] + sys->delta[1] - sys->shift[(int)sys->index][1];
+
+	// sys->delta[0] += sys->delta0[0] - sys->shift[(int)sys->index][0];
+	// sys->delta[1] += sys->delta0[1] - sys->shift[(int)sys->index][1];
+
 	return ;
 }
 

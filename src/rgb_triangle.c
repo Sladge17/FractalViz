@@ -47,7 +47,7 @@ void	fill_triangle(t_sys *sys, int *tris, int height, int widthhalf)
 	cursor[0][2] = tris[2];
 	cursor[1][0] = tris[0];
 	cursor[1][2] = tris[2];
-	sys->mlxset->mnuout[cursor[0][0] + MENU_W * cursor[0][1]] = cursor[0][2];
+	sys->mnuout[cursor[0][0] + MENU_W * cursor[0][1]] = cursor[0][2];
 	cursor[0][1] += 1;
 	while (cursor[0][1] != tris[7])
 	{
@@ -106,14 +106,14 @@ void	draw_horline(t_sys *sys, int *v0, int *v1)
 
 	def_rgbset(&rgb_set[0], v0[2], v1[2]);
 	width = v1[0] - v0[0];
-	sys->mlxset->mnuout[v0[0] + MENU_W * v0[1]] = v0[2];
+	sys->mnuout[v0[0] + MENU_W * v0[1]] = v0[2];
 	cursor_x = v0[0] + 1;
 	while (cursor_x != v1[0])
 	{
 		int_v1 = (double)(cursor_x - v0[0]) / width;
-		sys->mlxset->mnuout[cursor_x + MENU_W * v0[1]] =
+		sys->mnuout[cursor_x + MENU_W * v0[1]] =
 		set_color(rgb_set, v0[2], int_v1);
 		cursor_x += 1;
 	}
-	sys->mlxset->mnuout[v1[0] + MENU_W * v0[1]] = v1[2];
+	sys->mnuout[v1[0] + MENU_W * v0[1]] = v1[2];
 }
