@@ -10,6 +10,39 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+typedef struct s_consts
+{
+	int			image_w;
+	int			menu_xoffset;
+}				t_consts;
+
+// typedef struct s_mlxset
+// {
+// 	void		*mlx;
+// 	void		*win_main;
+// 	void		*win_set;
+
+// 	int			imgvol;
+// 	void		*img;
+// 	int			img_s[3];
+// 	int			*imgout;
+
+// 	int			mnuvol;
+// 	void		*mnu;
+// 	int			mnu_s[3];
+// 	int			*mnuout;
+
+// 	int			statvol;
+// 	void		*stat;
+// 	int			stat_s[3];
+// 	int			*statout;
+
+// 	int			setvol;
+// 	void		*set;
+// 	int			set_s[3];
+// 	int			*setout;	
+// }				t_mlxset;
+
 typedef struct	s_comp
 {
 	double		real;
@@ -18,6 +51,10 @@ typedef struct	s_comp
 
 typedef struct	s_sys
 {
+	t_consts	*consts;
+
+	// t_mlxset	*mlxset;
+
 	void		*mlx;
 	void		*win_main;
 	void		*win_set;

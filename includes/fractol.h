@@ -36,7 +36,7 @@ void	set_tabparam(t_sys *sys);
 void	clear_image(t_sys *sys);
 void	clear_stat(t_sys *sys);
 void	draw_menu(t_sys *sys);
-void	fill_settings(t_sys *sys);
+void	clear_settings(t_sys *sys);
 int		close_fractol(void *param);
 int		close_setting(void *param);
 t_comp	int_to_comp(t_sys *sys, int id);
@@ -58,6 +58,7 @@ void	draw_horline(t_sys *system, int *v0, int *v1);
 /*
 ** drawing.c
 */
+void	firstdraw_image(t_sys *sys, int argc, char *argv);
 void	draw_image(t_sys *sys);
 void	draw_stat(t_sys *sys);
 void	draw_fractal(int itr, int i, t_sys *sys);
@@ -153,6 +154,7 @@ size_t	ft_strlen(const char *str);
 char	*ft_strcat(char *dst, const char *src);
 void	ft_bzero(void *dest, size_t count);
 char	*ft_strnew(size_t size);
+int		ft_atoi(const char *str);
 
 #endif
 

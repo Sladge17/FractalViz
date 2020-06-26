@@ -18,38 +18,18 @@ int		main(int argc, char **argv)
 
 	if (argc > 2)
 		fractol_discr();
-
 	if (!(sys = (t_sys *)malloc(sizeof(t_sys))))
 		exit(0);
 
-	if (argc == 1)
-	{
-		sys->index = 1;
-		sys->name = "name: Mandelbrot";
-		set_system(sys);
-		clear_image(sys);
-		calc_Mandelbrot(sys);
-	}
-	else
-	{
-		if (strlen(argv[1]) != 1 || argv[1][0] < '1' || argv[1][0] > '8')
-			fractol_discr();
-		sys->index = atoi(argv[1]) - 1;
-		sys->name = set_fractname(sys);
-		set_system(sys);
-		clear_image(sys);
-		calc_fractal(sys);
-	}
-	mlx_put_image_to_window(sys->mlx, sys->win_main, sys->img, 0, 0);
-	
+	if (!(sys->consts = (t_consts *)malloc(sizeof(t_consts))))
+		exit(0);
+	sys->consts->image_w = MAIN_W - MENU_W;
+	sys->consts->menu_xoffset = IMAGE_W + 10;
+
+	firstdraw_image(sys, argc, argv[1]);
 	draw_menu(sys);
-	fill_settings(sys);
-
 	draw_stat(sys);
-	// clear_stat(sys);
-	// mlx_put_image_to_window(sys->mlx, sys->win, sys->stat, MAIN_W - MENU_W, MAIN_H / 2);
-	// mlx_string_put(sys->mlx, sys->win, (MAIN_W - MENU_W) + 10, (MAIN_H / 2) + 10, 0x00FF00, sys->name);
-
+	clear_settings(sys);
 	mlx_hook(sys->win_main, 2, 0, key_press, sys);
 	mlx_hook(sys->win_main, 3, 0, key_release, sys);
 	mlx_hook(sys->win_main, 4, 0, mouse_press, sys);
@@ -57,7 +37,6 @@ int		main(int argc, char **argv)
 	mlx_hook(sys->win_main, 6, 0, mouse_move, sys);
 	mlx_hook(sys->win_main, 17, 0, close_fractol, sys);
 	mlx_loop(sys->mlx);
-
 	return (0);
 }
 
@@ -159,11 +138,6 @@ void	set_tabparam(t_sys *sys)
 		// MAYBE NEED INCREASE !!!!!!!!
 		sys->str_scale[(int)i] = ft_strnew(14);
 		sys->str_scale[(int)i] = ft_strcat(sys->str_scale[(int)i], "scale = 1.000");
-		// sys->str_k[(int)i][0] = 'k';
-		// sys->str_k[(int)i][1] = ' ';
-		// sys->str_k[(int)i][2] = '=';
-		// sys->str_k[(int)i][3] = ' ';
-		// fill_strk(sys);
 		i += 1;
 	}
 }
@@ -187,11 +161,38 @@ void	clear_stat(t_sys *sys)
 	i = 0;
 	while (i < sys->statvol)
 	{
-		sys->statout[i] = MENU_C;
+		sys->statout[i] = 0;
 		i += 1;
 	}
 }
 
+// // FOR 1920 x 1080
+// void	draw_menu(t_sys *sys)
+// {
+// 	int		i;
+
+// 	i = 0;
+// 	while (i < sys->mnuvol)
+// 	{
+// 		sys->mnuout[i] = MENU_C;
+// 		i += 1;
+// 	}
+// 	sys->rgbtris_y[0] = 325;
+// 	draw_rgbtriangle(sys, MENU_W / 2, 10);
+// 	mlx_put_image_to_window(sys->mlx, sys->win_main, sys->mnu, MAIN_W - MENU_W, 0);
+// 	mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) + 10, 20, TITLE_C, "Main settings");
+// 	mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) + 10, 60, TEXT_C, "1 - 8 - choose fractal");
+// 	mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) + 10, 100, TEXT_C, "LMB - transform fractal");
+// 	mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) + 10, 125, TEXT_C, "RMB - reset transform");
+// 	mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) + 10, 165, TEXT_C, "SMB - scale fractal");
+// 	mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) + 10, 190, TEXT_C, "MMB - reset scale");
+// 	mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) + 10, 230, TEXT_C, "ARROWS - shift fractal");
+// 	mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) + 10, 255, TEXT_C, "C - centred fractal");
+// 	mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) + 10, 295, TEXT_C, "Choose fractal color:");
+// 	mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) + 10, 550, TEXT_C, "SPACE - more settings");
+// }
+
+// FOR 1280 x 720
 void	draw_menu(t_sys *sys)
 {
 	int		i;
@@ -202,23 +203,24 @@ void	draw_menu(t_sys *sys)
 		sys->mnuout[i] = MENU_C;
 		i += 1;
 	}
-	sys->rgbtris_y[0] = 325;
-	draw_rgbtriangle(sys, MENU_W / 2, 10);
-	mlx_put_image_to_window(sys->mlx, sys->win_main, sys->mnu, MAIN_W - MENU_W, 0);
-	mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) + 10, 20, TITLE_C, "Main settings");
-	mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) + 10, 60, TEXT_C, "1 - 8 - choose fractal");
-	mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) + 10, 100, TEXT_C, "LMB - transform fractal");
-	mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) + 10, 125, TEXT_C, "RMB - reset transform");
-	mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) + 10, 165, TEXT_C, "SMB - scale fractal");
-	mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) + 10, 190, TEXT_C, "MMB - reset scale");
-	mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) + 10, 230, TEXT_C, "ARROWS - shift fractal");
-	mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) + 10, 255, TEXT_C, "C - centred fractal");
-	mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) + 10, 295, TEXT_C, "Choose fractal color:");
-	mlx_string_put(sys->mlx, sys->win_main, (MAIN_W - MENU_W) + 10, 550, TEXT_C, "SPACE - more settings");
+	sys->rgbtris_y[0] = 245;
+	draw_rgbtriangle(sys, MENU_W / 2, 40);
+	mlx_put_image_to_window(sys->mlx, sys->win_main, sys->mnu, IMAGE_W, 0);
+	mlx_string_put(sys->mlx, sys->win_main, MENU_XSTR, 10, TITLE_C, "Main settings");
+	mlx_string_put(sys->mlx, sys->win_main, MENU_XSTR, 40, TEXT_C, "1 - 8 - choose fractal");
+	mlx_string_put(sys->mlx, sys->win_main, MENU_XSTR, 70, TEXT_C, "LMB - transform fractal");
+	mlx_string_put(sys->mlx, sys->win_main, MENU_XSTR, 90, TEXT_C, "RMB - reset transform");
+	mlx_string_put(sys->mlx, sys->win_main, MENU_XSTR, 120, TEXT_C, "SMB - scale fractal");
+	mlx_string_put(sys->mlx, sys->win_main, MENU_XSTR, 140, TEXT_C, "MMB - reset scale");
+	mlx_string_put(sys->mlx, sys->win_main, MENU_XSTR, 170, TEXT_C, "ARROWS - shift fractal");
+	mlx_string_put(sys->mlx, sys->win_main, MENU_XSTR, 190, TEXT_C, "C - centred fractal");
+	mlx_string_put(sys->mlx, sys->win_main, MENU_XSTR, 220, TEXT_C, "Choose fractal color:");
+	mlx_string_put(sys->mlx, sys->win_main, MENU_XSTR, 400, TEXT_C, "SPACE - more settings");
 
 }
 
-void	fill_settings(t_sys *sys)
+
+void	clear_settings(t_sys *sys)
 {
 	int		i;
 

@@ -10,15 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# define MAIN_W 1920
-# define MAIN_H 1080
+// # define MAIN_W 1920
+// # define MAIN_H 1080
+# define MAIN_W 1280
+# define MAIN_H 720
 
 # define SET_W 400
 # define SET_H 600
 
 # define MENU_W 250
+# define IMAGE_W sys->consts->image_w
 # define STAT_H 370
-# define Q 60
+# define Q 60 // NEED DELL!!!!!!!!!!!!!
+
+# define MENU_XSTR sys->consts->menu_xoffset
 
 // # define IMAGE_C 0x909497
 # define IMAGE_C 0
@@ -37,7 +42,8 @@
 # define ITER 100
 # define SHIFT 10
 
-# define DEF_SCALE 300
+// # define DEF_SCALE 300
+# define DEF_SCALE 200
 # define ADD_SCALE 10
 # define MIN_SCALE 100
 
