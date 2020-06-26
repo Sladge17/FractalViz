@@ -119,7 +119,10 @@ int		key_press(int keycode, void *param)
 	if (keycode == 48)
 	{
 		sys->bitset ^= 0b00001000;
-		draw_image(sys);
+		if (sys->bitset & 0b00001000)
+			draw_axis(sys);
+		else
+			draw_image(sys);
 		draw_stat(sys);
 		return (0);
 	}

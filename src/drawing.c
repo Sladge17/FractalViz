@@ -43,15 +43,18 @@ void	draw_image(t_sys *sys)
 	clear_image(sys);
 	calc_fractal(sys);
 	if (sys->bitset & 0b00001000)
-		draw_axis(sys);
-	mlx_put_image_to_window(MLX, WINMAIN, IMAGE, 0, 0);
-	if (sys->bitset & 0b00001000)
 	{
-		mlx_string_put(MLX, WINMAIN, 5, IMAGE_CENTRY - 24, AXIS_C[F_ID], "-real");
-		mlx_string_put(MLX, WINMAIN, IMAGE_W - 45, IMAGE_CENTRY - 24, AXIS_C[F_ID], "real");
-		mlx_string_put(MLX, WINMAIN, IMAGE_CENTRX + 5, 2, AXIS_C[F_ID], "img");
-		mlx_string_put(MLX, WINMAIN, IMAGE_CENTRX + 5, MAIN_H - 26, AXIS_C[F_ID], "-img");
+		draw_axis(sys);
+		return ;
 	}
+	mlx_put_image_to_window(MLX, WINMAIN, IMAGE, 0, 0);
+	// if (sys->bitset & 0b00001000)
+	// {
+	// 	mlx_string_put(MLX, WINMAIN, 5, IMAGE_CENTRY - 24, AXIS_C[F_ID], "-real");
+	// 	mlx_string_put(MLX, WINMAIN, IMAGE_W - 45, IMAGE_CENTRY - 24, AXIS_C[F_ID], "real");
+	// 	mlx_string_put(MLX, WINMAIN, IMAGE_CENTRX + 5, 2, AXIS_C[F_ID], "img");
+	// 	mlx_string_put(MLX, WINMAIN, IMAGE_CENTRX + 5, MAIN_H - 26, AXIS_C[F_ID], "-img");
+	// }
 }
 
 //// FOR 1920 x 1080
@@ -188,6 +191,11 @@ void	draw_axis(t_sys *sys)
 		}
 		j += 1;
 	}
+	mlx_put_image_to_window(MLX, WINMAIN, IMAGE, 0, 0);
+	mlx_string_put(MLX, WINMAIN, 5, IMAGE_CENTRY - 24, AXIS_C[F_ID], "-real");
+	mlx_string_put(MLX, WINMAIN, IMAGE_W - 45, IMAGE_CENTRY - 24, AXIS_C[F_ID], "real");
+	mlx_string_put(MLX, WINMAIN, IMAGE_CENTRX + 5, 2, AXIS_C[F_ID], "img");
+	mlx_string_put(MLX, WINMAIN, IMAGE_CENTRX + 5, MAIN_H - 26, AXIS_C[F_ID], "-img");
 }
 
 void	redraw_image(t_sys *sys, int x, int y)
