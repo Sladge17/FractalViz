@@ -132,71 +132,67 @@ void	draw_fractal(int itr, int i, t_sys *sys)
 		sys->mlxset->imgout[i] = itr * 1000;
 }
 
-void	draw_axis(t_sys *sys)
-{
-	// int		img_w;
-	// int		center_h;
-	int		i;
-	int		n;
+// void	draw_axis(t_sys *sys)
+// {
+// 	int		i;
+// 	int		n;
 
-	// img_w = MAIN_W - MENU_W;
-	// i = img_w / 2;
-	i = IMAGE_CENTRX;
-	while (i < IMAGE_VOL)
-	{
-		sys->mlxset->imgout[i] = AXIS_C[F_ID];
-		// i += img_w;
-		i += IMAGE_W;
-	}
+// 	i = IMAGE_CENTRX;
+// 	while (i < IMAGE_VOL)
+// 	{
+// 		sys->mlxset->imgout[i] = AXIS_C[F_ID];
+// 		i += IMAGE_W;
+// 	}	
+// 	i = IMAGE_W * IMAGE_CENTRY;
+// 	n = i + IMAGE_W;
+// 	while (i < n)
+// 	{
+// 		sys->mlxset->imgout[i] = AXIS_C[F_ID];
+// 		i += 1;
+// 	}
+
+// 	int		j;
+// 	int		k0;
+// 	int		k1;
+
+// 	i = (IMAGE_CENTRY - 3) * IMAGE_W + IMAGE_CENTRX;
+// 	j = 1;
 	
-	// i = img_w * MAIN_H / 2;
-	i = IMAGE_W * IMAGE_CENTRY;
-	n = i + IMAGE_W;
-	// center_h = i + img_w;
-	while (i < n)
-	{
-		sys->mlxset->imgout[i] = AXIS_C[F_ID];
-		i += 1;
-	}
+// 	while (i + sys->scale[1][F_ID] * j < i + IMAGE_CENTRX)
+// 	{
+// 		k0 = sys->scale[1][F_ID] * j;
+// 		n = 0;
+// 		while(n < 7)
+// 		{
+// 			k1 = n * IMAGE_W + i;
+// 			sys->mlxset->imgout[k1 + k0] = AXIS_C[F_ID];
+// 			sys->mlxset->imgout[k1 - k0] = AXIS_C[F_ID];
+// 			n += 1;
+// 		}
+// 		j += 1;
+// 	}
 
-	int		j;
-	// int		n;
-
-	i = (MAIN_W - MENU_W) * MAIN_H / 2 + (MAIN_W - MENU_W) / 2 - (MAIN_W - MENU_W) * 3;
-	j = 1;
-	
-	while (i + sys->scale[1][F_ID] * j < i + (MAIN_W - MENU_W) / 2)
-	{
-		n = 0;
-		while(n < 7)
-		{
-			sys->mlxset->imgout[i + n * (MAIN_W - MENU_W) + sys->scale[1][F_ID] * j] = AXIS_C[F_ID];
-			sys->mlxset->imgout[i + n * (MAIN_W - MENU_W) - sys->scale[1][F_ID] * j] = AXIS_C[F_ID];
-			n += 1;
-		}
-		j += 1;
-	}
-
-	i = (MAIN_W - MENU_W) * MAIN_H / 2 + (MAIN_W - MENU_W) / 2 - 3;
-	j = 1;
-
-	while (i + j * (MAIN_W - MENU_W) * sys->scale[1][F_ID] < IMAGE_VOL)
-	{
-		n = 0;
-		while(n < 7)
-		{
-			sys->mlxset->imgout[i + (MAIN_W - MENU_W) * sys->scale[1][F_ID] * j + n] = AXIS_C[F_ID];
-			sys->mlxset->imgout[i - (MAIN_W - MENU_W) * sys->scale[1][F_ID] * j + n] = AXIS_C[F_ID];
-			n += 1;
-		}
-		j += 1;
-	}
-	mlx_put_image_to_window(MLX, WINMAIN, IMAGE, 0, 0);
-	mlx_string_put(MLX, WINMAIN, 5, IMAGE_CENTRY - 24, AXIS_C[F_ID], "-real");
-	mlx_string_put(MLX, WINMAIN, IMAGE_W - 45, IMAGE_CENTRY - 24, AXIS_C[F_ID], "real");
-	mlx_string_put(MLX, WINMAIN, IMAGE_CENTRX + 5, 2, AXIS_C[F_ID], "img");
-	mlx_string_put(MLX, WINMAIN, IMAGE_CENTRX + 5, MAIN_H - 26, AXIS_C[F_ID], "-img");
-}
+// 	i = IMAGE_W * IMAGE_CENTRY + IMAGE_CENTRX - 3;
+// 	j = 1;
+// 	while (i + j * (MAIN_W - MENU_W) * sys->scale[1][F_ID] < IMAGE_VOL)
+// 	{
+// 		k0 = IMAGE_W * sys->scale[1][F_ID] * j;
+// 		n = 0;
+// 		while(n < 7)
+// 		{
+// 			k1 = i + n;
+// 			sys->mlxset->imgout[k1 + k0] = AXIS_C[F_ID];
+// 			sys->mlxset->imgout[k1 - k0] = AXIS_C[F_ID];
+// 			n += 1;
+// 		}
+// 		j += 1;
+// 	}
+// 	mlx_put_image_to_window(MLX, WINMAIN, IMAGE, 0, 0);
+// 	mlx_string_put(MLX, WINMAIN, 5, IMAGE_CENTRY - 24, AXIS_C[F_ID], "-real");
+// 	mlx_string_put(MLX, WINMAIN, IMAGE_W - 45, IMAGE_CENTRY - 24, AXIS_C[F_ID], "real");
+// 	mlx_string_put(MLX, WINMAIN, IMAGE_CENTRX + 5, 2, AXIS_C[F_ID], "img");
+// 	mlx_string_put(MLX, WINMAIN, IMAGE_CENTRX + 5, MAIN_H - 26, AXIS_C[F_ID], "-img");
+// }
 
 void	redraw_image(t_sys *sys, int x, int y)
 {
@@ -214,12 +210,7 @@ void	redraw_image(t_sys *sys, int x, int y)
 	sys->color = color;
 	mlx_put_image_to_window(MLX, WINMAIN, IMAGE, 0, 0);
 	if (sys->bitset & 0b00001000)
-	{
-		mlx_string_put(MLX, WINMAIN, 5, IMAGE_CENTRY - 24, AXIS_C[F_ID], "-real");
-		mlx_string_put(MLX, WINMAIN, IMAGE_W - 45, IMAGE_CENTRY - 24, AXIS_C[F_ID], "real");
-		mlx_string_put(MLX, WINMAIN, IMAGE_CENTRX + 5, 2, AXIS_C[F_ID], "img");
-		mlx_string_put(MLX, WINMAIN, IMAGE_CENTRX + 5, MAIN_H - 26, AXIS_C[F_ID], "-img");
-	}
+		draw_axtitle(sys);
 }
 
 

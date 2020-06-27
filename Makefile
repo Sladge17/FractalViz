@@ -15,6 +15,7 @@ SRC_DIR = src/
 SRC_LIST = fractol.c\
 			rgb_triangle.c\
 			drawing.c\
+			complex_axis.c\
 			complex_actions1.c\
 			complex_actions2.c\
 			fractals1.c\

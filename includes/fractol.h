@@ -63,8 +63,16 @@ void	draw_winmain(t_sys *sys, int argc, char *argv);
 void	draw_image(t_sys *sys);
 void	draw_stat(t_sys *sys);
 void	draw_fractal(int itr, int i, t_sys *sys);
-void	draw_axis(t_sys *sys);
+// void	draw_axis(t_sys *sys);
 void	redraw_image(t_sys *sys, int x, int y);
+
+/*
+** complex_axis.c
+*/
+void	draw_axis(t_sys *sys);
+void	draw_realstroks(t_sys *sys, int *startcrd, int *numbpxl, int *k);
+void	draw_imgstroks(t_sys *sys, int *startcrd, int *numbpxl, int *k);
+void	draw_axtitle(t_sys *sys);
 
 /*
 ** complex_actions1.c
