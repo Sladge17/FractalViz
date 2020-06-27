@@ -22,6 +22,7 @@ SRC_LIST = fractol.c\
 			fractals2.c\
 			controls_main.c\
 			controls_keyboard.c\
+			change_fractal.c\
 			shift_fractal.c\
 			scale_fractal.c\
 			double_to_str.c\

@@ -123,12 +123,20 @@ void	write_color(t_sys *sys);
 /*
 ** controls_keyboard.c
 */
-char	change_fractal(int keycode, t_sys *sys);
 char	check_shiftfractal(int keycode, t_sys *sys);
 char	check_unshiftfractal(int keycode, t_sys *sys);
 char	open_winsett(int keycode, t_sys *sys);
 
 void	write_settings(t_sys *sys);
+
+/*
+** change_fractal.c
+*/
+char	change_fractal(int keycode, t_sys *sys);
+char	select_fractal_1(int keycode, t_sys *sys);
+char	select_fractal_2(int keycode, t_sys *sys);
+char	select_fractal_3(int keycode, t_sys *sys);
+char	select_fractal_4(int keycode, t_sys *sys);
 
 /*
 ** shift_fractal.c
