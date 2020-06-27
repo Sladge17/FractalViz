@@ -84,26 +84,3 @@ void	draw_axtitle(t_sys *sys)
 	mlx_string_put(MLX, WINMAIN, IMAGE_CENTRX + 5, MAIN_H - 26,
 		AXIS_C[F_ID], "-img");
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

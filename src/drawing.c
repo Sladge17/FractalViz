@@ -132,68 +132,6 @@ void	draw_fractal(int itr, int i, t_sys *sys)
 		sys->mlxset->imgout[i] = itr * 1000;
 }
 
-// void	draw_axis(t_sys *sys)
-// {
-// 	int		i;
-// 	int		n;
-
-// 	i = IMAGE_CENTRX;
-// 	while (i < IMAGE_VOL)
-// 	{
-// 		sys->mlxset->imgout[i] = AXIS_C[F_ID];
-// 		i += IMAGE_W;
-// 	}	
-// 	i = IMAGE_W * IMAGE_CENTRY;
-// 	n = i + IMAGE_W;
-// 	while (i < n)
-// 	{
-// 		sys->mlxset->imgout[i] = AXIS_C[F_ID];
-// 		i += 1;
-// 	}
-
-// 	int		j;
-// 	int		k0;
-// 	int		k1;
-
-// 	i = (IMAGE_CENTRY - 3) * IMAGE_W + IMAGE_CENTRX;
-// 	j = 1;
-	
-// 	while (i + sys->scale[1][F_ID] * j < i + IMAGE_CENTRX)
-// 	{
-// 		k0 = sys->scale[1][F_ID] * j;
-// 		n = 0;
-// 		while(n < 7)
-// 		{
-// 			k1 = n * IMAGE_W + i;
-// 			sys->mlxset->imgout[k1 + k0] = AXIS_C[F_ID];
-// 			sys->mlxset->imgout[k1 - k0] = AXIS_C[F_ID];
-// 			n += 1;
-// 		}
-// 		j += 1;
-// 	}
-
-// 	i = IMAGE_W * IMAGE_CENTRY + IMAGE_CENTRX - 3;
-// 	j = 1;
-// 	while (i + j * (MAIN_W - MENU_W) * sys->scale[1][F_ID] < IMAGE_VOL)
-// 	{
-// 		k0 = IMAGE_W * sys->scale[1][F_ID] * j;
-// 		n = 0;
-// 		while(n < 7)
-// 		{
-// 			k1 = i + n;
-// 			sys->mlxset->imgout[k1 + k0] = AXIS_C[F_ID];
-// 			sys->mlxset->imgout[k1 - k0] = AXIS_C[F_ID];
-// 			n += 1;
-// 		}
-// 		j += 1;
-// 	}
-// 	mlx_put_image_to_window(MLX, WINMAIN, IMAGE, 0, 0);
-// 	mlx_string_put(MLX, WINMAIN, 5, IMAGE_CENTRY - 24, AXIS_C[F_ID], "-real");
-// 	mlx_string_put(MLX, WINMAIN, IMAGE_W - 45, IMAGE_CENTRY - 24, AXIS_C[F_ID], "real");
-// 	mlx_string_put(MLX, WINMAIN, IMAGE_CENTRX + 5, 2, AXIS_C[F_ID], "img");
-// 	mlx_string_put(MLX, WINMAIN, IMAGE_CENTRX + 5, MAIN_H - 26, AXIS_C[F_ID], "-img");
-// }
-
 void	redraw_image(t_sys *sys, int x, int y)
 {
 	int		color;

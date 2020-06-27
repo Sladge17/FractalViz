@@ -63,7 +63,6 @@ void	draw_winmain(t_sys *sys, int argc, char *argv);
 void	draw_image(t_sys *sys);
 void	draw_stat(t_sys *sys);
 void	draw_fractal(int itr, int i, t_sys *sys);
-// void	draw_axis(t_sys *sys);
 void	redraw_image(t_sys *sys, int x, int y);
 
 /*
@@ -129,6 +128,9 @@ void	write_color(t_sys *sys);
 char	change_fractal(int keycode, t_sys *sys);
 char	check_shiftfractal(int keycode, t_sys *sys);
 char	check_unshiftfractal(int keycode, t_sys *sys);
+char	open_winsett(int keycode, t_sys *sys);
+
+void	write_settings(t_sys *sys);
 
 /*
 ** shift_fractal.c
