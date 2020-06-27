@@ -50,15 +50,3 @@ double	len_comp(t_comp comp)
 	len = sqrt(comp.real * comp.real + comp.img * comp.img);
 	return (len);
 }
-
-// void	scale_comp(t_comp *comp, t_sys *sys)
-// {
-// 	comp->real /= sys->scale;
-// 	comp->img /= sys->scale;
-
-// 	comp->real += sys->cursor[0];
-// 	comp->img += sys->cursor[1];
-
-// 	// comp->real += - (WIDTH - MENU_W) / 2;
-// 	// comp->img /= - (WIDTH - MENU_W) * HEIGHT / 2;
-// }
