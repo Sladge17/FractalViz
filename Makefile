@@ -25,6 +25,7 @@ SRC_LIST = fractol.c\
 			change_fractal.c\
 			shift_fractal.c\
 			scale_fractal.c\
+			write_stats.c\
 			double_to_str.c\
 			NEED_DELL.c
 SRC = $(addprefix $(SRC_DIR), $(SRC_LIST))
