@@ -141,6 +141,7 @@ int		mouse_move(int x, int y, void *param)
 
 	if (x >= 0 && x < IMAGE_W && y >= 0 && y < MAIN_H)
 	{
+		sys->bitset |= 0b100000000;
 		// sys->cursor[0] = x;
 		// sys->cursor[1] = y;
 
@@ -152,11 +153,15 @@ int		mouse_move(int x, int y, void *param)
 		// draw_stat(sys);
 		return (0);
 	}
-	sys->str_cursor[0][7] = '\0';
-	sys->str_cursor[0] = ft_strcat(sys->str_cursor[0], "not def");
-	sys->str_cursor[1][6] = '\0';
-	sys->str_cursor[1] = ft_strcat(sys->str_cursor[1], "not def");
-	draw_stat(sys);
+	if (sys->bitset & 0b100000000)
+	{
+		sys->str_cursor[0][7] = '\0';
+		sys->str_cursor[0] = ft_strcat(sys->str_cursor[0], "not def");
+		sys->str_cursor[1][6] = '\0';
+		sys->str_cursor[1] = ft_strcat(sys->str_cursor[1], "not def");
+		draw_stat(sys);
+		sys->bitset ^= 0b100000000;
+	}
 
 	return (0);
 }
@@ -199,7 +204,7 @@ int		mouse_press(int button, int x, int y, void *param)
 		return (0);
 	}
 
-	if (button == 2)
+	if (button == 2 && x >= 0 && x < IMAGE_W && y >= 0 && y < MAIN_H)
 	{
 
 		if (sys->k[F_ID].real == 0 && sys->k[F_ID].img == 0)
@@ -215,22 +220,9 @@ int		mouse_press(int button, int x, int y, void *param)
 		return (0);
 	}
 
-	if (button == 3)
+	if (button == 3 && x >= 0 && x < IMAGE_W && y >= 0 && y < MAIN_H)
 	{
 		scale_reset(sys);
-		sys->str_scale[F_ID][8] = '\0';
-		sys->str_scale[F_ID] = ft_strcat(sys->str_scale[F_ID], "1.000");
-		
-		draw_stat(sys);
-		// sys->scale[0][F_ID] = DEF_SCALE;
-		// sys->scale[1][F_ID] = DEF_SCALE;
-		// sys->shift[F_ID][0] = 0;
-		// sys->shift[F_ID][1] = 0;
-		// sys->delta[0][F_ID][0] = 0;
-		// sys->delta[0][F_ID][1] = 0;
-		// sys->delta[1][F_ID][0] = 0;
-		// sys->delta[1][F_ID][1] = 0;
-		// draw_image(sys);
 		return (0);	
 	}
 
@@ -239,17 +231,6 @@ int		mouse_press(int button, int x, int y, void *param)
 		scale_down(sys);
 		write_scale(sys);
 		set_deltazero(sys);
-
-		// if (sys->scale[1][F_ID] == MIN_SCALE)
-		// 	return (0);
-		// sys->scale[1][F_ID] -= ADD_SCALE;
-		// if (sys->scale[1][F_ID] < MIN_SCALE)
-		// 	sys->scale[1][F_ID] = MIN_SCALE;
-		// def_delta(sys);
-		// draw_image(sys);
-		// sys->delta[0][F_ID][0] = sys->delta[1][F_ID][0] + sys->shift[F_ID][0];
-		// sys->delta[0][F_ID][1] = sys->delta[1][F_ID][1] + sys->shift[F_ID][1];
-		// sys->scale[0][F_ID] = sys->scale[1][F_ID];
 		return (0);
 	}
 
@@ -258,14 +239,6 @@ int		mouse_press(int button, int x, int y, void *param)
 		scale_up(sys);
 		write_scale(sys);
 		set_deltazero(sys);
-
-		// sys->scale[1][F_ID] += ADD_SCALE;
-
-		// def_delta(sys);
-		// draw_image(sys);
-		// sys->delta[0][F_ID][0] = sys->delta[1][F_ID][0] + sys->shift[F_ID][0];
-		// sys->delta[0][F_ID][1] = sys->delta[1][F_ID][1] + sys->shift[F_ID][1];
-		// sys->scale[0][F_ID] = sys->scale[1][F_ID];
 		return (0);		
 	}
 
@@ -276,10 +249,7 @@ int		mouse_release(int button, int x, int y, void *param)
 {
 	t_sys		*sys;
 
-	// x = 0;
-	// y = 0;
 	sys = (t_sys *)param;
-
 	if (button == 1 && sys->bitset & 0b00000001)
 	{
 		sys->bitset ^= 0b00000001;
@@ -290,6 +260,7 @@ int		mouse_release(int button, int x, int y, void *param)
 			sys->str_cursor[1][6] = '\0';
 			sys->str_cursor[1] = ft_strcat(sys->str_cursor[1], "not def");
 			draw_stat(sys);
+			sys->bitset ^= 0b100000000;
 		}
 	}
 	

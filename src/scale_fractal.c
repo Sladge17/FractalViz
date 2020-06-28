@@ -46,14 +46,9 @@ void	scale_reset(t_sys *sys)
 {
 	sys->scale[0][F_ID] = DEF_SCALE;
 	sys->scale[1][F_ID] = DEF_SCALE;
+	sys->str_scale[F_ID][8] = '\0';
+	sys->str_scale[F_ID] = ft_strcat(sys->str_scale[F_ID], "1.000");
 	shift_reset(sys);
-	// sys->shift[F_ID][0] = 0;
-	// sys->shift[F_ID][1] = 0;
-	// sys->delta[0][F_ID][0] = 0;
-	// sys->delta[0][F_ID][1] = 0;
-	// sys->delta[1][F_ID][0] = 0;
-	// sys->delta[1][F_ID][1] = 0;
-	// draw_image(sys);
 }
 
 void	set_deltazero(t_sys *sys)

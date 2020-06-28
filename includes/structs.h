@@ -87,7 +87,8 @@ typedef struct	s_sys
 	// int			set_s[3];
 	// int			*setout;
 	
-	char		bitset;
+	// char		bitset;
+	short		bitset;
 
 	char		index;
 	int			color;
