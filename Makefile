@@ -21,8 +21,9 @@ SRC_LIST = fractol.c\
 			fractals1.c\
 			fractals2.c\
 			controls_main.c\
-			controls_keyboard.c\
-			change_fractal.c\
+			controls_keyb_1.c\
+			controls_keyb_2.c\
+			controls_keyb_3.c\
 			shift_fractal.c\
 			scale_fractal.c\
 			write_stats.c\

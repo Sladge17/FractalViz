@@ -17,82 +17,20 @@ int		key_press(int keycode, void *param)
 	t_sys		*sys;
 
 	sys = (t_sys *)param;
-
 	if (keycode == 53)
 		exit(0);
-
-	if (open_winsett(keycode, sys))
-		return (0);
-
-	if (keycode == 12)
-	{
-		if (sys->cursor[0] >= 0 && sys->cursor[0] < IMAGE_W && sys->cursor[1] >= 0 && sys->cursor[1] < MAIN_H)
-		{
-			scale_up(sys);
-			write_scale(sys);
-		}
-		// scale_up(sys);
-		// sys->scale[1][F_ID] += ADD_SCALE;
-		// def_delta(sys);
-		// draw_image(sys);
-		return (0);
-	}
-
-	if (keycode == 13)
-	{
-		if (sys->cursor[0] >= 0 && sys->cursor[0] < IMAGE_W && sys->cursor[1] >= 0 && sys->cursor[1] < MAIN_H)
-		{
-			scale_down(sys);
-			write_scale(sys);
-		}
-		// scale_down(sys);
-		// if (sys->scale[1][F_ID] == MIN_SCALE)
-		// 	return (0);
-		// sys->scale[1][F_ID] -= ADD_SCALE;
-		// if (sys->scale[1][F_ID] < MIN_SCALE)
-		// 	sys->scale[1][F_ID] = MIN_SCALE;
-		// def_delta(sys);
-		// draw_image(sys);
-		return (0);
-	}
-
 	if (change_fractal(keycode, sys))
 		return (0);
-
-	if (check_shiftfractal(keycode, sys))
-	{
-		shift_fractal(sys);
+	if (shift_fractal_k(keycode, sys))
 		return (0);
-	}
-
-	if (keycode == 8)
-	{
-		shift_reset(sys);
-		// sys->shift[F_ID][0] = 0;
-		// sys->shift[F_ID][1] = 0;
-		// draw_image(sys);
+	if (scale_fractal_k(keycode, sys))
 		return (0);
-	}
-
-	if (keycode == 50)
-	{
-		sys->bitset ^= 0b00000100;
-		draw_image(sys);
-		draw_stat(sys);
+	if (isolation_mode(keycode, sys))
 		return (0);
-	}
-
-	if (keycode == 48)
-	{
-		sys->bitset ^= 0b00001000;
-		if (sys->bitset & 0b00001000)
-			draw_axis(sys);
-		else
-			draw_image(sys);
-		draw_stat(sys);
+	if (complex_axis(keycode, sys))
 		return (0);
-	}
-
+	if (open_winsett(keycode, sys))
+		return (0);
 	return (0);
 }
 
@@ -105,13 +43,8 @@ int		key_release(int keycode, void *param)
 	if (keycode == 12 || keycode == 13)
 	{
 		set_deltazero(sys);
-		// sys->delta[0][F_ID][0] = sys->delta[1][F_ID][0] + sys->shift[F_ID][0];
-		// sys->delta[0][F_ID][1] = sys->delta[1][F_ID][1] + sys->shift[F_ID][1];
-		// sys->scale[0][F_ID] = sys->scale[1][F_ID];
 		return (0);
 	}
-
-	// keycode = 1;
 	if (check_unshiftfractal(keycode, sys))
 		return (0);
 	return (0);

@@ -116,22 +116,29 @@ int		mouse_press(int button, int x, int y, void *param);
 int		mouse_release(int button, int x, int y, void *param);
 
 /*
-** controls_keyboard.c
-*/
-char	check_shiftfractal(int keycode, t_sys *sys);
-char	check_unshiftfractal(int keycode, t_sys *sys);
-char	open_winsett(int keycode, t_sys *sys);
-
-void	write_settings(t_sys *sys);
-
-/*
-** change_fractal.c
+** controls_keyb_1.c
 */
 char	change_fractal(int keycode, t_sys *sys);
 char	select_fractal_1(int keycode, t_sys *sys);
 char	select_fractal_2(int keycode, t_sys *sys);
 char	select_fractal_3(int keycode, t_sys *sys);
 char	select_fractal_4(int keycode, t_sys *sys);
+
+/*
+** controls_keyb_2.c
+*/
+char	shift_fractal_k(int keycode, t_sys *sys);
+char	check_shiftfractal(int keycode, t_sys *sys);
+char	check_unshiftfractal(int keycode, t_sys *sys);
+char	scale_fractal_k(int keycode, t_sys *sys);
+
+/*
+** controls_keyb_3.c
+*/
+char	isolation_mode(int keycode, t_sys *sys);
+char	complex_axis(int keycode, t_sys *sys);
+char	open_winsett(int keycode, t_sys *sys);
+void	write_settings(t_sys *sys);
 
 /*
 ** shift_fractal.c

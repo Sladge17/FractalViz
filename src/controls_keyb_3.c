@@ -1,69 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   controls_keyboard.c                                :+:      :+:    :+:   */
+/*   controls_keyb_3.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: student <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/06 10:48:05 by student           #+#    #+#             */
-/*   Updated: 2020/06/06 10:48:10 by student          ###   ########.fr       */
+/*   Created: 2020/06/29 09:11:03 by student           #+#    #+#             */
+/*   Updated: 2020/06/29 09:11:06 by student          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-char	check_shiftfractal(int keycode, t_sys *sys)
+char	isolation_mode(int keycode, t_sys *sys)
 {
-	if (keycode == 123)
-	{
-		if (!(sys->bitset & 0b10000000))
-			sys->bitset ^= 0b10000000;
-		return (1);
-	}
-	if (keycode == 124)
-	{
-		if (!(sys->bitset & 0b01000000))
-			sys->bitset ^= 0b01000000;
-		return (1);
-	}
-	if (keycode == 126)
-	{
-		if (!(sys->bitset & 0b00100000))
-			sys->bitset ^= 0b00100000;
-		return (1);
-	}
-	if (keycode == 125)
-	{
-		if (!(sys->bitset & 0b00010000))
-			sys->bitset ^= 0b00010000;
-		return (1);
-	}
-	return (0);
+	if (keycode != 50)
+		return (0);
+	sys->bitset ^= 0b00000100;
+	draw_image(sys);
+	draw_stat(sys);
+	return (1);
 }
 
-char	check_unshiftfractal(int keycode, t_sys *sys)
+char	complex_axis(int keycode, t_sys *sys)
 {
-	if (keycode == 123)
-	{
-		sys->bitset ^= 0b10000000;
-		return (1);
-	}
-	if (keycode == 124)
-	{
-		sys->bitset ^= 0b01000000;
-		return (1);
-	}
-	if (keycode == 126)
-	{
-		sys->bitset ^= 0b00100000;
-		return (1);
-	}
-	if (keycode == 125)
-	{
-		sys->bitset ^= 0b00010000;
-		return (1);
-	}
-	return (0);
+	if (keycode != 48)
+		return (0);
+	sys->bitset ^= 0b00001000;
+	if (sys->bitset & 0b00001000)
+		draw_axis(sys);
+	else
+		draw_image(sys);
+	draw_stat(sys);
+	return (1);
 }
 
 char	open_winsett(int keycode, t_sys *sys)
@@ -107,33 +76,3 @@ void	write_settings(t_sys *sys)
 	mlx_string_put(MLX, WINSETT, 20, 530, STR_C, "SPACE - ON / OFF settings window");
 	mlx_string_put(MLX, WINSETT, 20, 560, STR_C, "ESC - exit fractol");
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
