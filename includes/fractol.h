@@ -30,10 +30,7 @@
 /*
 ** fractol.c
 */
-void	set_consts(t_sys *sys);
 char	*set_fractname(t_sys *sys);
-void	set_system(t_sys *sys);
-void	set_tabparam(t_sys *sys);
 void	clear_image(t_sys *sys);
 void	clear_stat(t_sys *sys);
 void	draw_menu(t_sys *sys);
@@ -46,6 +43,16 @@ void	def_delta(t_sys *sys);
 void	calc_fractal(t_sys	*sys);
 void	calc_fractal_nest(t_sys *sys);
 void	fractol_discr();
+
+/*
+** set_system.c
+*/
+void	set_system(t_sys *sys);
+void	set_consts(t_sys *sys);
+void	set_mlxset(t_sys *sys);
+void	set_tabparam(t_sys *sys);
+char	*set_fractname(t_sys *sys);
+
 
 /*
 ** rgb_triangle.c
@@ -179,8 +186,8 @@ void	write_color(t_sys *sys);
 */
 void	double_to_str(double input, char *str);
 int		intlen(int integer);
-void	fill_intpart(char *str, int integer, int i, char sign);
-void	fill_fractpart(char *str, int fraction, int i);
+void	write_intpart(char *str, int integer, int i, char sign);
+void	write_fractpart(char *str, int fraction, int i);
 
 /*
 ** NEED_DELL.c

@@ -13,6 +13,7 @@ HEADER = -I $(HEADER_DIR)
 
 SRC_DIR = src/
 SRC_LIST = fractol.c\
+			set_system.c\
 			rgb_triangle.c\
 			drawing.c\
 			complex_axis.c\

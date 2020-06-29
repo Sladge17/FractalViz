@@ -12,10 +12,8 @@
 
 #include "fractol.h"
 
-// char	*double_to_str(double input)
 void	double_to_str(double input, char *str)
 {
-	// char	*str;
 	int		integer;
 	char	sign;
 	int		len_int;
@@ -31,12 +29,10 @@ void	double_to_str(double input, char *str)
 	integer = (int)input;
 	len_int = intlen(integer) + sign;
 	len_str = len_int + 5;
-	// str = (char *)malloc(sizeof(char) * len_str);
-	fill_intpart(str, integer, len_int - 1, sign);
+	write_intpart(str, integer, len_int - 1, sign);
 	str[len_int] = '.';
-	fill_fractpart(str, (int)((input - integer) * 1000), len_str - 2);
+	write_fractpart(str, (int)((input - integer) * 1000), len_str - 2);
 	str[len_str - 1] = '\0';
-	// return (str);
 }
 
 int		intlen(int integer)
@@ -54,7 +50,7 @@ int		intlen(int integer)
 	return (len);
 }
 
-void	fill_intpart(char *str, int integer, int i, char sign)
+void	write_intpart(char *str, int integer, int i, char sign)
 {
 	if (sign)
 		str[0] = '-';
@@ -67,7 +63,7 @@ void	fill_intpart(char *str, int integer, int i, char sign)
 	str[i] = integer + 48;
 }
 
-void	fill_fractpart(char *str, int fraction, int i)
+void	write_fractpart(char *str, int fraction, int i)
 {
 	int		border;
 
