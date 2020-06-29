@@ -111,9 +111,9 @@ void	calc_AbsRealP4(t_sys *sys);
 */
 int		key_press(int keycode, void *param);
 int		key_release(int keycode, void *param);
-int		mouse_move(int x, int y, void *param);
 int		mouse_press(int button, int x, int y, void *param);
 int		mouse_release(int button, int x, int y, void *param);
+int		mouse_move(int x, int y, void *param);
 
 /*
 ** controls_keyb_1.c
@@ -139,6 +139,15 @@ char	isolation_mode(int keycode, t_sys *sys);
 char	complex_axis(int keycode, t_sys *sys);
 char	open_winsett(int keycode, t_sys *sys);
 void	write_settings(t_sys *sys);
+
+/*
+** controls_mouse.c
+*/
+char	click_lmb(t_sys *sys, int button, int x, int y);
+char	click_rmb(t_sys *sys, int button, int x, int y);
+char	click_mmb(t_sys *sys, int button, int x, int y);
+void	cursor_outside(t_sys *sys);
+void	cursor_inttocomp(t_sys *sys, int x, int y);
 
 /*
 ** shift_fractal.c
