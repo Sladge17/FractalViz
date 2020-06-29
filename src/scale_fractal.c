@@ -21,7 +21,6 @@ void	scale_up(t_sys *sys)
 		AXIS_C[F_ID] = AXISK_C;
 	else
 		AXIS_C[F_ID] = AXISF_C;
-	
 	draw_image(sys);
 }
 

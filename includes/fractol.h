@@ -30,18 +30,12 @@
 /*
 ** fractol.c
 */
-char	*set_fractname(t_sys *sys);
 void	clear_image(t_sys *sys);
 void	clear_stat(t_sys *sys);
-void	draw_menu(t_sys *sys);
 void	clear_settings(t_sys *sys);
 int		close_fractol(void *param);
 int		close_setting(void *param);
-t_comp	int_to_comp(t_sys *sys, int id);
-void	conv_1d_2d(t_sys *sys, int id, int *id2d);
 void	def_delta(t_sys *sys);
-void	calc_fractal(t_sys	*sys);
-void	calc_fractal_nest(t_sys *sys);
 void	fractol_discr();
 
 /*
@@ -52,6 +46,16 @@ void	set_consts(t_sys *sys);
 void	set_mlxset(t_sys *sys);
 void	set_tabparam(t_sys *sys);
 char	*set_fractname(t_sys *sys);
+
+/*
+** calc_fractal.c
+*/
+void	calc_fractal(t_sys	*sys);
+void	calc_fractal_nest(t_sys *sys);
+t_comp	int_to_comp(t_sys *sys, int id);
+void	conv_1d_2d(t_sys *sys, int id, int *id2d);
+void	draw_fractal(int itr, int i, t_sys *sys);
+
 
 
 /*
@@ -68,8 +72,8 @@ void	draw_horline(t_sys *system, int *v0, int *v1);
 */
 void	draw_winmain(t_sys *sys, int argc, char *argv);
 void	draw_image(t_sys *sys);
+void	draw_menu(t_sys *sys);
 void	draw_stat(t_sys *sys);
-void	draw_fractal(int itr, int i, t_sys *sys);
 void	redraw_image(t_sys *sys, int x, int y);
 
 /*
