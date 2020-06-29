@@ -30,22 +30,18 @@ typedef struct s_mlxset
 	void		*win_main;
 	void		*win_set;
 
-	// int			imgvol;
 	void		*img;
 	int			img_s[3];
 	int			*imgout;
 
-	// int			mnuvol;
 	void		*mnu;
 	int			mnu_s[3];
 	int			*mnuout;
 
-	// int			statvol;
 	void		*stat;
 	int			stat_s[3];
 	int			*statout;
 
-	// int			setvol;
 	void		*set;
 	int			set_s[3];
 	int			*setout;	
@@ -60,66 +56,28 @@ typedef struct	s_comp
 typedef struct	s_sys
 {
 	t_consts	*consts;
-
 	t_mlxset	*mlxset;
 
-	// void		*mlx;
-	// void		*win_main;
-	// void		*win_set;
-
-	// int			imgvol;
-	// void		*img;
-	// int			img_s[3];
-	// int			*imgout;
-
-	// int			mnuvol;
-	// void		*mnu;
-	// int			mnu_s[3];
-	// int			*mnuout;
-
-	// int			statvol;
-	// void		*stat;
-	// int			stat_s[3];
-	// int			*statout;
-
-	// int			setvol;
-	// void		*set;
-	// int			set_s[3];
-	// int			*setout;
-	
-	// char		bitset;
-	short		bitset;
-
 	char		index;
+	short		bitset;
 	int			color;
-	int			shift[8][2];
-
-	int			rgbtris_y[2];
-	int			axis_c[8];
-
 	int			cursor[2];
 	t_comp		cursorcomp;
-	// int			scale[8];
-	// int			delta[8][2];
 
-	// int			delta0[8][2];
-	// int			scale0[8];
+	int			rgbtris_y[2];
 
-	int			scale[2][8];
+	int			shift[8][2];
 	int			delta[2][8][2];
-	
-
+	int			scale[2][8];
+	int			axis_c[8];
 	t_comp		k[8];
+
 	char		*str_name;
+	char		*str_k[8];
 	char		*cursorstr[2];
 	char		*str_cursor[2];
-	char		*str_k[8];
-
 	char		*scalestr;
 	char		*str_scale[8];
-
 	char		*hexnumbs;
 	char		*str_color;
-
-
 }				t_sys;
