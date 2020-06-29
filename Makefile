@@ -16,6 +16,7 @@ SRC_LIST = fractol.c\
 			set_system.c\
 			calc_fractal.c\
 			rgb_triangle.c\
+			clearing.c\
 			drawing.c\
 			complex_axis.c\
 			complex_actions1.c\

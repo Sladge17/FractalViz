@@ -49,10 +49,3 @@ void	scale_reset(t_sys *sys)
 	sys->str_scale[F_ID] = ft_strcat(sys->str_scale[F_ID], "1.000");
 	shift_reset(sys);
 }
-
-void	set_deltazero(t_sys *sys)
-{
-	sys->delta[0][F_ID][0] = sys->delta[1][F_ID][0] + sys->shift[F_ID][0];
-	sys->delta[0][F_ID][1] = sys->delta[1][F_ID][1] + sys->shift[F_ID][1];
-	sys->scale[0][F_ID] = sys->scale[1][F_ID];
-}

@@ -30,13 +30,10 @@
 /*
 ** fractol.c
 */
-void	clear_image(t_sys *sys);
-void	clear_stat(t_sys *sys);
-void	clear_settings(t_sys *sys);
-int		close_fractol(void *param);
-int		close_setting(void *param);
-void	def_delta(t_sys *sys);
 void	fractol_discr();
+void	set_deltazero(t_sys *sys);
+void	def_delta(t_sys *sys);
+
 
 /*
 ** set_system.c
@@ -56,8 +53,6 @@ t_comp	int_to_comp(t_sys *sys, int id);
 void	conv_1d_2d(t_sys *sys, int id, int *id2d);
 void	draw_fractal(int itr, int i, t_sys *sys);
 
-
-
 /*
 ** rgb_triangle.c
 */
@@ -66,6 +61,15 @@ void	fill_triangle(t_sys *sys, int *tris, int height, int widthhalf);
 void	def_rgbset(char *rgb_set, int color0, int color1);
 int		set_color(char *rgb_set, int color0, double int_xc);
 void	draw_horline(t_sys *system, int *v0, int *v1);
+
+/*
+** clearing.c
+*/
+void	clear_image(t_sys *sys);
+void	clear_stat(t_sys *sys);
+void	clear_settings(t_sys *sys);
+int		close_setting(void *param);
+int		close_fractol(void *param);
 
 /*
 ** drawing.c
@@ -175,7 +179,6 @@ void	shift_reset(t_sys *sys);
 void	scale_up(t_sys *sys);
 void	scale_down(t_sys *sys);
 void	scale_reset(t_sys *sys);
-void	set_deltazero(t_sys *sys);
 
 /*
 ** write_stats.c

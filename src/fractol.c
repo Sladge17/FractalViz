@@ -32,55 +32,19 @@ int		main(int argc, char **argv)
 	return (0);
 }
 
-void	clear_image(t_sys *sys)
+void	fractol_discr()
 {
-	int		i;
-	
-	i = 0;
-	while (i < IMAGE_VOL)
-	{
-		sys->mlxset->imgout[i] = IMAGE_C;
-		i += 1;
-	}
-}
-
-void	clear_stat(t_sys *sys)
-{
-	int		i;
-	
-	i = 0;
-	while (i < STAT_VOL)
-	{
-		sys->mlxset->statout[i] = 0;
-		i += 1;
-	}
-}
-
-void	clear_settings(t_sys *sys)
-{
-	int		i;
-
-	i = 0;
-	while (i < SETT_VOL)
-	{
-		sys->mlxset->setout[i] = MENU_C;
-		i += 1;
-	}
-}
-
-int		close_fractol(void *param)
-{
-	(void)param;
+	puts(TEXT_TITLE);
+	puts(TEXT_MAIN);
+	puts(TEXT_FRACTALS);
 	exit(0);
 }
 
-int		close_setting(void *param)
+void	set_deltazero(t_sys *sys)
 {
-	t_sys		*sys;
-
-	sys = (t_sys *)param;
-	sys->bitset ^= 0b00000010;
-	return (0);
+	sys->delta[0][F_ID][0] = sys->delta[1][F_ID][0] + sys->shift[F_ID][0];
+	sys->delta[0][F_ID][1] = sys->delta[1][F_ID][1] + sys->shift[F_ID][1];
+	sys->scale[0][F_ID] = sys->scale[1][F_ID];
 }
 
 void	def_delta(t_sys *sys)
@@ -99,19 +63,3 @@ void	def_delta(t_sys *sys)
 	sys->delta[1][F_ID][1] += sys->delta[0][F_ID][1] - sys->shift[F_ID][1];
 	return ;
 }
-
-void	fractol_discr()
-{
-	puts(TEXT_TITLE);
-	puts(TEXT_MAIN);
-	puts(TEXT_FRACTALS);
-	exit(0);
-}
-
-
-
-
-
-
-
-
