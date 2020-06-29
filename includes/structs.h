@@ -28,7 +28,7 @@ typedef struct s_mlxset
 {
 	void		*mlx;
 	void		*win_main;
-	void		*win_set;
+	void		*win_sett;
 
 	void		*img;
 	int			img_s[3];
@@ -42,9 +42,9 @@ typedef struct s_mlxset
 	int			stat_s[3];
 	int			*statout;
 
-	void		*set;
-	int			set_s[3];
-	int			*setout;	
+	void		*sett;
+	int			sett_s[3];
+	int			*settout;	
 }				t_mlxset;
 
 typedef struct	s_comp

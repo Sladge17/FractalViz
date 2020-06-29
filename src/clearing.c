@@ -43,7 +43,7 @@ void	clear_settings(t_sys *sys)
 	i = 0;
 	while (i < SETT_VOL)
 	{
-		sys->mlxset->setout[i] = MENU_C;
+		sys->mlxset->settout[i] = MENU_C;
 		i += 1;
 	}
 }

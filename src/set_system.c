@@ -78,10 +78,10 @@ void	set_mlxset(t_sys *sys)
 		&sys->mlxset->stat_s[1],
 		&sys->mlxset->stat_s[2]);
 	SETT = mlx_new_image(MLX, SETT_W, SETT_H);
-	sys->mlxset->setout = (int *)mlx_get_data_addr(SETT,
-		&sys->mlxset->set_s[0],
-		&sys->mlxset->set_s[1],
-		&sys->mlxset->set_s[2]);
+	sys->mlxset->settout = (int *)mlx_get_data_addr(SETT,
+		&sys->mlxset->sett_s[0],
+		&sys->mlxset->sett_s[1],
+		&sys->mlxset->sett_s[2]);
 }
 
 void	set_tabparam(t_sys *sys)

@@ -45,8 +45,8 @@ char	open_winsett(int keycode, t_sys *sys)
 		WINSETT = mlx_new_window(MLX, SETT_W, SETT_H, "settings");
 		mlx_put_image_to_window(MLX, WINSETT, SETT, 0, 0);
 		write_settings(sys);
-		mlx_hook(sys->mlxset->win_set, 2, 0, key_press, sys);
-		mlx_hook(sys->mlxset->win_set, 17, 0, close_setting, sys);
+		mlx_hook(sys->mlxset->win_sett, 2, 0, key_press, sys);
+		mlx_hook(sys->mlxset->win_sett, 17, 0, close_setting, sys);
 	}
 	else
 		mlx_destroy_window(MLX, WINSETT);

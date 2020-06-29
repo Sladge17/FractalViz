@@ -33,15 +33,13 @@
 
 # define F_ID (int)sys->index
 
-# define Q 60 // NEED DELL!!!!!!!!!!!!!
-
 # define MLX sys->mlxset->mlx
 # define WINMAIN sys->mlxset->win_main
-# define WINSETT sys->mlxset->win_set
+# define WINSETT sys->mlxset->win_sett
 # define IMAGE sys->mlxset->img
 # define MENU sys->mlxset->mnu
 # define STAT sys->mlxset->stat
-# define SETT sys->mlxset->set
+# define SETT sys->mlxset->sett
 
 
 # define STR_X sys->consts->menu_xoffset
