@@ -67,7 +67,6 @@ void	draw_horline(t_sys *system, int *v0, int *v1);
 /*
 ** clearing.c
 */
-void	clear_image(t_sys *sys);
 void	clear_stat(t_sys *sys);
 void	clear_settings(t_sys *sys);
 int		close_setting(void *param);

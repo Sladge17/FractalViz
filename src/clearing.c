@@ -12,18 +12,6 @@
 
 #include "fractol.h"
 
-void	clear_image(t_sys *sys)
-{
-	int		i;
-	
-	i = 0;
-	while (i < IMAGE_VOL)
-	{
-		sys->mlxset->imgout[i] = IMAGE_C;
-		i += 1;
-	}
-}
-
 void	clear_stat(t_sys *sys)
 {
 	int		i;
