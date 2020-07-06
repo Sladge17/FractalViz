@@ -21,6 +21,8 @@ int		key_press(int keycode, void *param)
 		exit(0);
 	if (change_fractal(keycode, sys))
 		return (0);
+	if (turn_multythreading(keycode, sys))
+		return (0);
 	if (shift_fractal_k(keycode, sys))
 		return (0);
 	if (scale_fractal_k(keycode, sys))

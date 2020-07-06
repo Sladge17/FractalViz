@@ -21,7 +21,7 @@ typedef struct				s_cl
 	cl_program				program;
 	cl_kernel				kernel;
 	cl_mem					buffer;
-	size_t					kernelrange;
+	size_t					range;
 }							t_cl;
 
 typedef struct s_consts
@@ -37,6 +37,8 @@ typedef struct s_consts
 	int			image_center;
 
 	int			menu_xoffset;
+
+	int			image_int;
 }				t_consts;
 
 typedef struct s_mlxset

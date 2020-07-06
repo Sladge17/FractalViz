@@ -14,6 +14,11 @@
 
 void	calc_fractal(t_sys *sys)
 {
+	if (sys->bitset & 0b1000000000)
+	{
+		exe_kernel(sys);
+		return ;
+	}
 	if (sys->index == 0)
 	{
 		calc_Zulia(sys);
@@ -29,16 +34,16 @@ void	calc_fractal(t_sys *sys)
 		calc_BurningShip(sys);
 		return ;
 	}
-	if (sys->index == 3)
-	{
-		calc_Mandelbar(sys);
-		return ;
-	}
 	calc_fractal_nest(sys);
 }
 
 void	calc_fractal_nest(t_sys *sys)
 {
+	if (sys->index == 3)
+	{
+		calc_Mandelbar(sys);
+		return ;
+	}
 	if (sys->index == 4)
 	{
 		calc_AbsReal(sys);

@@ -44,7 +44,8 @@ void	set_system(t_sys *sys);
 void	set_consts(t_sys *sys);
 void	set_mlxset(t_sys *sys);
 void	set_tabparam(t_sys *sys);
-char	*set_fractname(t_sys *sys);
+// char	*set_fractname(t_sys *sys);
+void	set_fractsett(t_sys *sys);
 
 /*
 ** calc_fractal.c
@@ -143,6 +144,7 @@ char	select_fractal_4(int keycode, t_sys *sys);
 /*
 ** controls_keyb_2.c
 */
+char	turn_multythreading(int keycode, t_sys *sys);
 char	shift_fractal_k(int keycode, t_sys *sys);
 char	check_shiftfractal(int keycode, t_sys *sys);
 char	check_unshiftfractal(int keycode, t_sys *sys);
@@ -201,8 +203,10 @@ void	write_fractpart(char *str, int fraction, int i);
 ** cl.c
 */
 void	set_cl(t_sys *sys);
-void	set_kernelsrc(t_cl *cl);
+void	set_kernelsrc(t_sys *sys);
+void	test(t_sys *sys, char *path);
 int		set_lensrc(char *kernelpath);
+void	exe_kernel(t_sys *sys);
 
 
 /*

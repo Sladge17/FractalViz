@@ -12,6 +12,31 @@
 
 #include "fractol.h"
 
+// KERNEL = clCreateKernel(PROGRAM, "Mandelbrot", NULL);
+
+char	turn_multythreading(int keycode, t_sys *sys)
+{
+	if (keycode != 257 && keycode != 258)
+		return (0);
+	sys->bitset ^= 0b1000000000;
+	// if (!(sys->bitset & 0b1000000000))
+	// {
+	// 	free(KERNEL);
+	// 	return (1);
+	// }
+	// if ((int)sys->index == 0)
+	// {
+	// 	KERNEL = clCreateKernel(PROGRAM, "Zulia", NULL);
+	// 	return (1);
+	// }
+	// if ((int)sys->index == 1)
+	// {
+	// 	KERNEL = clCreateKernel(PROGRAM, "Mandelbrot", NULL);
+	// 	return (1);
+	// }
+	return (1);
+}
+
 char	shift_fractal_k(int keycode, t_sys *sys)
 {
 	if (check_shiftfractal(keycode, sys))

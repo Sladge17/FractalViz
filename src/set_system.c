@@ -58,6 +58,8 @@ void	set_consts(t_sys *sys)
 	IMAGE_CENTER = IMAGE_CENTRX + IMAGE_W * IMAGE_CENTRY;
 
 	STR_X = IMAGE_W + 10;
+
+	IMG_INT = sizeof(int) * IMAGE_VOL;
 }
 
 void	set_mlxset(t_sys *sys)
@@ -118,21 +120,85 @@ void	set_tabparam(t_sys *sys)
 	}
 }
 
-char	*set_fractname(t_sys *sys)
+// char	*set_fractname(t_sys *sys)
+// {
+// 	if (sys->index == 0)
+// 		return ("name: Zulia");
+// 	if (sys->index == 1)
+// 		return ("name: Mandelbrot");
+// 	if (sys->index == 2)
+// 		return ("name: BurningShip");
+// 	if (sys->index == 3)
+// 		return ("name: Mandelbar");
+// 	if (sys->index == 4)
+// 		return ("name: AbsReal");
+// 	if (sys->index == 5)
+// 		return ("name: AbsImg");
+// 	if (sys->index == 6)
+// 		return ("name: Power3");
+// 	return ("name: AbsRealP4");
+// }
+
+
+void	set_fractsett(t_sys *sys)
 {
 	if (sys->index == 0)
-		return ("name: Zulia");
+	{
+		sys->str_name = "name: Zulia";
+		KERNEL = clCreateKernel(PROGRAM, "Zulia", NULL);
+		return ;
+	}
 	if (sys->index == 1)
-		return ("name: Mandelbrot");
+	{
+		sys->str_name = "name: Mandelbrot";
+		KERNEL = clCreateKernel(PROGRAM, "Mandelbrot", NULL);
+		return ;
+	}
 	if (sys->index == 2)
-		return ("name: BurningShip");
+	{
+		sys->str_name = "name: BurningShip";
+		KERNEL = clCreateKernel(PROGRAM, "BurningShip", NULL);
+		return ;
+	}
 	if (sys->index == 3)
-		return ("name: Mandelbar");
+	{
+		sys->str_name = "name: Mandelbar";
+		KERNEL = clCreateKernel(PROGRAM, "Mandelbar", NULL);
+		return ;
+	}
 	if (sys->index == 4)
-		return ("name: AbsReal");
+	{
+		sys->str_name = "name: AbsReal";
+		KERNEL = clCreateKernel(PROGRAM, "AbsReal", NULL);
+		return ;
+	}
 	if (sys->index == 5)
-		return ("name: AbsImg");
+	{
+		sys->str_name = "name: AbsImg";
+		KERNEL = clCreateKernel(PROGRAM, "AbsImg", NULL);
+		return ;
+	}
 	if (sys->index == 6)
-		return ("name: Power3");
-	return ("name: AbsRealP4");
+	{
+		sys->str_name = "name: Power3";
+		KERNEL = clCreateKernel(PROGRAM, "Power3", NULL);
+		return ;
+	}
+	sys->str_name = "name: AbsRealP4";
+	KERNEL = clCreateKernel(PROGRAM, "AbsRealP4", NULL);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

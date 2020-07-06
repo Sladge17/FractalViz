@@ -46,7 +46,18 @@
 # define STAT sys->mlxset->stat
 # define SETT sys->mlxset->sett
 
+# define PLATFORM sys->cl->platform
+# define DEVICE sys->cl->device
+# define PROPERTIES sys->cl->properties
+# define CONTEXT sys->cl->context
+# define QUEUE sys->cl->queue
+# define PROGRAM sys->cl->program
+# define KERNELSRC sys->cl->kernelsrc
+# define KERNEL sys->cl->kernel
+# define BUFFER sys->cl->buffer
+# define RANGE sys->cl->range
 
+# define IMG_INT sys->consts->image_int
 
 
 // # define IMAGE_C 0x909497

@@ -17,8 +17,9 @@ void	draw_winmain(t_sys *sys, int argc, char *argv)
 	if (argc == 1)
 	{
 		sys->index = 1;
-		sys->str_name = "name: Mandelbrot";
 		set_system(sys);
+		sys->str_name = "name: Mandelbrot";
+		KERNEL = clCreateKernel(PROGRAM, "Mandelbrot", NULL);
 		calc_Mandelbrot(sys);
 	}
 	else
@@ -26,8 +27,10 @@ void	draw_winmain(t_sys *sys, int argc, char *argv)
 		if (ft_strlen(argv) != 1 || argv[0] < '1' || argv[0] > '8')
 			fractol_discr();
 		sys->index = ft_atoi(argv) - 1;
-		sys->str_name = set_fractname(sys);
+		// sys->str_name = set_fractname(sys);
+		// set_fractsett(sys);
 		set_system(sys);
+		set_fractsett(sys);
 		calc_fractal(sys);
 	}
 	WINMAIN = mlx_new_window(MLX, MAIN_W, MAIN_H, "fractol");
