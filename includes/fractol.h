@@ -14,6 +14,8 @@
 # define FRACTOL_H
 
 # include <mlx.h>
+# include <OpenCL/opencl.h>
+
 # include <unistd.h>
 # include <stdlib.h>
 # include <math.h>
@@ -195,6 +197,14 @@ void	double_to_str(double input, char *str);
 int		intlen(int integer);
 void	write_intpart(char *str, int integer, int i, char sign);
 void	write_fractpart(char *str, int fraction, int i);
+
+/*
+** cl.c
+*/
+void	set_cl(t_sys *sys);
+void	set_kernelsrc(t_cl *cl);
+int		set_lensrc(char *kernelpath);
+
 
 /*
 ** NEED_DELL.c

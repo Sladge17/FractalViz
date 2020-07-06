@@ -10,8 +10,23 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+typedef struct				s_cl
+{
+	const char				*kernelsrc;
+	cl_platform_id			platform;
+	cl_device_id			device;
+	cl_context_properties	properties[3];
+	cl_context				context;
+	cl_command_queue		queue;
+	cl_program				program;
+	cl_kernel				kernel;
+	cl_mem					buffer;
+	size_t					kernelrange;
+}							t_cl;
+
 typedef struct s_consts
 {
+	int			iter;
 	int			image_w;
 	int			image_vol;
 	int			menu_vol;
@@ -55,6 +70,8 @@ typedef struct	s_comp
 
 typedef struct	s_sys
 {
+	t_cl		*cl;
+
 	t_consts	*consts;
 	t_mlxset	*mlxset;
 

@@ -19,7 +19,7 @@ void	draw_winmain(t_sys *sys, int argc, char *argv)
 		sys->index = 1;
 		sys->str_name = "name: Mandelbrot";
 		set_system(sys);
-		clear_image(sys);
+		// clear_image(sys);
 		calc_Mandelbrot(sys);
 	}
 	else
@@ -29,7 +29,7 @@ void	draw_winmain(t_sys *sys, int argc, char *argv)
 		sys->index = ft_atoi(argv) - 1;
 		sys->str_name = set_fractname(sys);
 		set_system(sys);
-		clear_image(sys);
+		// clear_image(sys);
 		calc_fractal(sys);
 	}
 	WINMAIN = mlx_new_window(MLX, MAIN_W, MAIN_H, "fractol");
@@ -40,7 +40,7 @@ void	draw_winmain(t_sys *sys, int argc, char *argv)
 
 void	draw_image(t_sys *sys)
 {
-	clear_image(sys);
+	// clear_image(sys);
 	calc_fractal(sys);
 	if (sys->bitset & 0b00001000)
 	{

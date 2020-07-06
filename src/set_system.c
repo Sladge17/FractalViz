@@ -17,6 +17,8 @@ void	set_system(t_sys *sys)
 	set_consts(sys);
 	set_mlxset(sys);
 
+	set_cl(sys);
+
 	sys->bitset = 0;	
 	sys->color = 0xFF0000;
 	sys->cursor[0] = 0;
@@ -44,6 +46,7 @@ void	set_consts(t_sys *sys)
 {
 	if (!(sys->consts = (t_consts *)malloc(sizeof(t_consts))))
 		exit(0);
+	ITER = 100;
 	IMAGE_W = MAIN_W - MENU_W;
 	IMAGE_VOL = IMAGE_W * MAIN_H;
 	MENU_VOL = MENU_W * MAIN_H;
@@ -133,4 +136,3 @@ char	*set_fractname(t_sys *sys)
 		return ("name: Power3");
 	return ("name: AbsRealP4");
 }
-

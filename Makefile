@@ -5,6 +5,8 @@ GL_DIR = minilibx_macos/
 GL_FLAG = -lm -framework OpenGL -framework AppKit
 GL = $(GL_DIR)libmlx.a $(GL_FLAG)
 
+CL = -framework OpenCL
+
 LIBFT_DIR = LibFT/
 LIBFT = $(LIBFT_DIR)libft.a
 
@@ -32,6 +34,7 @@ SRC_LIST = fractol.c\
 			scale_fractal.c\
 			write_stats.c\
 			double_to_str.c\
+			cl.c\
 			NEED_DELL.c
 SRC = $(addprefix $(SRC_DIR), $(SRC_LIST))
 
@@ -44,7 +47,7 @@ OBJ = $(addprefix $(OBJ_DIR), $(OBJ_LIST))
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@gcc -o $(NAME) $(HEADER) $(OBJ) $(LIBFT) $(GL)
+	@gcc -o $(NAME) $(HEADER) $(OBJ) $(LIBFT) $(GL) $(CL)
 
 $(OBJ_DIR)%.o : $(SRC_DIR)%.c $(HEADER_DIR)*.h
 	@mkdir -p $(OBJ_DIR)

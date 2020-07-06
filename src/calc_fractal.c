@@ -97,5 +97,20 @@ void	draw_fractal(int itr, int i, t_sys *sys)
 		return ;
 	}
 	if (!(sys->bitset & 0b00000100))
+	{
 		sys->mlxset->imgout[i] = itr * 1000;
+		return ;
+	}
+	sys->mlxset->imgout[i] = 0;
 }
+
+
+
+
+
+
+
+
+
+
+

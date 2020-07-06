@@ -22,6 +22,8 @@
 # define IMAGE_W sys->consts->image_w
 # define STAT_H 370
 
+# define ITER sys->consts->iter
+
 # define IMAGE_VOL sys->consts->image_vol
 # define MENU_VOL sys->consts->menu_vol
 # define STAT_VOL sys->consts->stat_vol
@@ -30,6 +32,9 @@
 # define IMAGE_CENTRX sys->consts->image_centrx
 # define IMAGE_CENTRY sys->consts->image_centry
 # define IMAGE_CENTER sys->consts->image_center
+
+# define STR_X sys->consts->menu_xoffset
+# define STAT_Y 420
 
 # define F_ID (int)sys->index
 
@@ -42,8 +47,7 @@
 # define SETT sys->mlxset->sett
 
 
-# define STR_X sys->consts->menu_xoffset
-# define STAT_Y 420
+
 
 // # define IMAGE_C 0x909497
 # define IMAGE_C 0
@@ -59,7 +63,6 @@
 # define AXISK_C 0xAAAAAA
 # define AXIS_C sys->axis_c
 
-# define ITER 100
 # define SHIFT 10
 
 // # define DEF_SCALE 300
