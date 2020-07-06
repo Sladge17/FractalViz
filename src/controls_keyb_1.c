@@ -33,10 +33,8 @@ char	select_fractal_1(int keycode, t_sys *sys)
 			return (1);
 		sys->index = 0;
 		sys->str_name = "name: Zulia";
-		// if (sys->bitset & 0b1000000000)
-		// {
-			free(KERNEL);
-			KERNEL = clCreateKernel(PROGRAM, "Zulia", NULL);
+		free(KERNEL);
+		KERNEL = clCreateKernel(PROGRAM, "Zulia", NULL);
 		draw_image(sys);
 		draw_stat(sys);
 		return (1);
@@ -47,11 +45,8 @@ char	select_fractal_1(int keycode, t_sys *sys)
 			return (1);
 		sys->index = 1;
 		sys->str_name = "name: Mandelbrot";
-		// if (sys->bitset & 0b1000000000)
-		// {
-			free(KERNEL);
-			KERNEL = clCreateKernel(PROGRAM, "Mandelbrot", NULL);
-		// }
+		free(KERNEL);
+		KERNEL = clCreateKernel(PROGRAM, "Mandelbrot", NULL);
 		draw_image(sys);
 		draw_stat(sys);
 		return (1);

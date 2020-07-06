@@ -55,8 +55,8 @@ void	set_kernelsrc(t_sys *sys)
 	// read(fd, (void *)KERNELSRC, len_src);
 	// close(fd);
 
+	// test(sys, "./kernels/kernel.cl");
 	test(sys, "./kernels/kernel.cl");
-	// test(sys, "./kernels/kernel2.cl");
 }
 
 

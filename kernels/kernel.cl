@@ -1,15 +1,21 @@
-__kernel	void test(__global int *buffer, int num1, int num2, int flag)
-{
-	int 	i;
+// __kernel	void test(__global int *buffer, int num1, int num2, int flag)
+// {
+// 	int 	i;
 
-	i = get_global_id(0);
-	buffer[i] = num1;
-}
+// 	i = get_global_id(0);
+// 	buffer[i] = num1;
+// }
+
+typedef struct	s_comp
+{
+	double		real;
+	double		img;
+}				t_comp;
 
 __kernel void	Zulia(__global int *buffer,
-						int img_c,
-						int img_w,
-						int img_cx,
+						int IMAGE_CENTER,
+						int IMAGE_W,
+						int IMAGE_CENTRX,
 						int delta_x,
 						int delta_y,
 						int scale,
@@ -24,25 +30,23 @@ __kernel void	Zulia(__global int *buffer,
 	int		i;
 	int		itr;
 	int		i2d[2];
-	double	z[2];
-	// double	c[2];
-	double	tmp[2];
+	t_comp	z;
+	t_comp	tmp;
 
 	isol_mode = bitset & 0b100 ? 1 : 0;
 
 	id = get_global_id(0);
-	i = id - img_c;
-	i2d[0] = i % img_w;
-	i2d[1] = i / img_w;
-
-	if (i < 0 && -i2d[0] > img_cx)
+	i = id - IMAGE_CENTER;
+	i2d[0] = i % IMAGE_W;
+	i2d[1] = i / IMAGE_W;
+	if (i < 0 && -i2d[0] > IMAGE_CENTRX)
 	{
-		i2d[0] += delta_x + img_w;
+		i2d[0] += delta_x + IMAGE_W;
 		i2d[1] += delta_y - 1;
 	}
-	else if (i > 0 && i2d[0] >= img_cx)
+	else if (i > 0 && i2d[0] >= IMAGE_CENTRX)
 	{
-		i2d[0] += delta_x - img_w;
+		i2d[0] += delta_x - IMAGE_W;
 		i2d[1] += delta_y + 1;
 	}
 	else
@@ -51,26 +55,21 @@ __kernel void	Zulia(__global int *buffer,
 		i2d[1] += delta_y;
 	}
 
-	z[0] = i2d[0] / (double)scale;
-	z[1] = -i2d[1] / (double)scale;
-	// c[0] = z[0];
-	// c[1] = z[1];
-
+	z.real = i2d[0] / (double)scale;
+	z.img = -i2d[1] / (double)scale;
 	itr = 0;
 	while (itr < iter)
 	{
 		if (itr)
 		{
-			tmp[0] = z[0];
-			tmp[1] = z[1];
-			z[0] = tmp[0] * tmp[0] - tmp[1] * tmp[1];
-			z[1] = 2 * tmp[0] * tmp[1];
-			// z[0] += c[0] + k_real;
-			// z[1] += c[1] + k_img;
-			z[0] += k_real;
-			z[1] += k_img;
+			tmp.real = z.real;
+			tmp.img = z.img;
+			z.real = tmp.real * tmp.real - tmp.img * tmp.img;
+			z.img = 2 * tmp.real * tmp.img;
+			z.real += k_real;
+			z.img += k_img;
 		}
-		if (sqrt(z[0] * z[0] + z[1] * z[1]) > 4)
+		if (sqrt(z.real * z.real + z.img * z.img) > 4)
 			break ;
 		itr += 1;
 	}
@@ -88,9 +87,9 @@ __kernel void	Zulia(__global int *buffer,
 }
 
 __kernel void	Mandelbrot(__global int *buffer,
-							int img_c,
-							int img_w,
-							int img_cx,
+							int IMAGE_CENTER,
+							int IMAGE_W,
+							int IMAGE_CENTRX,
 							int delta_x,
 							int delta_y,
 							int scale,
@@ -105,25 +104,25 @@ __kernel void	Mandelbrot(__global int *buffer,
 	int		i;
 	int		itr;
 	int		i2d[2];
-	double	z[2];
-	double	c[2];
-	double	tmp[2];
+	t_comp	z;
+	t_comp	c;
+	t_comp	tmp;
 
 	isol_mode = bitset & 0b100 ? 1 : 0;
 
 	id = get_global_id(0);
-	i = id - img_c;
-	i2d[0] = i % img_w;
-	i2d[1] = i / img_w;
+	i = id - IMAGE_CENTER;
+	i2d[0] = i % IMAGE_W;
+	i2d[1] = i / IMAGE_W;
 
-	if (i < 0 && -i2d[0] > img_cx)
+	if (i < 0 && -i2d[0] > IMAGE_CENTRX)
 	{
-		i2d[0] += delta_x + img_w;
+		i2d[0] += delta_x + IMAGE_W;
 		i2d[1] += delta_y - 1;
 	}
-	else if (i > 0 && i2d[0] >= img_cx)
+	else if (i > 0 && i2d[0] >= IMAGE_CENTRX)
 	{
-		i2d[0] += delta_x - img_w;
+		i2d[0] += delta_x - IMAGE_W;
 		i2d[1] += delta_y + 1;
 	}
 	else
@@ -132,24 +131,24 @@ __kernel void	Mandelbrot(__global int *buffer,
 		i2d[1] += delta_y;
 	}
 
-	z[0] = i2d[0] / (double)scale;
-	z[1] = -i2d[1] / (double)scale;
-	c[0] = z[0];
-	c[1] = z[1];
+	z.real = i2d[0] / (double)scale;
+	z.img = -i2d[1] / (double)scale;
+	c.real = z.real;
+	c.img = z.img;
 
 	itr = 0;
 	while (itr < iter)
 	{
 		if (itr)
 		{
-			tmp[0] = z[0];
-			tmp[1] = z[1];
-			z[0] = tmp[0] * tmp[0] - tmp[1] * tmp[1];
-			z[1] = 2 * tmp[0] * tmp[1];
-			z[0] += c[0] + k_real;
-			z[1] += c[1] + k_img;
+			tmp.real = z.real;
+			tmp.img = z.img;
+			z.real = tmp.real * tmp.real - tmp.img * tmp.img;
+			z.img = 2 * tmp.real * tmp.img;
+			z.real += c.real + k_real;
+			z.img += c.img + k_img;
 		}
-		if (sqrt(z[0] * z[0] + z[1] * z[1]) > 4)
+		if (sqrt(z.real * z.real + z.img * z.img) > 4)
 			break ;
 		itr += 1;
 	}
