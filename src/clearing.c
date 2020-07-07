@@ -19,7 +19,7 @@ void	clear_stat(t_sys *sys)
 	i = 0;
 	while (i < STAT_VOL)
 	{
-		sys->mlxset->statout[i] = 0;
+		sys->mlxset->statout[i] = MENU_C;
 		i += 1;
 	}
 }

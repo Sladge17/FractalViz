@@ -19,6 +19,7 @@ char	turn_multythreading(int keycode, t_sys *sys)
 	if (keycode != 257 && keycode != 258)
 		return (0);
 	sys->bitset ^= 0b1000000000;
+	draw_stat(sys);
 	// if (!(sys->bitset & 0b1000000000))
 	// {
 	// 	free(KERNEL);

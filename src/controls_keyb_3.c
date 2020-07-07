@@ -73,6 +73,7 @@ void	write_settings(t_sys *sys)
 	mlx_string_put(MLX, WINSETT, 170, 440, STR_C, "(white complex axis)");
 	mlx_string_put(MLX, WINSETT, 20, 480, STR_C, "~ - ON / OFF isolation mode");
 	mlx_string_put(MLX, WINSETT, 20, 505, STR_C, "TAB - ON / OFF complex axis");
-	mlx_string_put(MLX, WINSETT, 20, 530, STR_C, "SPACE - ON / OFF settings window");
-	mlx_string_put(MLX, WINSETT, 20, 560, STR_C, "ESC - exit fractol");
+	mlx_string_put(MLX, WINSETT, 20, 530, STR_C, "SHIFT - ON / OFF multi-threading");
+	mlx_string_put(MLX, WINSETT, 20, 570, STR_C, "SPACE - ON / OFF settings window");
+	mlx_string_put(MLX, WINSETT, 20, 600, STR_C, "ESC - exit fractol");
 }

@@ -27,7 +27,7 @@ char	click_lmb(t_sys *sys, int button, int x, int y)
 	if (x >= IMAGE_W && y >= sys->rgbtris_y[0] && y <= sys->rgbtris_y[1]
 		&& sys->mlxset->mnuout[x - IMAGE_W + MENU_W * y] != MENU_C)
 	{
-		if (sys->bitset & 0b00000100)
+		if ((sys->bitset & 0b1000000100) == 0b100)
 		{
 			redraw_image(sys, x, y);
 			write_color(sys);
@@ -64,14 +64,16 @@ char	click_mmb(t_sys *sys, int button, int x, int y)
 		return (1);
 	if (button == 4)
 	{
-		scale_down(sys);
+		scale_up(sys);
+		// scale_down(sys);
 		write_scale(sys);
 		set_deltazero(sys);
 		return (1);
 	}
 	if (button == 5)
 	{
-		scale_up(sys);
+		scale_down(sys);
+		// scale_up(sys);
 		write_scale(sys);
 		set_deltazero(sys);
 		return (1);		

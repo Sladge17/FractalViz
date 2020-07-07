@@ -120,26 +120,6 @@ void	set_tabparam(t_sys *sys)
 	}
 }
 
-// char	*set_fractname(t_sys *sys)
-// {
-// 	if (sys->index == 0)
-// 		return ("name: Zulia");
-// 	if (sys->index == 1)
-// 		return ("name: Mandelbrot");
-// 	if (sys->index == 2)
-// 		return ("name: BurningShip");
-// 	if (sys->index == 3)
-// 		return ("name: Mandelbar");
-// 	if (sys->index == 4)
-// 		return ("name: AbsReal");
-// 	if (sys->index == 5)
-// 		return ("name: AbsImg");
-// 	if (sys->index == 6)
-// 		return ("name: Power3");
-// 	return ("name: AbsRealP4");
-// }
-
-
 void	set_fractsett(t_sys *sys)
 {
 	if (sys->index == 0)

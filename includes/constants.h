@@ -10,17 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-// # define MAIN_W 1920
-// # define MAIN_H 1080
-# define MAIN_W 1280
-# define MAIN_H 720
+# define MAIN_W 1920
+# define MAIN_H 1080
+// # define MAIN_W 1280
+// # define MAIN_H 720
 
 # define SETT_W 400
-# define SETT_H 600
+# define SETT_H 640
 
 # define MENU_W 250
 # define IMAGE_W sys->consts->image_w
-# define STAT_H 370
+// # define STAT_H 370 //to 1280x720
+# define STAT_H 440
 
 # define ITER sys->consts->iter
 
@@ -34,7 +35,8 @@
 # define IMAGE_CENTER sys->consts->image_center
 
 # define STR_X sys->consts->menu_xoffset
-# define STAT_Y 420
+// # define STAT_Y 420 //to 1280x720 
+# define STAT_Y 600
 
 # define F_ID (int)sys->index
 
@@ -76,11 +78,20 @@
 
 # define SHIFT 10
 
-// # define DEF_SCALE 300
-# define DEF_SCALE 200
+# define DEF_SCALE 300
+// # define DEF_SCALE 200
 # define ADD_SCALE 10
 # define MIN_SCALE 100
 
 # define TEXT_TITLE "\e[47m\e[30mFRACTOL DISCRIPTION\e[0m\n"
 # define TEXT_MAIN "Fractol need running with only one parameter - code of available fractal, or without parameters (run with default fractal - Mandelbrot)\n"
 # define TEXT_FRACTALS "Available fractals:\n1	Zulia\n2	Mandelbrot\n3	BurningShip\n4	Mandelbar\n5	AbsReal\n6	AbsImg\n7	Power3\n8	AbsRealP4\n"
+
+
+
+
+
+
+
+
+
