@@ -96,7 +96,6 @@ void	calc_Mandelbar(t_sys *sys)
 	t_comp	z;
 	t_comp	c;
 	int		itr;
-	t_comp	tmp_z;
 
 	i = 0;
 	while (i < IMAGE_VOL)
@@ -106,9 +105,8 @@ void	calc_Mandelbar(t_sys *sys)
 		itr = 0;
 		while (itr < ITER)
 		{
-			tmp_z.real = z.real * z.real - z.img * z.img;
-			tmp_z.img = z.real * z.img * -2;
-			z = add_comp(tmp_z, add_comp(c, sys->k[F_ID]));
+			if (itr)
+				z = add_comp(mbar_comp(z), add_comp(c, sys->k[F_ID]));
 			if (len_comp(z) > 4)
 				break ;
 			itr += 1;

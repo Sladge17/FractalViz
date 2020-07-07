@@ -74,6 +74,8 @@ char	select_fractal_2(int keycode, t_sys *sys)
 			return (1);
 		sys->index = 3;
 		sys->str_name = "name: Mandelbar";
+		free(KERNEL);
+		KERNEL = clCreateKernel(PROGRAM, "Mandelbar", NULL);
 		draw_image(sys);
 		draw_stat(sys);
 		return (1);

@@ -35,6 +35,15 @@ t_comp	absimg_comp(t_comp comp)
 	return (comp);
 }
 
+t_comp	mbar_comp(t_comp comp)
+{
+	t_comp	comp_mbar;
+
+	comp_mbar.real = comp.real * comp.real - comp.img * comp.img;
+	comp_mbar.img = comp.real * comp.img * -2;
+	return (comp_mbar);
+}
+
 double	len_comp(t_comp comp)
 {
 	double	len;
