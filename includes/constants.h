@@ -52,7 +52,7 @@
 # define CONTEXT sys->cl->context
 # define QUEUE sys->cl->queue
 # define PROGRAM sys->cl->program
-# define KERNELSRC sys->cl->kernelsrc
+// # define KERNELSRC sys->cl->kernelsrc
 # define KERNEL sys->cl->kernel
 # define BUFFER sys->cl->buffer
 # define RANGE sys->cl->range

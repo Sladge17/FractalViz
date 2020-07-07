@@ -62,6 +62,8 @@ char	select_fractal_2(int keycode, t_sys *sys)
 			return (1);
 		sys->index = 2;
 		sys->str_name = "name: BurningShip";
+		free(KERNEL);
+		KERNEL = clCreateKernel(PROGRAM, "BurningShip", NULL);
 		draw_image(sys);
 		draw_stat(sys);
 		return (1);

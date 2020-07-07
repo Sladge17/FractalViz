@@ -78,8 +78,9 @@ void	calc_BurningShip(t_sys *sys)
 		itr = 0;
 		while (itr < ITER)
 		{
-			z = add_comp(pow2_comp(abs_comp(z)),
-				add_comp(c, sys->k[F_ID]));
+			if (itr)
+				z = add_comp(pow2_comp(abs_comp(z)),
+					add_comp(c, sys->k[F_ID]));
 			if (len_comp(z) > 4)
 				break ;
 			itr += 1;

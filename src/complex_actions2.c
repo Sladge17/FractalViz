@@ -14,18 +14,10 @@
 
 t_comp	abs_comp(t_comp comp)
 {
-	void	*pointer;
-	char	i;
-
-	pointer = &comp;
-	i = 0;
-	while (i < 2)
-	{
-		if (*(double *)pointer < 0)
-			*(double *)pointer *= -1;
-		pointer += sizeof(double);
-		i += 1;
-	}
+	if (comp.real < 0)
+		comp.real *= -1;
+	if (comp.img < 0)
+		comp.img *= -1;
 	return (comp);
 }
 

@@ -28,7 +28,7 @@ void	set_cl(t_sys *sys)
 	QUEUE = clCreateCommandQueue(CONTEXT, DEVICE, 0, NULL);
 
 
-	set_kernelsrc(sys);
+	set_kernelprog(sys);
 	// PROGRAM = clCreateProgramWithSource(CONTEXT, 1, &KERNELSRC, NULL, NULL);
 	clBuildProgram(PROGRAM, 0, NULL, NULL, NULL, NULL);
 
@@ -38,43 +38,40 @@ void	set_cl(t_sys *sys)
 	RANGE = IMAGE_VOL;
 }
 
-void	set_kernelsrc(t_sys *sys)
+void	set_kernelprog(t_sys *sys)
 {
-	// int		fd;;
-	// int		len_src;
-	// char	*kernelpath;
-
-	// kernelpath = ft_strnew(19);
-	// kernelpath = ft_strcat(kernelpath, "./kernels/kernel.cl");
-	// len_src = set_lensrc(kernelpath);
-	// // if (!(cl->kernelsrc = (char *)malloc(sizeof(char) * (len_src + 1))))
-	// // 	exit(0);
-	// KERNELSRC = ft_strnew(len_src);
-	// if ((fd = open(kernelpath, O_RDONLY)) == -1)
-	// 	exit(0);
-	// read(fd, (void *)KERNELSRC, len_src);
-	// close(fd);
-
-	// test(sys, "./kernels/kernel.cl");
-	test(sys, "./kernels/kernel.cl");
-}
-
-
-void	test(t_sys *sys, char *path)
-{
-	int			len_src;
-	const char	*text_src;
+	char		*path;
+	int			len;
+	const char	*source;
 	int			fd;
 
-	len_src = set_lensrc(path);
-
-	text_src = ft_strnew(len_src);
+	path = ft_strnew(19);
+	path = ft_strcat(path, "./kernels/kernel.cl");
+	len = set_lensrc(path);
+	source = ft_strnew(len);
 	if ((fd = open(path, O_RDONLY)) == -1)
 		exit(0);
-	read(fd, (void *)text_src, len_src);
+	read(fd, (void *)source, len);
 	close(fd);
-	PROGRAM = clCreateProgramWithSource(CONTEXT, 1, &text_src, NULL, NULL);
+	PROGRAM = clCreateProgramWithSource(CONTEXT, 1, &source, NULL, NULL);
 }
+
+
+// void	test(char *path, char *prog)
+// {
+// 	int			len_src;
+// 	// const char	*text_src;
+// 	int			fd;
+
+// 	len_src = set_lensrc(path);
+
+// 	prog = ft_strnew(len_src);
+// 	if ((fd = open(path, O_RDONLY)) == -1)
+// 		exit(0);
+// 	read(fd, (void *)prog, len_src);
+// 	close(fd);
+// 	// PROGRAM = clCreateProgramWithSource(CONTEXT, 1, &text_src, NULL, NULL);
+// }
 
 
 

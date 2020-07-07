@@ -203,8 +203,9 @@ void	write_fractpart(char *str, int fraction, int i);
 ** cl.c
 */
 void	set_cl(t_sys *sys);
-void	set_kernelsrc(t_sys *sys);
-void	test(t_sys *sys, char *path);
+void	set_kernelprog(t_sys *sys);
+// void	test(t_sys *sys, char *path);
+// void	test(char *path, char *prog);
 int		set_lensrc(char *kernelpath);
 void	exe_kernel(t_sys *sys);
 
