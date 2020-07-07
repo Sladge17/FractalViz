@@ -91,6 +91,8 @@ char	select_fractal_3(int keycode, t_sys *sys)
 			return (1);
 		sys->index = 4;
 		sys->str_name = "name: AbsReal";
+		free(KERNEL);
+		KERNEL = clCreateKernel(PROGRAM, "AbsReal", NULL);
 		draw_image(sys);
 		draw_stat(sys);
 		return (1);
@@ -101,6 +103,8 @@ char	select_fractal_3(int keycode, t_sys *sys)
 			return (1);
 		sys->index = 5;
 		sys->str_name = "name: AbsImg";
+		free(KERNEL);
+		KERNEL = clCreateKernel(PROGRAM, "AbsImg", NULL);
 		draw_image(sys);
 		draw_stat(sys);
 		return (1);
@@ -116,6 +120,8 @@ char	select_fractal_4(int keycode, t_sys *sys)
 			return (1);
 		sys->index = 6;
 		sys->str_name = "name: Power3";
+		free(KERNEL);
+		KERNEL = clCreateKernel(PROGRAM, "Power3", NULL);
 		draw_image(sys);
 		draw_stat(sys);
 		return (1);
@@ -126,6 +132,8 @@ char	select_fractal_4(int keycode, t_sys *sys)
 			return (1);
 		sys->index = 7;
 		sys->str_name = "name: AbsRealP4";
+		free(KERNEL);
+		KERNEL = clCreateKernel(PROGRAM, "AbsRealP4", NULL);
 		draw_image(sys);
 		draw_stat(sys);
 		return (1);
