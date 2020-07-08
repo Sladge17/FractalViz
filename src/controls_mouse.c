@@ -65,7 +65,6 @@ char	click_mmb(t_sys *sys, int button, int x, int y)
 	if (button == 4)
 	{
 		scale_up(sys);
-		// scale_down(sys);
 		write_scale(sys);
 		set_deltazero(sys);
 		return (1);
@@ -73,7 +72,6 @@ char	click_mmb(t_sys *sys, int button, int x, int y)
 	if (button == 5)
 	{
 		scale_down(sys);
-		// scale_up(sys);
 		write_scale(sys);
 		set_deltazero(sys);
 		return (1);		

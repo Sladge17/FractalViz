@@ -64,16 +64,34 @@ void	write_settings(t_sys *sys)
 	mlx_string_put(MLX, WINSETT, 20, 170, STR_C, "6 - AbsImg");
 	mlx_string_put(MLX, WINSETT, 20, 195, STR_C, "7 - Power3");
 	mlx_string_put(MLX, WINSETT, 20, 220, STR_C, "8 - AbsRealP4");
-	mlx_string_put(MLX, WINSETT, 20, 260, STR_C, "LMB + move - transform fractal");
-	mlx_string_put(MLX, WINSETT, 20, 285, STR_C, "RMB - reset transform");
-	mlx_string_put(MLX, WINSETT, 20, 325, STR_C, "SMB - scale fractal to cursor");
-	mlx_string_put(MLX, WINSETT, 20, 350, STR_C, "MMB - reset scale");
-	mlx_string_put(MLX, WINSETT, 20, 390, STR_C, "ARROWS - shift fractal");
-	mlx_string_put(MLX, WINSETT, 20, 415, STR_C, "C or <- + -> - centred fractal");
-	mlx_string_put(MLX, WINSETT, 170, 440, STR_C, "(white complex axis)");
-	mlx_string_put(MLX, WINSETT, 20, 480, STR_C, "~ - ON / OFF isolation mode");
-	mlx_string_put(MLX, WINSETT, 20, 505, STR_C, "TAB - ON / OFF complex axis");
-	mlx_string_put(MLX, WINSETT, 20, 530, STR_C, "SHIFT - ON / OFF multi-threading");
-	mlx_string_put(MLX, WINSETT, 20, 570, STR_C, "SPACE - ON / OFF settings window");
-	mlx_string_put(MLX, WINSETT, 20, 600, STR_C, "ESC - exit fractol");
+	write_settings_nest(sys);
+
+}
+
+void	write_settings_nest(t_sys *sys)
+{
+	mlx_string_put(MLX, WINSETT, 20, 260, STR_C,
+		"LMB + move - transform fractal");
+	mlx_string_put(MLX, WINSETT, 20, 285, STR_C,
+		"RMB - reset transform");
+	mlx_string_put(MLX, WINSETT, 20, 325, STR_C,
+		"SMB - scale fractal to cursor");
+	mlx_string_put(MLX, WINSETT, 20, 350, STR_C,
+		"MMB - reset scale");
+	mlx_string_put(MLX, WINSETT, 20, 390, STR_C,
+		"ARROWS - shift fractal");
+	mlx_string_put(MLX, WINSETT, 20, 415, STR_C,
+		"C or <- + -> - centred fractal");
+	mlx_string_put(MLX, WINSETT, 170, 440, STR_C,
+		"(white complex axis)");
+	mlx_string_put(MLX, WINSETT, 20, 480, STR_C,
+		"~ - ON / OFF isolation mode");
+	mlx_string_put(MLX, WINSETT, 20, 505, STR_C,
+		"TAB - ON / OFF complex axis");
+	mlx_string_put(MLX, WINSETT, 20, 530, STR_C,
+		"SHIFT - ON / OFF multi-threading");
+	mlx_string_put(MLX, WINSETT, 20, 570, STR_C,
+		"SPACE - ON / OFF settings window");
+	mlx_string_put(MLX, WINSETT, 20, 600, STR_C,
+		"ESC - exit fractol");
 }

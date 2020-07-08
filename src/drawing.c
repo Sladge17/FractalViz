@@ -108,30 +108,50 @@ void	draw_stat(t_sys *sys)
  	mlx_string_put(MLX, WINMAIN, STR_X, STAT_Y + 40, STR_C, "Fractal");
  	mlx_string_put(MLX, WINMAIN, STR_X, STAT_Y + 65, STR_C, sys->str_name);
  	mlx_string_put(MLX, WINMAIN, STR_X, STAT_Y + 90, STR_C, sys->str_k[F_ID]);
- 	mlx_string_put(MLX, WINMAIN, STR_X, STAT_Y + 115, STR_C, sys->str_scale[F_ID]);
+ 	mlx_string_put(MLX, WINMAIN, STR_X, STAT_Y + 115, STR_C,
+ 		sys->str_scale[F_ID]);
  	if (sys->delta[1][F_ID][0] || sys->delta[1][F_ID][1])
- 		mlx_string_put(MLX, WINMAIN, STR_X, STAT_Y + 140, STR_C, "position: shifted");
+ 		mlx_string_put(MLX, WINMAIN, STR_X, STAT_Y + 140, STR_C,
+ 			"position: shifted");
  	else
- 		mlx_string_put(MLX, WINMAIN, STR_X, STAT_Y + 140, STR_C, "position: in center");
-	mlx_string_put(MLX, WINMAIN, STR_X, STAT_Y + 180, STR_C, "Cursor position:");
- 	mlx_string_put(MLX, WINMAIN, STR_X, STAT_Y + 205, STR_C, sys->str_cursor[0]);
- 	mlx_string_put(MLX, WINMAIN, STR_X, STAT_Y + 230, STR_C, sys->str_cursor[1]);
- 	mlx_string_put(MLX, WINMAIN, STR_X, STAT_Y + 270, STR_C, "Scene:");
+ 		mlx_string_put(MLX, WINMAIN, STR_X, STAT_Y + 140, STR_C,
+ 			"position: in center");
+	mlx_string_put(MLX, WINMAIN, STR_X, STAT_Y + 180, STR_C,
+		"Cursor position:");
+ 	mlx_string_put(MLX, WINMAIN, STR_X, STAT_Y + 205, STR_C,
+ 		sys->str_cursor[0]);
+ 	mlx_string_put(MLX, WINMAIN, STR_X, STAT_Y + 230, STR_C,
+ 		sys->str_cursor[1]);
+	draw_stat_nest(sys);
+}
+
+void	draw_stat_nest(t_sys *sys)
+{
+	mlx_string_put(MLX, WINMAIN, STR_X, STAT_Y + 270, STR_C, "Scene");
 	if (sys->bitset & 0b00000100)
-		mlx_string_put(MLX, WINMAIN, STR_X, STAT_Y + 295, STR_C, "isolation mode: ON");
+		mlx_string_put(MLX, WINMAIN, STR_X, STAT_Y + 295, STR_C,
+			"isolation mode: ON");
 	else
-		mlx_string_put(MLX, WINMAIN, STR_X, STAT_Y + 295, STR_C, "isolation mode: OFF");
+		mlx_string_put(MLX, WINMAIN, STR_X, STAT_Y + 295, STR_C,
+			"isolation mode: OFF");
 	if (sys->bitset & 0b00001000)
-		mlx_string_put(MLX, WINMAIN, STR_X, STAT_Y + 320, STR_C, "complex axis: ON");
+		mlx_string_put(MLX, WINMAIN, STR_X, STAT_Y + 320, STR_C,
+			"complex axis: ON");
 	else
-		mlx_string_put(MLX, WINMAIN, STR_X, STAT_Y + 320, STR_C, "complex axis: OFF");
+		mlx_string_put(MLX, WINMAIN, STR_X, STAT_Y + 320, STR_C,
+			"complex axis: OFF");
 	mlx_string_put(MLX, WINMAIN, STR_X, STAT_Y + 345, STR_C, sys->str_color);
 	mlx_string_put(MLX, WINMAIN, STR_X, STAT_Y + 385, STR_C, "System");
 	if (sys->bitset & 0b1000000000)
-		mlx_string_put(MLX, WINMAIN, STR_X, STAT_Y + 410, STR_C, "multi-threading: ON");
+		mlx_string_put(MLX, WINMAIN, STR_X, STAT_Y + 410, STR_C,
+			"multi-threading: ON");
 	else
-		mlx_string_put(MLX, WINMAIN, STR_X, STAT_Y + 410, STR_C, "multi-threading: OFF");
+		mlx_string_put(MLX, WINMAIN, STR_X, STAT_Y + 410, STR_C,
+			"multi-threading: OFF");
 }
+
+
+
 // // FOR 1280 x 720
 // void	draw_stat(t_sys *sys)
 // {

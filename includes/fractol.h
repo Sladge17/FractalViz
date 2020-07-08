@@ -44,8 +44,8 @@ void	set_system(t_sys *sys);
 void	set_consts(t_sys *sys);
 void	set_mlxset(t_sys *sys);
 void	set_tabparam(t_sys *sys);
-// char	*set_fractname(t_sys *sys);
 void	set_fractsett(t_sys *sys);
+void	set_fractsett_nest(t_sys *sys);
 
 /*
 ** calc_fractal.c
@@ -80,6 +80,7 @@ void	draw_winmain(t_sys *sys, int argc, char *argv);
 void	draw_image(t_sys *sys);
 void	draw_menu(t_sys *sys);
 void	draw_stat(t_sys *sys);
+void	draw_stat_nest(t_sys *sys);
 void	redraw_image(t_sys *sys, int x, int y);
 
 /*
@@ -158,6 +159,7 @@ char	isolation_mode(int keycode, t_sys *sys);
 char	complex_axis(int keycode, t_sys *sys);
 char	open_winsett(int keycode, t_sys *sys);
 void	write_settings(t_sys *sys);
+void	write_settings_nest(t_sys *sys);
 
 /*
 ** controls_mouse.c
@@ -205,8 +207,6 @@ void	write_fractpart(char *str, int fraction, int i);
 */
 void	set_cl(t_sys *sys);
 void	set_kernelprog(t_sys *sys);
-// void	test(t_sys *sys, char *path);
-// void	test(char *path, char *prog);
 int		set_lensrc(char *kernelpath);
 void	exe_kernel(t_sys *sys);
 

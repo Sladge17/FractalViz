@@ -16,29 +16,23 @@ void	set_system(t_sys *sys)
 {
 	set_consts(sys);
 	set_mlxset(sys);
-
 	set_cl(sys);
-
 	sys->bitset = 0;	
 	sys->color = 0xFF0000;
 	sys->cursor[0] = 0;
 	sys->cursor[1] = 0;
-
 	sys->cursorstr[0] = ft_strnew(7);
 	sys->cursorstr[1] = ft_strnew(7);
 	sys->str_cursor[0] = ft_strnew(14);
 	sys->str_cursor[0] = ft_strcat(sys->str_cursor[0], "real = not def");
 	sys->str_cursor[1] = ft_strnew(14);
 	sys->str_cursor[1] = ft_strcat(sys->str_cursor[1], "img = not def");
-
 	// MAYBE NEED INCREASE !!!!!!!!
 	sys->scalestr = ft_strnew(6);
-
 	sys->hexnumbs = ft_strnew(16);
 	sys->hexnumbs = ft_strcat(sys->hexnumbs, "0123456789ABCDEF");
 	sys->str_color = ft_strnew(21);
 	sys->str_color = ft_strcat(sys->str_color, "fractal color: FF0000");
-
 	set_tabparam(sys);
 }
 
@@ -52,13 +46,10 @@ void	set_consts(t_sys *sys)
 	MENU_VOL = MENU_W * MAIN_H;
 	STAT_VOL = MENU_W * STAT_H;
 	SETT_VOL = SETT_W * SETT_H;
-
 	IMAGE_CENTRX = IMAGE_W / 2;
 	IMAGE_CENTRY = MAIN_H / 2;
 	IMAGE_CENTER = IMAGE_CENTRX + IMAGE_W * IMAGE_CENTRY;
-
 	STR_X = IMAGE_W + 10;
-
 	IMG_INT = sizeof(int) * IMAGE_VOL;
 }
 
@@ -98,24 +89,21 @@ void	set_tabparam(t_sys *sys)
 	{
 		sys->shift[(int)i][0] = 0;
 		sys->shift[(int)i][1] = 0;
-
 		sys->delta[0][(int)i][0] = 0;
 		sys->delta[0][(int)i][1] = 0;
 		sys->delta[1][(int)i][0] = 0;
 		sys->delta[1][(int)i][1] = 0;
-
 		sys->scale[0][(int)i] = DEF_SCALE;
 		sys->scale[1][(int)i] = DEF_SCALE;
-
 		sys->axis_c[(int)i] = AXISF_C;
-
 		sys->k[(int)i] = init_comp(0, 0);
 		sys->str_k[(int)i] = ft_strnew(23);
-		sys->str_k[(int)i] = ft_strcat(sys->str_k[(int)i], "k = 0.000 + 0.000i");
-
+		sys->str_k[(int)i] = ft_strcat(sys->str_k[(int)i],
+			"k = 0.000 + 0.000i");
 		// MAYBE NEED INCREASE !!!!!!!!
 		sys->str_scale[(int)i] = ft_strnew(14);
-		sys->str_scale[(int)i] = ft_strcat(sys->str_scale[(int)i], "scale = 1.000");
+		sys->str_scale[(int)i] = ft_strcat(sys->str_scale[(int)i],
+			"scale = 1.000");
 		i += 1;
 	}
 }
@@ -146,6 +134,11 @@ void	set_fractsett(t_sys *sys)
 		KERNEL = clCreateKernel(PROGRAM, "Mandelbar", NULL);
 		return ;
 	}
+	set_fractsett_nest(sys);
+}
+
+void	set_fractsett_nest(t_sys *sys)
+{
 	if (sys->index == 4)
 	{
 		sys->str_name = "name: AbsReal";
@@ -167,18 +160,3 @@ void	set_fractsett(t_sys *sys)
 	sys->str_name = "name: AbsRealP4";
 	KERNEL = clCreateKernel(PROGRAM, "AbsRealP4", NULL);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
