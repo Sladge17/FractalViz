@@ -17,7 +17,7 @@ void	set_system(t_sys *sys)
 	set_consts(sys);
 	set_mlxset(sys);
 	set_cl(sys);
-	sys->bitset = 0;	
+	sys->bitset = 0;
 	sys->color = 0xFF0000;
 	sys->cursor[0] = 0;
 	sys->cursor[1] = 0;
@@ -27,8 +27,7 @@ void	set_system(t_sys *sys)
 	sys->str_cursor[0] = ft_strcat(sys->str_cursor[0], "real = not def");
 	sys->str_cursor[1] = ft_strnew(14);
 	sys->str_cursor[1] = ft_strcat(sys->str_cursor[1], "img = not def");
-	// MAYBE NEED INCREASE !!!!!!!!
-	sys->scalestr = ft_strnew(6);
+	sys->scalestr = ft_strnew(8);
 	sys->hexnumbs = ft_strnew(16);
 	sys->hexnumbs = ft_strcat(sys->hexnumbs, "0123456789ABCDEF");
 	sys->str_color = ft_strnew(21);
@@ -97,11 +96,10 @@ void	set_tabparam(t_sys *sys)
 		sys->scale[1][(int)i] = DEF_SCALE;
 		sys->axis_c[(int)i] = AXISF_C;
 		sys->k[(int)i] = init_comp(0, 0);
-		sys->str_k[(int)i] = ft_strnew(23);
+		sys->str_k[(int)i] = ft_strnew(22);
 		sys->str_k[(int)i] = ft_strcat(sys->str_k[(int)i],
 			"k = 0.000 + 0.000i");
-		// MAYBE NEED INCREASE !!!!!!!!
-		sys->str_scale[(int)i] = ft_strnew(14);
+		sys->str_scale[(int)i] = ft_strnew(16);
 		sys->str_scale[(int)i] = ft_strcat(sys->str_scale[(int)i],
 			"scale = 1.000");
 		i += 1;
