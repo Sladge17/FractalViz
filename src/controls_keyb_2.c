@@ -14,7 +14,7 @@
 
 char	turn_multythreading(int keycode, t_sys *sys)
 {
-	if (keycode != 257 && keycode != 258)
+	if ((keycode != 257 && keycode != 258) || sys->bitset & 0b10000000000)
 		return (0);
 	sys->bitset ^= 0b1000000000;
 	draw_stat(sys);
@@ -108,6 +108,3 @@ char	scale_fractal_k(int keycode, t_sys *sys)
 	}
 	return (0);
 }
-
-
-

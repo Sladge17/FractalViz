@@ -14,18 +14,29 @@
 
 void	set_cl(t_sys *sys)
 {
+	int		ret;
+
 	if (!(sys->cl = (t_cl *)malloc(sizeof(t_cl))))
+		sys->bitset |= 0b10000000000;
+	if (clGetPlatformIDs(1, &PLATFORM, NULL) < 0)
 		exit(0);
-	clGetPlatformIDs(1, &PLATFORM, NULL);
-	clGetDeviceIDs(PLATFORM, CL_DEVICE_TYPE_CPU, 1, &DEVICE, NULL);
+	if (clGetDeviceIDs(PLATFORM, CL_DEVICE_TYPE_CPU, 1, &DEVICE, NULL) < 0)
+		sys->bitset |= 0b10000000000;
 	PROPERTIES[0] = CL_CONTEXT_PLATFORM;
 	PROPERTIES[1] = (cl_context_properties)PLATFORM;
 	PROPERTIES[2] = 0;
-	CONTEXT = clCreateContext(PROPERTIES, 1, &DEVICE, NULL, NULL, NULL);
-	QUEUE = clCreateCommandQueue(CONTEXT, DEVICE, 0, NULL);
+	CONTEXT = clCreateContext(PROPERTIES, 1, &DEVICE, NULL, NULL, &ret);
+	if (ret < 0)
+		sys->bitset |= 0b10000000000;
+	QUEUE = clCreateCommandQueue(CONTEXT, DEVICE, 0, &ret);
+	if (ret < 0)
+		sys->bitset |= 0b10000000000;
 	set_kernelprog(sys);
-	clBuildProgram(PROGRAM, 0, NULL, NULL, NULL, NULL);
-	BUFFER = clCreateBuffer(CONTEXT, CL_MEM_READ_WRITE, IMG_INT, NULL, NULL);
+	if (clBuildProgram(PROGRAM, 0, NULL, NULL, NULL, NULL) < 0)
+		sys->bitset |= 0b10000000000;
+	BUFFER = clCreateBuffer(CONTEXT, CL_MEM_READ_WRITE, IMG_INT, NULL, &ret);
+	if (ret < 0)
+		sys->bitset |= 0b10000000000;
 	RANGE = IMAGE_VOL;
 }
 
@@ -35,16 +46,19 @@ void	set_kernelprog(t_sys *sys)
 	int			len;
 	const char	*source;
 	int			fd;
+	int			ret;
 
-	path = ft_strnew(21);
+	path = safe_strnew(21);
 	path = ft_strcat(path, "./kernels/fractals.cl");
 	len = set_lensrc(path);
-	source = ft_strnew(len);
+	source = safe_strnew(len);
 	if ((fd = open(path, O_RDONLY)) == -1)
 		exit(0);
 	read(fd, (void *)source, len);
 	close(fd);
-	PROGRAM = clCreateProgramWithSource(CONTEXT, 1, &source, NULL, NULL);
+	PROGRAM = clCreateProgramWithSource(CONTEXT, 1, &source, NULL, &ret);
+	if (ret < 0)
+		sys->bitset |= 0b10000000000;
 }
 
 int		set_lensrc(char *kernelpath)
@@ -89,11 +103,3 @@ void	exe_kernel(t_sys *sys)
 	clEnqueueReadBuffer(QUEUE, BUFFER, CL_TRUE, 0, IMG_INT,
 		sys->mlxset->imgout, 0, NULL, NULL);
 }
-
-
-
-
-
-
-
-

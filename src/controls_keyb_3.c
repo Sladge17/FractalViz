@@ -90,8 +90,10 @@ void	write_settings_nest(t_sys *sys)
 		"TAB - ON / OFF complex axis");
 	mlx_string_put(MLX, WINSETT, 20, 530, STR_C,
 		"SHIFT - ON / OFF multi-threading");
-	mlx_string_put(MLX, WINSETT, 20, 570, STR_C,
+	mlx_string_put(MLX, WINSETT, 170, 555, STR_C,
+		"(if supporting)");
+	mlx_string_put(MLX, WINSETT, 20, 595, STR_C,
 		"SPACE - ON / OFF settings window");
-	mlx_string_put(MLX, WINSETT, 20, 600, STR_C,
+	mlx_string_put(MLX, WINSETT, 20, 620, STR_C,
 		"ESC - exit fractol");
 }

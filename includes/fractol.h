@@ -13,9 +13,6 @@
 #ifndef FRACTOL_H
 # define FRACTOL_H
 
-# include <mlx.h>
-# include <OpenCL/opencl.h>
-
 # include <unistd.h>
 # include <stdlib.h>
 # include <math.h>
@@ -23,11 +20,11 @@
 # include <fcntl.h>
 # include <stdarg.h>
 # include <wchar.h>
+# include <mlx.h>
+# include <OpenCL/opencl.h>
 
 # include "constants.h"
 # include "structs.h"
-# include "forbidden.h"
-
 
 /*
 ** fractol.c

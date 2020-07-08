@@ -174,22 +174,3 @@ void	redraw_image(t_sys *sys, int x, int y)
 	if (sys->bitset & 0b00001000)
 		draw_axtitle(sys);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

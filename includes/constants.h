@@ -19,7 +19,7 @@
 // # define MAIN_H 720
 
 # define SETT_W 400
-# define SETT_H 640
+# define SETT_H 660
 
 # define MENU_W 250
 # define IMAGE_W sys->consts->image_w
