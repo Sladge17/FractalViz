@@ -21,16 +21,16 @@ void	set_system(t_sys *sys)
 	sys->color = 0xFF0000;
 	sys->cursor[0] = 0;
 	sys->cursor[1] = 0;
-	sys->cursorstr[0] = ft_strnew(7);
-	sys->cursorstr[1] = ft_strnew(7);
-	sys->str_cursor[0] = ft_strnew(14);
+	sys->cursorstr[0] = safe_strnew(7);
+	sys->cursorstr[1] = safe_strnew(7);
+	sys->str_cursor[0] = safe_strnew(14);
 	sys->str_cursor[0] = ft_strcat(sys->str_cursor[0], "real = not def");
-	sys->str_cursor[1] = ft_strnew(14);
+	sys->str_cursor[1] = safe_strnew(14);
 	sys->str_cursor[1] = ft_strcat(sys->str_cursor[1], "img = not def");
-	sys->scalestr = ft_strnew(8);
-	sys->hexnumbs = ft_strnew(16);
+	sys->scalestr = safe_strnew(8);
+	sys->hexnumbs = safe_strnew(16);
 	sys->hexnumbs = ft_strcat(sys->hexnumbs, "0123456789ABCDEF");
-	sys->str_color = ft_strnew(21);
+	sys->str_color = safe_strnew(21);
 	sys->str_color = ft_strcat(sys->str_color, "fractal color: FF0000");
 	set_tabparam(sys);
 }
@@ -96,65 +96,12 @@ void	set_tabparam(t_sys *sys)
 		sys->scale[1][(int)i] = DEF_SCALE;
 		sys->axis_c[(int)i] = AXISF_C;
 		sys->k[(int)i] = init_comp(0, 0);
-		sys->str_k[(int)i] = ft_strnew(22);
+		sys->str_k[(int)i] = safe_strnew(22);
 		sys->str_k[(int)i] = ft_strcat(sys->str_k[(int)i],
 			"k = 0.000 + 0.000i");
-		sys->str_scale[(int)i] = ft_strnew(16);
+		sys->str_scale[(int)i] = safe_strnew(16);
 		sys->str_scale[(int)i] = ft_strcat(sys->str_scale[(int)i],
 			"scale = 1.000");
 		i += 1;
 	}
-}
-
-void	set_fractsett(t_sys *sys)
-{
-	if (sys->index == 0)
-	{
-		sys->str_name = "name: Zulia";
-		KERNEL = clCreateKernel(PROGRAM, "Zulia", NULL);
-		return ;
-	}
-	if (sys->index == 1)
-	{
-		sys->str_name = "name: Mandelbrot";
-		KERNEL = clCreateKernel(PROGRAM, "Mandelbrot", NULL);
-		return ;
-	}
-	if (sys->index == 2)
-	{
-		sys->str_name = "name: BurningShip";
-		KERNEL = clCreateKernel(PROGRAM, "BurningShip", NULL);
-		return ;
-	}
-	if (sys->index == 3)
-	{
-		sys->str_name = "name: Mandelbar";
-		KERNEL = clCreateKernel(PROGRAM, "Mandelbar", NULL);
-		return ;
-	}
-	set_fractsett_nest(sys);
-}
-
-void	set_fractsett_nest(t_sys *sys)
-{
-	if (sys->index == 4)
-	{
-		sys->str_name = "name: AbsReal";
-		KERNEL = clCreateKernel(PROGRAM, "AbsReal", NULL);
-		return ;
-	}
-	if (sys->index == 5)
-	{
-		sys->str_name = "name: AbsImg";
-		KERNEL = clCreateKernel(PROGRAM, "AbsImg", NULL);
-		return ;
-	}
-	if (sys->index == 6)
-	{
-		sys->str_name = "name: Power3";
-		KERNEL = clCreateKernel(PROGRAM, "Power3", NULL);
-		return ;
-	}
-	sys->str_name = "name: AbsRealP4";
-	KERNEL = clCreateKernel(PROGRAM, "AbsRealP4", NULL);
 }

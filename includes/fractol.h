@@ -32,10 +32,10 @@
 /*
 ** fractol.c
 */
+void	draw_winmain(t_sys *sys, int argc, char *argv);
 void	fractol_discr();
 void	set_deltazero(t_sys *sys);
 void	def_delta(t_sys *sys);
-
 
 /*
 ** set_system.c
@@ -44,6 +44,10 @@ void	set_system(t_sys *sys);
 void	set_consts(t_sys *sys);
 void	set_mlxset(t_sys *sys);
 void	set_tabparam(t_sys *sys);
+
+/*
+** set_fractsett.c
+*/
 void	set_fractsett(t_sys *sys);
 void	set_fractsett_nest(t_sys *sys);
 
@@ -76,7 +80,6 @@ int		close_fractol(void *param);
 /*
 ** drawing.c
 */
-void	draw_winmain(t_sys *sys, int argc, char *argv);
 void	draw_image(t_sys *sys);
 void	draw_menu(t_sys *sys);
 void	draw_stat(t_sys *sys);
@@ -193,6 +196,7 @@ void	write_cursor(t_sys *sys, char drawing);
 void	write_k(t_sys *sys);
 void	write_scale(t_sys *sys);
 void	write_color(t_sys *sys);
+char	*safe_strnew(size_t size);
 
 /*
 ** double_to_str.c

@@ -16,6 +16,7 @@ HEADER = -I $(HEADER_DIR)
 SRC_DIR = src/
 SRC_LIST = fractol.c\
 			set_system.c\
+			set_fractsett.c\
 			calc_fractal.c\
 			rgb_triangle.c\
 			clearing.c\

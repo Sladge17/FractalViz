@@ -108,3 +108,11 @@ void	write_color(t_sys *sys)
 	}
 	draw_stat(sys);
 }
+
+char	*safe_strnew(size_t size)
+{
+	char	*str;
+	if (!(str = ft_strnew(size)))
+		exit(0);
+	return (str);
+}
