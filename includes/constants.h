@@ -10,6 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef CONSTANTS_H
+# define CONSTANTS_H
+
 # define MAIN_W 1920
 # define MAIN_H 1080
 // # define MAIN_W 1280
@@ -84,14 +87,17 @@
 # define MIN_SCALE 100
 
 # define TEXT_TITLE "\e[47m\e[30mFRACTOL DISCRIPTION\e[0m\n"
-# define TEXT_MAIN "Fractol need running with only one parameter - code of available fractal, or without parameters (run with default fractal - Mandelbrot)\n"
-# define TEXT_FRACTALS "Available fractals:\n1	Zulia\n2	Mandelbrot\n3	BurningShip\n4	Mandelbar\n5	AbsReal\n6	AbsImg\n7	Power3\n8	AbsRealP4\n"
+# define TEXT_MAIN "Fractol need running with only one parameter\
+ - code of available fractal, or without parameters\
+  (run with default fractal - Mandelbrot)\n"
+# define TEXT_FRACTALS "Available fractals:\n\
+  1	Zulia\n\
+  2	Mandelbrot\n\
+  3	BurningShip\n\
+  4	Mandelbar\n\
+  5	AbsReal\n\
+  6	AbsImg\n\
+  7	Power3\n\
+  8	AbsRealP4\n"
 
-
-
-
-
-
-
-
-
+#endif

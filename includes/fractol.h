@@ -221,4 +221,3 @@ char	*ft_strnew(size_t size);
 int		ft_atoi(const char *str);
 
 #endif
-
