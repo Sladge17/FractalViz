@@ -18,24 +18,24 @@ void	set_cl(t_sys *sys)
 
 	if (!(sys->cl = (t_cl *)malloc(sizeof(t_cl))))
 		sys->bitset |= 0b10000000000;
-	if (clGetPlatformIDs(1, &PLATFORM, NULL) < 0)
+	if (clGetPlatformIDs(1, &PLATFORM, NULL))
 		exit(0);
-	if (clGetDeviceIDs(PLATFORM, CL_DEVICE_TYPE_CPU, 1, &DEVICE, NULL) < 0)
+	if (clGetDeviceIDs(PLATFORM, CL_DEVICE_TYPE_CPU, 1, &DEVICE, NULL))
 		sys->bitset |= 0b10000000000;
 	PROPERTIES[0] = CL_CONTEXT_PLATFORM;
 	PROPERTIES[1] = (cl_context_properties)PLATFORM;
 	PROPERTIES[2] = 0;
 	CONTEXT = clCreateContext(PROPERTIES, 1, &DEVICE, NULL, NULL, &ret);
-	if (ret < 0)
+	if (ret)
 		sys->bitset |= 0b10000000000;
 	QUEUE = clCreateCommandQueue(CONTEXT, DEVICE, 0, &ret);
-	if (ret < 0)
+	if (ret)
 		sys->bitset |= 0b10000000000;
 	set_kernelprog(sys);
-	if (clBuildProgram(PROGRAM, 0, NULL, NULL, NULL, NULL) < 0)
+	if (clBuildProgram(PROGRAM, 0, NULL, NULL, NULL, NULL))
 		sys->bitset |= 0b10000000000;
 	BUFFER = clCreateBuffer(CONTEXT, CL_MEM_READ_WRITE, IMG_INT, NULL, &ret);
-	if (ret < 0)
+	if (ret)
 		sys->bitset |= 0b10000000000;
 	RANGE = IMAGE_VOL;
 }
