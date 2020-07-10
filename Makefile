@@ -35,8 +35,7 @@ SRC_LIST = fractol.c\
 			scale_fractal.c\
 			write_stats.c\
 			double_to_str.c\
-			cl.c\
-			NEED_DELL.c
+			cl.c
 SRC = $(addprefix $(SRC_DIR), $(SRC_LIST))
 
 OBJ_DIR = obj/
