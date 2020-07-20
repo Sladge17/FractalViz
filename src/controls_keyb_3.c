@@ -14,7 +14,7 @@
 
 char	isolation_mode(int keycode, t_sys *sys)
 {
-	if (keycode != 50)
+	if (keycode != 10)
 		return (0);
 	sys->bitset ^= 0b00000100;
 	draw_image(sys);
@@ -65,7 +65,7 @@ void	write_settings(t_sys *sys)
 	mlx_string_put(MLX, WINSETT, 20, 195, STR_C, "7 - Power3");
 	mlx_string_put(MLX, WINSETT, 20, 220, STR_C, "8 - AbsRealP4");
 	write_settings_nest(sys);
-
+	mlx_string_put(MLX, WINSETT, 20, 620, STR_C, "ESC - exit fractol");
 }
 
 void	write_settings_nest(t_sys *sys)
@@ -94,6 +94,4 @@ void	write_settings_nest(t_sys *sys)
 		"(if supporting)");
 	mlx_string_put(MLX, WINSETT, 20, 595, STR_C,
 		"SPACE - ON / OFF settings window");
-	mlx_string_put(MLX, WINSETT, 20, 620, STR_C,
-		"ESC - exit fractol");
 }

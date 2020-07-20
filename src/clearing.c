@@ -15,7 +15,7 @@
 void	clear_stat(t_sys *sys)
 {
 	int		i;
-	
+
 	i = 0;
 	while (i < STAT_VOL)
 	{

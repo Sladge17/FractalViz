@@ -41,7 +41,6 @@ int		key_release(int keycode, void *param)
 	t_sys		*sys;
 
 	sys = (t_sys *)param;
-
 	if (keycode == 12 || keycode == 13)
 	{
 		set_deltazero(sys);
@@ -77,7 +76,6 @@ int		mouse_release(int button, int x, int y, void *param)
 		if (!(x >= 0 && x < IMAGE_W && y >= 0 && y < MAIN_H))
 			cursor_outside(sys);
 	}
-	
 	return (0);
 }
 

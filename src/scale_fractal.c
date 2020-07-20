@@ -16,7 +16,6 @@ void	scale_up(t_sys *sys)
 {
 	sys->scale[1][F_ID] += ADD_SCALE;
 	def_delta(sys);
-
 	if (sys->delta[1][F_ID][0] || sys->delta[1][F_ID][1])
 		AXIS_C[F_ID] = AXISK_C;
 	else
@@ -32,13 +31,11 @@ void	scale_down(t_sys *sys)
 	if (sys->scale[1][F_ID] < MIN_SCALE)
 		sys->scale[1][F_ID] = MIN_SCALE;
 	def_delta(sys);
-
 	if (sys->delta[1][F_ID][0] || sys->delta[1][F_ID][1])
 		AXIS_C[F_ID] = AXISK_C;
 	else
 		AXIS_C[F_ID] = AXISF_C;
-
-	draw_image(sys);	
+	draw_image(sys);
 }
 
 void	scale_reset(t_sys *sys)

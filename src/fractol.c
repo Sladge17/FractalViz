@@ -78,11 +78,9 @@ void	def_delta(t_sys *sys)
 
 	scaler = (double)sys->scale[1][F_ID]
 		/ sys->scale[0][F_ID] - 1;
-
 	sys->delta[1][F_ID][0] = lround((sys->delta[0][F_ID][0] + sys->cursor[0]
 		- (MAIN_W - MENU_W) / 2 - sys->shift[F_ID][0]) * scaler);
 	sys->delta[1][F_ID][0] += sys->delta[0][F_ID][0] - sys->shift[F_ID][0];
-
 	sys->delta[1][F_ID][1] = lround((sys->delta[0][F_ID][1] + sys->cursor[1]
 		- MAIN_H / 2 - sys->shift[F_ID][1]) * scaler);
 	sys->delta[1][F_ID][1] += sys->delta[0][F_ID][1] - sys->shift[F_ID][1];

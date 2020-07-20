@@ -22,13 +22,6 @@ void	shift_fractal(t_sys *sys)
 	if (shift_diagonal(sys, shift))
 		return ;
 	shift_reset(sys);
-	// sys->shift[F_ID][0] = 0;
-	// sys->shift[F_ID][1] = 0;
-	// sys->delta[0][F_ID][0] = 0;
-	// sys->delta[0][F_ID][1] = 0;
-	// sys->delta[1][F_ID][0] = 0;
-	// sys->delta[1][F_ID][1] = 0;
-	// draw_image(sys);
 }
 
 char	shift_ortho(t_sys *sys, unsigned char shift)
@@ -83,12 +76,8 @@ char	shift_diagonal(t_sys *sys, unsigned char shift)
 
 void	shifting_fractal(t_sys *sys, char shift_x, char shift_y)
 {
-	// sys->delta0[0] -= sys->delta[0];
-	// sys->delta0[1] -= sys->delta[1];
-
 	sys->shift[F_ID][0] += shift_x * SHIFT;
 	sys->shift[F_ID][1] += shift_y * SHIFT;
-	// AXIS_C[F_ID] = AXISK_C;
 	def_delta(sys);
 	if (!sys->delta[1][F_ID][0] && !sys->delta[1][F_ID][1])
 		AXIS_C[F_ID] = AXISF_C;
@@ -96,9 +85,6 @@ void	shifting_fractal(t_sys *sys, char shift_x, char shift_y)
 		AXIS_C[F_ID] = AXISK_C;
 	draw_image(sys);
 	draw_stat(sys);
-
-	// sys->delta0[0] += sys->delta[0];
-	// sys->delta0[1] += sys->delta[1];
 }
 
 void	shift_reset(t_sys *sys)
@@ -113,15 +99,3 @@ void	shift_reset(t_sys *sys)
 	draw_image(sys);
 	draw_stat(sys);
 }
-
-
-
-
-
-
-
-
-
-
-
-

@@ -74,10 +74,10 @@ char	click_mmb(t_sys *sys, int button, int x, int y)
 		scale_down(sys);
 		write_scale(sys);
 		set_deltazero(sys);
-		return (1);		
+		return (1);
 	}
 	scale_reset(sys);
-	return (1);	
+	return (1);
 }
 
 void	cursor_outside(t_sys *sys)
@@ -95,4 +95,3 @@ void	cursor_inttocomp(t_sys *sys, int x, int y)
 	sys->cursorcomp.real = (x - IMAGE_CENTRX) / (double)sys->scale[1][F_ID];
 	sys->cursorcomp.img = -(y - IMAGE_CENTRY) / (double)sys->scale[1][F_ID];
 }
-

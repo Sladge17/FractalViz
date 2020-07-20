@@ -23,7 +23,7 @@ void	draw_axis(t_sys *sys)
 	{
 		sys->mlxset->imgout[curcrd] = AXIS_C[F_ID];
 		curcrd += IMAGE_W;
-	}	
+	}
 	curcrd = IMAGE_W * IMAGE_CENTRY;
 	endcrd = curcrd + IMAGE_W;
 	while (curcrd < endcrd)
@@ -39,12 +39,12 @@ void	draw_axis(t_sys *sys)
 
 void	draw_realstroks(t_sys *sys, int *startcrd, int *numbpxl, int *k)
 {
-	*startcrd = (IMAGE_CENTRY - 3) * IMAGE_W + IMAGE_CENTRX;	
+	*startcrd = (IMAGE_CENTRY - 3) * IMAGE_W + IMAGE_CENTRX;
 	k[0] = sys->scale[1][F_ID];
 	while (k[0] < IMAGE_CENTRX)
 	{
 		*numbpxl = 0;
-		while(*numbpxl < 7)
+		while (*numbpxl < 7)
 		{
 			k[1] = *numbpxl * IMAGE_W + *startcrd;
 			sys->mlxset->imgout[k[1] + k[0]] = AXIS_C[F_ID];
@@ -62,7 +62,7 @@ void	draw_imgstroks(t_sys *sys, int *startcrd, int *numbpxl, int *k)
 	while (*startcrd + k[0] < IMAGE_VOL)
 	{
 		*numbpxl = 0;
-		while(*numbpxl < 7)
+		while (*numbpxl < 7)
 		{
 			k[1] = *startcrd + *numbpxl;
 			sys->mlxset->imgout[k[1] + k[0]] = AXIS_C[F_ID];

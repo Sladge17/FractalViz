@@ -108,14 +108,3 @@ void	draw_fractal(int itr, int i, t_sys *sys)
 	}
 	sys->mlxset->imgout[i] = 0;
 }
-
-
-
-
-
-
-
-
-
-
-

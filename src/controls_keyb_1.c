@@ -51,7 +51,7 @@ char	select_fractal_1(int keycode, t_sys *sys)
 		draw_stat(sys);
 		return (1);
 	}
-	return (0);	
+	return (0);
 }
 
 char	select_fractal_2(int keycode, t_sys *sys)
