@@ -40,7 +40,7 @@ void	draw_winmain(t_sys *sys, int argc, char *argv)
 		set_system(sys);
 		sys->str_name = "name: Mandelbrot";
 		KERNEL = clCreateKernel(PROGRAM, "Mandelbrot", NULL);
-		calc_Mandelbrot(sys);
+		calc_mandelbrot(sys);
 	}
 	else
 	{

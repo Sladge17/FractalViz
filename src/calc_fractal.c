@@ -21,17 +21,17 @@ void	calc_fractal(t_sys *sys)
 	}
 	if (sys->index == 0)
 	{
-		calc_Zulia(sys);
+		calc_zulia(sys);
 		return ;
 	}
 	if (sys->index == 1)
 	{
-		calc_Mandelbrot(sys);
+		calc_mandelbrot(sys);
 		return ;
 	}
 	if (sys->index == 2)
 	{
-		calc_BurningShip(sys);
+		calc_burningship(sys);
 		return ;
 	}
 	calc_fractal_nest(sys);
@@ -41,25 +41,25 @@ void	calc_fractal_nest(t_sys *sys)
 {
 	if (sys->index == 3)
 	{
-		calc_Mandelbar(sys);
+		calc_mandelbar(sys);
 		return ;
 	}
 	if (sys->index == 4)
 	{
-		calc_AbsReal(sys);
+		calc_absreal(sys);
 		return ;
 	}
 	if (sys->index == 5)
 	{
-		calc_AbsImg(sys);
+		calc_absimg(sys);
 		return ;
 	}
 	if (sys->index == 6)
 	{
-		calc_Power3(sys);
+		calc_power3(sys);
 		return ;
 	}
-	calc_AbsRealP4(sys);
+	calc_absrealp4(sys);
 }
 
 t_comp	int_to_comp(t_sys *sys, int id)

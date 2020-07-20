@@ -12,7 +12,7 @@
 
 #include "fractol.h"
 
-void	calc_AbsReal(t_sys *sys)
+void	calc_absreal(t_sys *sys)
 {
 	int		i;
 	t_comp	z;
@@ -39,7 +39,7 @@ void	calc_AbsReal(t_sys *sys)
 	}
 }
 
-void	calc_AbsImg(t_sys *sys)
+void	calc_absimg(t_sys *sys)
 {
 	int		i;
 	t_comp	z;
@@ -66,7 +66,7 @@ void	calc_AbsImg(t_sys *sys)
 	}
 }
 
-void	calc_Power3(t_sys *sys)
+void	calc_power3(t_sys *sys)
 {
 	int		i;
 	t_comp	z;
@@ -90,7 +90,7 @@ void	calc_Power3(t_sys *sys)
 	}
 }
 
-void	calc_AbsRealP4(t_sys *sys)
+void	calc_absrealp4(t_sys *sys)
 {
 	int		i;
 	t_comp	z;

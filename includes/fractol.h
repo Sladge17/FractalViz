@@ -112,18 +112,18 @@ double	len_comp(t_comp comp);
 /*
 ** fractals1.c
 */
-void	calc_Zulia(t_sys *sys);
-void	calc_Mandelbrot(t_sys *sys);
-void	calc_BurningShip(t_sys *sys);
-void	calc_Mandelbar(t_sys *sys);
+void	calc_zulia(t_sys *sys);
+void	calc_mandelbrot(t_sys *sys);
+void	calc_burningship(t_sys *sys);
+void	calc_mandelbar(t_sys *sys);
 
 /*
 ** fractals2.c
 */
-void	calc_AbsReal(t_sys *sys);
-void	calc_AbsImg(t_sys *sys);
-void	calc_Power3(t_sys *sys);
-void	calc_AbsRealP4(t_sys *sys);
+void	calc_absreal(t_sys *sys);
+void	calc_absimg(t_sys *sys);
+void	calc_power3(t_sys *sys);
+void	calc_absrealp4(t_sys *sys);
 
 /*
 ** controls_main.c

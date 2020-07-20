@@ -12,7 +12,7 @@
 
 #include "fractol.h"
 
-void	calc_Zulia(t_sys *sys)
+void	calc_zulia(t_sys *sys)
 {
 	int		i;
 	t_comp	z;
@@ -36,7 +36,7 @@ void	calc_Zulia(t_sys *sys)
 	}
 }
 
-void	calc_Mandelbrot(t_sys *sys)
+void	calc_mandelbrot(t_sys *sys)
 {
 	int		i;
 	t_comp	z;
@@ -63,7 +63,7 @@ void	calc_Mandelbrot(t_sys *sys)
 	}
 }
 
-void	calc_BurningShip(t_sys *sys)
+void	calc_burningship(t_sys *sys)
 {
 	int		i;
 	t_comp	z;
@@ -90,7 +90,7 @@ void	calc_BurningShip(t_sys *sys)
 	}
 }
 
-void	calc_Mandelbar(t_sys *sys)
+void	calc_mandelbar(t_sys *sys)
 {
 	int		i;
 	t_comp	z;
