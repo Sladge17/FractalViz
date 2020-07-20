@@ -57,7 +57,7 @@ void	draw_winmain(t_sys *sys, int argc, char *argv)
 	draw_stat(sys);
 }
 
-void	fractol_discr()
+void	fractol_discr(void)
 {
 	puts(TEXT_TITLE);
 	puts(TEXT_MAIN);
