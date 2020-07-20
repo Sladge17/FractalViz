@@ -213,7 +213,7 @@ void	exe_kernel(t_sys *sys);
 
 
 /*
-** NEED_DELL.c
+** NEED_DELL!!!!!!!!!!!!!
 */
 size_t	ft_strlen(const char *str);
 char	*ft_strcat(char *dst, const char *src);

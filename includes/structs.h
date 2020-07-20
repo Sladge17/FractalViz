@@ -57,7 +57,7 @@ typedef struct				s_mlxset
 	int						*statout;
 	void					*sett;
 	int						sett_s[3];
-	int						*settout;	
+	int						*settout;
 }							t_mlxset;
 
 typedef struct				s_comp

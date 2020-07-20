@@ -15,15 +15,12 @@
 
 # define MAIN_W 1920
 # define MAIN_H 1080
-// # define MAIN_W 1280
-// # define MAIN_H 720
 
 # define SETT_W 400
 # define SETT_H 660
 
 # define MENU_W 250
 # define IMAGE_W sys->consts->image_w
-// # define STAT_H 370 //to 1280x720
 # define STAT_H 440
 
 # define ITER sys->consts->iter
@@ -38,7 +35,6 @@
 # define IMAGE_CENTER sys->consts->image_center
 
 # define STR_X sys->consts->menu_xoffset
-// # define STAT_Y 420 //to 1280x720 
 # define STAT_Y 600
 
 # define F_ID (int)sys->index
@@ -57,23 +53,16 @@
 # define CONTEXT sys->cl->context
 # define QUEUE sys->cl->queue
 # define PROGRAM sys->cl->program
-// # define KERNELSRC sys->cl->kernelsrc
 # define KERNEL sys->cl->kernel
 # define BUFFER sys->cl->buffer
 # define RANGE sys->cl->range
 
 # define IMG_INT sys->consts->image_int
 
-
-// # define IMAGE_C 0x909497
 # define IMAGE_C 0
 # define MENU_C 0x2E4053
 # define STR_C 0xD0D3D4
 # define TITLE_C 0xC0C798
-// # define TITLE_C 0x6EC0A3
-
-// # define STAT_C 0x909497
-
 # define FRACT_C 0xFF0000
 # define AXISF_C 0xFFFFFF
 # define AXISK_C 0xAAAAAA
@@ -82,7 +71,6 @@
 # define SHIFT 10
 
 # define DEF_SCALE 300
-// # define DEF_SCALE 200
 # define ADD_SCALE 10
 # define MIN_SCALE 100
 
