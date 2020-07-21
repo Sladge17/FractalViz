@@ -42,11 +42,10 @@ OBJ_DIR = obj/
 OBJ_LIST = $(patsubst %.c, %.o, $(SRC_LIST))
 OBJ = $(addprefix $(OBJ_DIR), $(OBJ_LIST))
 
-.PHONY: all clean fclean re
-
 all: $(NAME)
 
 $(NAME): $(OBJ)
+	@make re -C $(LIBFT_DIR)
 	@gcc -o $(NAME) $(HEADER) $(OBJ) $(LIBFT) $(GL) $(CL)
 
 $(OBJ_DIR)%.o : $(SRC_DIR)%.c $(HEADER_DIR)*.h
@@ -55,8 +54,12 @@ $(OBJ_DIR)%.o : $(SRC_DIR)%.c $(HEADER_DIR)*.h
 
 clean:
 	@rm -rf $(OBJ_DIR)
+	@make clean -C $(LIBFT_DIR)
 
 fclean: clean
 	@rm -f $(NAME)
+	@make fclean -C $(LIBFT_DIR)
 
 re: fclean all
+
+.PHONY: all clean fclean re
