@@ -48,8 +48,7 @@ void	set_kernelprog(t_sys *sys)
 	int			fd;
 	int			ret;
 
-	path = safe_strnew(21);
-	path = ft_strcat(path, "./kernels/fractals.cl");
+	path = "./kernels/fractals.cl";
 	len = set_lensrc(path);
 	source = safe_strnew(len);
 	if ((fd = open(path, O_RDONLY)) == -1)
@@ -59,6 +58,7 @@ void	set_kernelprog(t_sys *sys)
 	PROGRAM = clCreateProgramWithSource(CONTEXT, 1, &source, NULL, &ret);
 	if (ret < 0)
 		sys->bitset |= 0b10000000000;
+	free((void *)source);
 }
 
 int		set_lensrc(char *kernelpath)
