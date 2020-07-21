@@ -74,18 +74,4 @@
 # define ADD_SCALE 10
 # define MIN_SCALE 100
 
-# define TEXT_TITLE "\e[47m\e[30mFRACTOL DISCRIPTION\e[0m\n"
-# define TEXT_MAIN "Fractol need running with only one parameter\
- - code of available fractal, or without parameters\
-  (run with default fractal - Mandelbrot)\n"
-# define TEXT_FRACTALS "Available fractals:\n\
-  1	Zulia\n\
-  2	Mandelbrot\n\
-  3	BurningShip\n\
-  4	Mandelbar\n\
-  5	AbsReal\n\
-  6	AbsImg\n\
-  7	Power3\n\
-  8	AbsRealP4\n"
-
 #endif

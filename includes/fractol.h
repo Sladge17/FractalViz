@@ -22,7 +22,7 @@
 # include <wchar.h>
 # include <mlx.h>
 # include <OpenCL/opencl.h>
-
+# include "../LibFT/libft.h"
 # include "constants.h"
 # include "structs.h"
 
@@ -210,15 +210,5 @@ void	set_cl(t_sys *sys);
 void	set_kernelprog(t_sys *sys);
 int		set_lensrc(char *kernelpath);
 void	exe_kernel(t_sys *sys);
-
-
-/*
-** NEED_DELL!!!!!!!!!!!!!
-*/
-size_t	ft_strlen(const char *str);
-char	*ft_strcat(char *dst, const char *src);
-void	ft_bzero(void *dest, size_t count);
-char	*ft_strnew(size_t size);
-int		ft_atoi(const char *str);
 
 #endif
