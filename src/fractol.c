@@ -59,9 +59,19 @@ void	draw_winmain(t_sys *sys, int argc, char *argv)
 
 void	fractol_discr(void)
 {
-	puts(TEXT_TITLE);
-	puts(TEXT_MAIN);
-	puts(TEXT_FRACTALS);
+	write(1, "\e[47m\e[30mFRACTOL DISCRIPTION\e[0m\n\n", 36);
+	write(1, "Fractol need running with only one parameter \
+- code of available fractal, or without parameters \
+(run with default fractal - Mandelbrot)\n\n", 138);
+	write(1, "Available fractals:\n\
+1	Zulia\n\
+2	Mandelbrot\n\
+3	BurningShip\n\
+4	Mandelbar\n\
+5	AbsReal\n\
+6	AbsImg\n\
+7	Power3\n\
+8	AbsRealP4\n\n", 108);
 	exit(0);
 }
 
