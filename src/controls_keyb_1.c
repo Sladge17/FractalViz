@@ -33,7 +33,7 @@ char	select_fractal_1(int keycode, t_sys *sys)
 			return (1);
 		sys->index = 0;
 		sys->str_name = "name: Zulia";
-		free(KERNEL);
+		clReleaseKernel(KERNEL);
 		KERNEL = clCreateKernel(PROGRAM, "Zulia", NULL);
 		draw_image(sys);
 		draw_stat(sys);
@@ -45,7 +45,7 @@ char	select_fractal_1(int keycode, t_sys *sys)
 			return (1);
 		sys->index = 1;
 		sys->str_name = "name: Mandelbrot";
-		free(KERNEL);
+		clReleaseKernel(KERNEL);
 		KERNEL = clCreateKernel(PROGRAM, "Mandelbrot", NULL);
 		draw_image(sys);
 		draw_stat(sys);
@@ -62,7 +62,7 @@ char	select_fractal_2(int keycode, t_sys *sys)
 			return (1);
 		sys->index = 2;
 		sys->str_name = "name: BurningShip";
-		free(KERNEL);
+		clReleaseKernel(KERNEL);
 		KERNEL = clCreateKernel(PROGRAM, "BurningShip", NULL);
 		draw_image(sys);
 		draw_stat(sys);
@@ -74,7 +74,7 @@ char	select_fractal_2(int keycode, t_sys *sys)
 			return (1);
 		sys->index = 3;
 		sys->str_name = "name: Mandelbar";
-		free(KERNEL);
+		clReleaseKernel(KERNEL);
 		KERNEL = clCreateKernel(PROGRAM, "Mandelbar", NULL);
 		draw_image(sys);
 		draw_stat(sys);
@@ -91,7 +91,7 @@ char	select_fractal_3(int keycode, t_sys *sys)
 			return (1);
 		sys->index = 4;
 		sys->str_name = "name: AbsReal";
-		free(KERNEL);
+		clReleaseKernel(KERNEL);
 		KERNEL = clCreateKernel(PROGRAM, "AbsReal", NULL);
 		draw_image(sys);
 		draw_stat(sys);
@@ -103,7 +103,7 @@ char	select_fractal_3(int keycode, t_sys *sys)
 			return (1);
 		sys->index = 5;
 		sys->str_name = "name: AbsImg";
-		free(KERNEL);
+		clReleaseKernel(KERNEL);
 		KERNEL = clCreateKernel(PROGRAM, "AbsImg", NULL);
 		draw_image(sys);
 		draw_stat(sys);
@@ -120,7 +120,7 @@ char	select_fractal_4(int keycode, t_sys *sys)
 			return (1);
 		sys->index = 6;
 		sys->str_name = "name: Power3";
-		free(KERNEL);
+		clReleaseKernel(KERNEL);
 		KERNEL = clCreateKernel(PROGRAM, "Power3", NULL);
 		draw_image(sys);
 		draw_stat(sys);
@@ -132,7 +132,7 @@ char	select_fractal_4(int keycode, t_sys *sys)
 			return (1);
 		sys->index = 7;
 		sys->str_name = "name: AbsRealP4";
-		free(KERNEL);
+		clReleaseKernel(KERNEL);
 		KERNEL = clCreateKernel(PROGRAM, "AbsRealP4", NULL);
 		draw_image(sys);
 		draw_stat(sys);
